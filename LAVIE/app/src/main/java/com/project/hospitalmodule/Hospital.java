@@ -1,6 +1,7 @@
-package com.project.hospital;
+package com.project.hospitalmodule;
 
-import com.project.locations.Adress;
+import com.project.locationmodule.Adress;
+import com.project.usermodule.Doctor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +30,9 @@ public class Hospital {
     private boolean isActive;
     private String website;
     private String phoneNumber;
-    private ArrayList<Clinic> hospitalClinics;
+
+    private ArrayList<Clinic> hospitalHaveClinics=new ArrayList<>();
+    private ArrayList<Doctor> hospitalHaveDoctors=new ArrayList<>();
 
     public int getHospitalId() {
         return hospitalId;
@@ -84,12 +87,6 @@ public class Hospital {
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-    public ArrayList<Clinic> getHospitalClinics() {
-        return hospitalClinics;
-    }
-    public void setHospitalClinics(ArrayList<Clinic> hospitalClinics) {
-        this.hospitalClinics = hospitalClinics;
     }
 
 }

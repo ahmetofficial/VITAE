@@ -1,4 +1,4 @@
-package com.project.users;
+package com.project.usermodule;
 
 import java.util.Date;
 

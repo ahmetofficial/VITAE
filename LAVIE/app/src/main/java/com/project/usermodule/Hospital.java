@@ -1,4 +1,4 @@
-package com.project.users;
+package com.project.usermodule;
 
 public class Hospital extends User {
     private int hospitalId;

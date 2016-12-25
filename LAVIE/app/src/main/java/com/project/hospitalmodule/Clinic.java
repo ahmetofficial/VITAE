@@ -1,4 +1,6 @@
-package com.project.hospital;
+package com.project.hospitalmodule;
+
+import com.project.diseasemodule.Disease;
 
 import java.util.ArrayList;
 
@@ -16,6 +18,9 @@ public class Clinic {
     private String clinicName;
     private ArrayList<Branch> clinicBranches;
     private String description;
+
+    private ArrayList<Disease> clinicHaveDiseases=new ArrayList();
+    private ArrayList<Branch> clinicHaveBranches=new ArrayList<>();
 
     public int getClinicId() {
         return clinicId;

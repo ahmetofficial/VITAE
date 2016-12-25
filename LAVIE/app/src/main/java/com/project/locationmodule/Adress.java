@@ -1,4 +1,4 @@
-package com.project.locations;
+package com.project.locationmodule;
 
 public class Adress {
 
