@@ -1,5 +1,7 @@
 package com.project.locationmodule;
 
+import java.util.ArrayList;
+
 public class State {
 
     public State(){}
@@ -14,6 +16,8 @@ public class State {
     private Country country;
     private String stateName;
     private String stateCode;
+
+    private ArrayList<Province> stateHasProvinces=new ArrayList<>();
 
     public String getStateCode() {
         return stateCode;

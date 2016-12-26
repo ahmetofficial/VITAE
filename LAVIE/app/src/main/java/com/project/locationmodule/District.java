@@ -3,23 +3,25 @@ package com.project.locationmodule;
 public class District {
 
     public District(){}
-    public District(int districtId, Country country, State state, City city, String districtName, Province province, PostalCode postalCode) {
+
+    public District(int districtId, String districtName, int postalCode, Country country, State state, Province province, City city) {
         DistrictId = districtId;
+        this.districtName = districtName;
+        this.postalCode = postalCode;
         this.country = country;
         this.state = state;
-        this.city = city;
-        this.districtName = districtName;
         this.province = province;
-        this.postalCode = postalCode;
+        this.city = city;
     }
 
     private int DistrictId;
+    private String districtName;
+    private int postalCode;
     private Country country;
     private State state;
-    private City city;
     private Province province;
-    private String districtName;
-    private PostalCode postalCode;
+    private City city;
+
 
     public int getDistrictId() {
         return DistrictId;
@@ -57,10 +59,10 @@ public class District {
     public void setDistrictName(String districtName) {
         this.districtName = districtName;
     }
-    public PostalCode getPostalCode() {
+    public int getPostalCode() {
         return postalCode;
     }
-    public void setPostalCode(PostalCode postalCode) {
+    public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }
 

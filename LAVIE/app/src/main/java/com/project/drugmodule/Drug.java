@@ -1,9 +1,8 @@
 package com.project.drugmodule;
 
 import com.project.diseasemodule.Disease;
-import com.project.threatmentmodule.Threatment;
+import com.project.treatmentmodule.Treatment;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +29,7 @@ public class Drug {
     private String prescriptionType;
 
     private ArrayList<Disease> drugHaveDiseases=new ArrayList<>(); //the list of diseases that drug is used.
-    private ArrayList<Threatment> drugHaveThreatments=new ArrayList<>(); //the list of threatments that drug is used.
+    private ArrayList<Treatment> drugHaveTreatments =new ArrayList<>(); //the list of threatments that drug is used.
 
     public int getDrugId() {
         return drugId;

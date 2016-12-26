@@ -1,9 +1,9 @@
 package com.project.generalhealthmodule;
 
 import com.project.diseasemodule.Disease;
-import com.project.drugmodule.Drug;
-import com.project.threatmentmodule.Threatment;
 import com.project.usermodule.User;
+
+import java.util.Date;
 
 /**
  * Created by Ahmet Kaymak on 25.12.2016.
@@ -12,20 +12,25 @@ import com.project.usermodule.User;
 public class UserHealthHistory {
 
     public UserHealthHistory(){};
-    public UserHealthHistory(User user, Disease disease, String diseaseState, Threatment threatment, Drug drug) {
+    public UserHealthHistory(User user, Disease disease) {
         this.user = user;
         this.disease = disease;
-        this.diseaseState = diseaseState;
-        this.threatment = threatment;
-        this.drug = drug;
     }
 
     private User user;
     private Disease disease;
+    private Date diseaseDiagnosisDate;
+    private Date diseaseSystemRegistrationDate;
+    private Date diseaseFinishDate;
+    private String diseaseLevel;
     private String diseaseState;
-    private Threatment threatment;
-    private Drug drug;
 
+    public Date getDiseaseSystemRegistrationDate() {
+        return diseaseSystemRegistrationDate;
+    }
+    public void setDiseaseSystemRegistrationDate(Date diseaseSystemRegistrationDate) {
+        this.diseaseSystemRegistrationDate = diseaseSystemRegistrationDate;
+    }
     public User getUser() {
         return user;
     }
@@ -38,23 +43,29 @@ public class UserHealthHistory {
     public void setDisease(Disease disease) {
         this.disease = disease;
     }
+    public Date getDiseaseDiagnosisDate() {
+        return diseaseDiagnosisDate;
+    }
+    public void setDiseaseDiagnosisDate(Date diseaseDiagnosisDate) {
+        this.diseaseDiagnosisDate = diseaseDiagnosisDate;
+    }
+    public Date getDiseaseFinishDate() {
+        return diseaseFinishDate;
+    }
+    public void setDiseaseFinishDate(Date diseaseFinishDate) {
+        this.diseaseFinishDate = diseaseFinishDate;
+    }
+    public String getDiseaseLevel() {
+        return diseaseLevel;
+    }
+    public void setDiseaseLevel(String diseaseLevel) {
+        this.diseaseLevel = diseaseLevel;
+    }
     public String getDiseaseState() {
         return diseaseState;
     }
     public void setDiseaseState(String diseaseState) {
         this.diseaseState = diseaseState;
-    }
-    public Threatment getThreatment() {
-        return threatment;
-    }
-    public void setThreatment(Threatment threatment) {
-        this.threatment = threatment;
-    }
-    public Drug getDrug() {
-        return drug;
-    }
-    public void setDrug(Drug drug) {
-        this.drug = drug;
     }
 
 }

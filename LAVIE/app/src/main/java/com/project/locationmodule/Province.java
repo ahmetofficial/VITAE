@@ -1,21 +1,24 @@
 package com.project.locationmodule;
 
+import java.util.ArrayList;
+
 public class Province {
 
     public Province(){}
-    public Province(int provinceId, Country country, State state, City city, String provinceName) {
+    public Province(int provinceId,String provinceName,Country country, State state) {
         this.provinceId = provinceId;
+        this.provinceName = provinceName;
         this.country = country;
         this.state = state;
-        this.city = city;
-        this.provinceName = provinceName;
+
     }
 
     private int provinceId;
+    private String provinceName;
     private Country country;
     private State state;
-    private City city;
-    private String provinceName;
+
+    private ArrayList<City> provincesHaveCities=new ArrayList<>();
 
     public int getProvinceId() {
         return provinceId;
@@ -34,12 +37,6 @@ public class Province {
     }
     public void setState(State state) {
         this.state = state;
-    }
-    public City getCity() {
-        return city;
-    }
-    public void setCity(City city) {
-        this.city = city;
     }
     public String getProvinceName() {
         return provinceName;

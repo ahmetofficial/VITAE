@@ -5,7 +5,7 @@ import com.project.generalhealthmodule.BodySystem;
 import com.project.generalhealthmodule.Organ;
 import com.project.hospitalmodule.Branch;
 import com.project.hospitalmodule.Clinic;
-import com.project.threatmentmodule.Threatment;
+import com.project.treatmentmodule.Treatment;
 
 import java.util.ArrayList;
 
@@ -50,7 +50,7 @@ public class Disease {
     private Organ organ;
 
     private ArrayList<Clinic> diseaseHaveClinics=new ArrayList<>(); //list of clinic which cure that disease
-    private ArrayList<Threatment> diseaseHaveThreatments=new ArrayList<>();
+    private ArrayList<Treatment> diseaseHaveTreatments =new ArrayList<>();
     private ArrayList<Drug> diseaseHaveDrugs=new ArrayList<>();
     private ArrayList<Branch> diseaseHaveBranch=new ArrayList<>(); //list of doctor branchs that specialize that disease;
 

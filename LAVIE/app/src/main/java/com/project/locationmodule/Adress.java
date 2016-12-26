@@ -17,6 +17,8 @@ public class Adress {
     private City city;
     private Street street;
 
+    //generic methods will be added for getting adresses of different objects.
+
     public Country getCountry() {
         return country;
     }

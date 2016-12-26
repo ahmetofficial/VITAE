@@ -1,5 +1,7 @@
 package com.project.locationmodule;
 
+import java.util.ArrayList;
+
 public class Country {
 
     public Country(){}
@@ -16,6 +18,8 @@ public class Country {
     private int countryPhoneCode;
     private String countyName;
     private boolean hasStates;
+
+    private ArrayList<State> countyHaveStates=new ArrayList<>();
 
     public int getId() {
         return id;

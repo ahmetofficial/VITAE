@@ -1,4 +1,4 @@
-package com.project.threatmentmodule;
+package com.project.treatmentmodule;
 
 import com.project.diseasemodule.Disease;
 import com.project.drugmodule.Drug;
@@ -11,21 +11,21 @@ import java.util.ArrayList;
  * Created by Ahmet Kaymak on 25.12.2016.
  */
 
-public class Threatment {
+public class Treatment {
 
-    public Threatment(){}
-    public Threatment(int threatmentId, String threatmentName) {
+    public Treatment(){}
+    public Treatment(int threatmentId, String threatmentName) {
         this.threatmentId = threatmentId;
         this.threatmentName = threatmentName;
     }
-    public Threatment(int threatmentId, String threatmentName, BodySystem bodySystem, Organ organ) {
+    public Treatment(int threatmentId, String threatmentName, BodySystem bodySystem, Organ organ) {
         this.threatmentId = threatmentId;
         this.threatmentName = threatmentName;
         this.bodySystem = bodySystem;
         this.organ = organ;
     }
-    public Threatment(int threatmentId, String threatmentName, String ageRange, int averagePeriodInDays,
-                      BodySystem bodySystem, Organ organ, double averageSuccessRate) {
+    public Treatment(int threatmentId, String threatmentName, String ageRange, int averagePeriodInDays,
+                     BodySystem bodySystem, Organ organ, double averageSuccessRate) {
         this.threatmentId = threatmentId;
         this.threatmentName = threatmentName;
         this.ageRange = ageRange;
