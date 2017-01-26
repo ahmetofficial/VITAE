@@ -1,0 +1,28 @@
+-- Developer: Ahmet Kaymak
+-- Date: 21.01.2017
+-- Description: Tüm kan tipleri BLOOD_TYPES tablosuna eklendi.
+
+INSERT INTO BLOOD_TYPES
+VALUES(1,'0','Rh+');
+
+INSERT INTO BLOOD_TYPES
+VALUES(2,'0','Rh-');
+
+INSERT INTO BLOOD_TYPES
+VALUES(3,'A','Rh+');
+
+INSERT INTO BLOOD_TYPES
+VALUES(4,'A','Rh-');
+
+INSERT INTO BLOOD_TYPES
+VALUES(5,'B','Rh+');
+
+INSERT INTO BLOOD_TYPES
+VALUES(6,'B','Rh-');
+
+INSERT INTO BLOOD_TYPES
+VALUES(7,'AB','Rh+');
+
+INSERT INTO BLOOD_TYPES
+VALUES(8,'AB','Rh-');
+

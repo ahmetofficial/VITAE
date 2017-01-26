@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">laVie</string>
+    <string name="create_new_account">Yeni Hesap</string>
+    <string name="forgotten_password">Şifremi Unuttum</string>
+</resources>
