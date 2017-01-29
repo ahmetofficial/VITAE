@@ -3,9 +3,6 @@
 -- Description: Oluşturulan ilk ilaç veri tabanı için ilaç üreticilerinin insert scriptleri oluşturuldu.
 
 INSERT INTO DRUG_COMPANIES
-VALUES('0','null');
-
-INSERT INTO DRUG_COMPANIES
 VALUES('1','ABBOTT');
 
 INSERT INTO DRUG_COMPANIES
