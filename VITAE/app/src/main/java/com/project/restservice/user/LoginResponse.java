@@ -9,12 +9,12 @@ import com.google.gson.annotations.SerializedName;
 public class LoginResponse {
     @SerializedName("status")
     @Expose
-    private boolean status;
+    private String status;
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
