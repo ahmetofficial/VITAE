@@ -13,4 +13,15 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#707070</color>
     <color name="colorGreyLight">#8A8A8A</color>
+
+    <!-- Timeline colors-->
+    <color name="white">#ffffff</color>
+    <color name="timeline_background">#d3d6db</color>
+    <color name="post_background">#ffffff</color>
+    <color name="post_border">#c2c3c8</color>
+    <color name="link">#0a80d1</color>
+    <color name="timestamp">#a0a3a7</color>
+    <color name="title">#222222</color>
+    <color name="year">#999999</color>
+    <color name="feed_bg">#d3d6db</color>
 </resources>

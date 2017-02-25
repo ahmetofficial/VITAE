@@ -1,10 +1,9 @@
+// Developer: Ahmet Kaymak
+// Date: 25.12.2016
+
 package com.project;
 
 import android.support.v7.app.AppCompatActivity;
-
-/**
- * Created by SAMSUNG on 22.2.2017.
- */
 
 public class BaseActivity extends AppCompatActivity {
     protected String TAG = this.getClass().getSimpleName();

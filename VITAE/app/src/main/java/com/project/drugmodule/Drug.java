@@ -1,12 +1,13 @@
+// Developer: Ahmet Kaymak
+// Date: 25.12.2016
+
 package com.project.drugmodule;
 
+import com.google.gson.annotations.Expose;
 import com.project.diseasemodule.Disease;
 import com.project.treatmentmodule.Treatment;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
-
-// Developer: Ahmet Kaymak
-// Date: 25.12.2016
 
 public class Drug {
 
@@ -18,20 +19,35 @@ public class Drug {
 
     //Class Fields
     @SerializedName("drug_id")
+    @Expose
     private int drugId;
+
     @SerializedName("commercial_name")
+    @Expose
     private String commercialName;
+
     @SerializedName("chemical_name")
+    @Expose
     private String chemicalName;
+
     @SerializedName("type_id")
+    @Expose
     private String drugTypeId;
+
     @SerializedName("prescription_type_id")
+    @Expose
     private int prescriptionTypeId;
+
     @SerializedName("form_id")
+    @Expose
     private int drugFormId;
+
     @SerializedName("company_id")
+    @Expose
     private int drugCompanyId;
+
     @SerializedName("general_descriptions")
+    @Expose
     private String generalDescription;
 
     private DrugType drugType=new DrugType(drugTypeId);

@@ -1,7 +1,10 @@
-package com.project.drugmodule;
-
 // Developer: Ahmet Kaymak
 // Date: 17.02.2017
+
+package com.project.drugmodule;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class DrugForm {
 
@@ -15,8 +18,16 @@ public class DrugForm {
         this.drugFormDescription = drugFormDescription;
     }
 
+    @SerializedName("photo_id")
+    @Expose
     private int drugFormId;
+
+    @SerializedName("photo_id")
+    @Expose
     private String drugFormName;
+
+    @SerializedName("photo_id")
+    @Expose
     private String drugFormDescription;
 
     public int getDrugFormId() {
@@ -37,5 +48,6 @@ public class DrugForm {
     public void setDrugFormDescription(String drugFormDescription) {
         this.drugFormDescription = drugFormDescription;
     }
+
 }
 

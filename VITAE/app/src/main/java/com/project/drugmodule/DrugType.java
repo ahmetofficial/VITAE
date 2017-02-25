@@ -3,10 +3,10 @@ package com.project.drugmodule;
 // Developer: Ahmet Kaymak
 // Date: 17.02.2017
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class DrugType {
-    private String drugTypeId;
-    private String drugTypeName;
-    private String drugGeneralType;
 
     public DrugType(String drugTypeId) {
         this.drugTypeId = drugTypeId;
@@ -16,6 +16,18 @@ public class DrugType {
         this.drugTypeName = drugTypeName;
         this.drugGeneralType = drugTypeName.substring(0,1);
     }
+
+    @SerializedName("photo_id")
+    @Expose
+    private String drugTypeId;
+
+    @SerializedName("photo_id")
+    @Expose
+    private String drugTypeName;
+
+    @SerializedName("photo_id")
+    @Expose
+    private String drugGeneralType;
 
     public String getDrugTypeId() {
         return drugTypeId;

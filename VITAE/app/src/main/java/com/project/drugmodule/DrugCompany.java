@@ -1,7 +1,10 @@
-package com.project.drugmodule;
-
 // Developer: Ahmet Kaymak
 // Date: 17.02.2017
+
+package com.project.drugmodule;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class DrugCompany {
 
@@ -13,7 +16,12 @@ public class DrugCompany {
         this.drugCompanyName = drugCompanyName;
     }
 
+    @SerializedName("photo_id")
+    @Expose
     private int drugCompanyId;
+
+    @SerializedName("photo_id")
+    @Expose
     private String drugCompanyName;
 
     public int getDrugCompanyId() {
