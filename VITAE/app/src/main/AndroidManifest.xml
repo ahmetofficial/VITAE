@@ -14,7 +14,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyMaterialTheme">
         <activity
             android:name="com.project.usermodule.login.LoginActivity"
             android:label="@string/app_name">
@@ -24,8 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.project.DashboardActivity" />
+        <activity android:name="com.project.uimodule.DashboardActivity"/>
         <activity android:name="com.project.postmodule.activity.UserTimeline"/>
+        <activity android:name="com.project.uimodule.MenuActivity"/>
     </application>
 
 </manifest>

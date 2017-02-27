@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">vitae</string>
-    <string name="create_new_account">Yeni Hesap</string>
-    <string name="forgotten_password">Şifremi Unuttum</string>
+
+    <!-- Timeline-->
+    <string name="navigation_item_profile">Profil</string>
+    <string name="navigation_item_timeline">Akış</string>
+    <string name="navigation_item_messages">Mesajlar</string>
+
+    <string-array name="nav_drawer_labels">
+        <item>@string/navigation_item_timeline</item>
+        <item>@string/navigation_item_messages</item>
+        <item>@string/navigation_item_profile</item>
+    </string-array>
+
 </resources>

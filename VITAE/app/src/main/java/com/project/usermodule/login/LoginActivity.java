@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lavie.users.R;
-import com.project.BaseActivity;
-import com.project.postmodule.activity.UserTimeline;
 import com.project.restservice.ApiClient;
 import com.project.restservice.usermodule.LoginResponse;
+import com.project.uimodule.BaseActivity;
+import com.project.uimodule.MenuActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +57,7 @@ public class LoginActivity extends BaseActivity {
                                 if (!response.body().getStatus().equals(null)) {
                                     Toast.makeText(LoginActivity.this, "user login" + response.body().getStatus() + "", Toast.LENGTH_SHORT).show();
                                     if (response.body().getStatus().equals("true")) {
-                                        startActivity(new Intent(LoginActivity.this, UserTimeline.class));
+                                        startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                                     }
                                 }
                             }
@@ -65,13 +65,13 @@ public class LoginActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<LoginResponse> call, Throwable t) {
-                            Log.e("MainActivity", t.getMessage());
+                            Log.e("MenuActivity", t.getMessage());
                         }
                     });
 
 
         } catch (Exception e) {
-            Log.e("MainActivity", e.getMessage());
+            Log.e("MenuActivity", e.getMessage());
 
         }
     }

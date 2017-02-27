@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 25.12.2016
 
-package com.project;
+package com.project.uimodule;
 
 import android.support.v7.app.AppCompatActivity;
 
