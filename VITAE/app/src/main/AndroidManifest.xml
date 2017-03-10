@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity
-            android:name="com.project.usermodule.login.LoginActivity"
+            android:name="com.project.uimodule.login.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.project.uimodule.DashboardActivity"/>
-        <activity android:name="com.project.postmodule.activity.UserTimeline"/>
-        <activity android:name="com.project.uimodule.MenuActivity"/>
+        <activity android:name="com.project.uimodule.main.MenuActivity"/>
+        <activity android:name="com.project.uimodule.signup.SignUpActivity"/>
+
     </application>
 
 </manifest>

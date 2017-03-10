@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 22.02.2016
 
-package com.project.usermodule.login;
+package com.project.uimodule.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,10 @@ import android.widget.Toast;
 
 import com.lavie.users.R;
 import com.project.restservice.ApiClient;
-import com.project.restservice.usermodule.LoginResponse;
+import com.project.restservice.usermodule.SignInUpResponse;
 import com.project.uimodule.BaseActivity;
-import com.project.uimodule.MenuActivity;
+import com.project.uimodule.main.MenuActivity;
+import com.project.uimodule.signup.SignUpActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +24,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity {
 
-    Button btn_login, btn_loginWithFacebook;
+    Button btn_login, btn_signUp;
     EditText txt_userId, txt_password;
     boolean authentication;
 
@@ -32,9 +33,10 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btn_login = (Button) findViewById(R.id.btn_login);
-        txt_userId = (EditText) findViewById(R.id.txt_username);
-        txt_password = (EditText) findViewById(R.id.txt_password);
+        btn_login = (Button) findViewById(R.id.btn_signIn);
+        btn_signUp = (Button) findViewById(R.id.btn_signIn_create_account);
+        txt_userId = (EditText) findViewById(R.id.txt_signIn_username);
+        txt_password = (EditText) findViewById(R.id.txt_signIn_password);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,17 +47,24 @@ public class LoginActivity extends BaseActivity {
 
         });
 
+        btn_signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+            }
+        });
+
     }
 
     private void loginUser(String user_id, String password) {
         try {
             ApiClient.userApi().authenticateLogin(new UserLoginPost(user_id, password))
-                    .enqueue(new Callback<LoginResponse>() {
+                    .enqueue(new Callback<SignInUpResponse>() {
                         @Override
-                        public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        public void onResponse(Call<SignInUpResponse> call, Response<SignInUpResponse> response) {
                             if (response.isSuccessful()) {
                                 if (!response.body().getStatus().equals(null)) {
-                                    Toast.makeText(LoginActivity.this, "user login" + response.body().getStatus() + "", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "user login" + response.body().getStatus() + " ", Toast.LENGTH_SHORT).show();
                                     if (response.body().getStatus().equals("true")) {
                                         startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                                     }
@@ -64,7 +73,7 @@ public class LoginActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<LoginResponse> call, Throwable t) {
+                        public void onFailure(Call<SignInUpResponse> call, Throwable t) {
                             Log.e("MenuActivity", t.getMessage());
                         }
                     });

@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 27.02.2016
 
-package com.project.uimodule;
+package com.project.uimodule.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 import com.lavie.users.R;
 import com.project.postmodule.UserPost;
@@ -25,34 +26,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentTimeline extends Fragment {
+public class FragmentProfile extends Fragment {
 
     private List<UserPost> postList = new ArrayList<>();
     private RecyclerView recyclerView;
     private UserPostAdapter mAdapter;
 
-    public FragmentTimeline() {
+    public FragmentProfile(){
 
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View timelineView = inflater.inflate(R.layout.fragment_timeline, container, false);
+        final View profileView = inflater.inflate(R.layout.fragment_profile, container, false);
+
         try {
-            ApiClient.postApi().getUserPosts().enqueue(new Callback<UserPost>() {
+            ApiClient.postApi().getUserPostById().enqueue(new Callback<UserPost>() {
                 @Override
                 public void onResponse(Call<UserPost> call, Response<UserPost> response) {
                     if (response.isSuccessful()) {
                         postList = (ArrayList) response.body().getPosts();
-                        recyclerView = (RecyclerView) timelineView.findViewById(R.id.timeline_recycler_view);
+                        recyclerView = (RecyclerView) profileView.findViewById(R.id.profile_recycler_view);
                         mAdapter = new UserPostAdapter(postList);
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -71,7 +71,6 @@ public class FragmentTimeline extends Fragment {
         } catch (Exception e) {
             Log.e("UserTimeline", e.getMessage());
         }
-
-        return timelineView;
+        return profileView;
     }
 }

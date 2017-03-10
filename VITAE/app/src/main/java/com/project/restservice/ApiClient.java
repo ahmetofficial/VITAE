@@ -3,6 +3,7 @@
 
 package com.project.restservice;
 
+import com.project.restservice.generalhealthmodule.ApiBloodInterface;
 import com.project.restservice.postmodule.ApiPostInterface;
 import com.project.restservice.usermodule.ApiUserInterface;
 
@@ -31,5 +32,14 @@ public class ApiClient {
                 .build();
         postApi = retrofit.create(ApiPostInterface.class);
         return postApi;
+    }
+
+    public static ApiBloodInterface bloodApi() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        postApi = retrofit.create(ApiPostInterface.class);
+        return bloodApi();
     }
 }

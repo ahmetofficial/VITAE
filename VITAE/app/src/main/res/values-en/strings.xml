@@ -1,0 +1,34 @@
+<resources>
+
+    <!--SigIn-->
+    <string name="sign_in">Sign In</string>
+
+    <!--SignUp-->
+    <string name="create_account">Create Profile</string>
+    <string name="email">Email Adress</string>
+    <string name="password">Password</string>
+    <string name="password_again">Confirm Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="user_id">User Id</string>
+    <string name="forward">Forward</string>
+    <string name="gender">Gender</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="undefined">undefined</string>
+    <string name="blood_type">Blood Type</string>
+    <string name="birthday">Birthday</string>
+    <string name="user_succeffully_created">User succesfully created</string>
+    <string name="user_cannot_created">User cannot be created.</string>
+
+    <!-- Timeline-->
+    <string name="navigation_item_profile">Profile</string>
+    <string name="navigation_item_timeline">Feed</string>
+    <string name="navigation_item_messages">Message</string>
+    <string-array name="nav_drawer_labels">
+        <item>@string/navigation_item_timeline</item>
+        <item>@string/navigation_item_messages</item>
+        <item>@string/navigation_item_profile</item>
+    </string-array>
+
+</resources>

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">vitae</string>
 
     <!--SigIn-->
     <string name="sign_in">Giriş Yap</string>
@@ -25,8 +24,7 @@
     <!-- Timeline-->
     <string name="navigation_item_profile">Profil</string>
     <string name="navigation_item_timeline">Akış</string>
-    <string name="navigation_item_messages">Mesajlar</string>
-
+    <string name="navigation_item_messages">Mesaj</string>
     <string-array name="nav_drawer_labels">
         <item>@string/navigation_item_timeline</item>
         <item>@string/navigation_item_messages</item>

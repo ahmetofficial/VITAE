@@ -12,4 +12,8 @@ public interface ApiPostInterface {
 
     @GET("postModule/posts/liveFeed/ahmetkaymak")
     Call<UserPost> getUserPosts();
+
+    @GET("postModule/posts/getByUserId/ahmetkaymak")
+    Call<UserPost> getUserPostById();
+
 }

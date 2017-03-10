@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/signUp_fragment_two">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/signup_transparent"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/signup_roundwhite"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:src="@drawable/signup_gender" />
+
+            <TextView
+                android:id="@+id/txt_signup_gender"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:drawablePadding="10dp"
+                android:hint="@string/gender"
+                android:letterSpacing="0.1"
+                android:paddingLeft="10dp"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textSize="13dp" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/signUp_gender_spinner"
+                android:layout_width="175dp"
+                android:layout_height="50dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/signup_roundwhite"
+            android:orientation="horizontal">
+
+            <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:src="@drawable/signup_blood" />
+
+            <TextView
+                android:id="@+id/txt_signup_blood"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:drawablePadding="10dp"
+                android:hint="@string/blood_type"
+                android:letterSpacing="0.1"
+                android:paddingLeft="10dp"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textSize="13dp" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/signUp_blood_spinner"
+                android:layout_width="175dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="120dp"
+            android:background="@drawable/signup_roundwhite"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="10dp"
+                android:src="@drawable/signup_birthday" />
+
+            <EditText
+                android:id="@+id/txt_signup_birthday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:drawablePadding="10dp"
+                android:hint="@string/birthday"
+                android:letterSpacing="0.1"
+                android:paddingLeft="10dp"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textSize="13dp"
+                android:onClick="onClick"
+                android:clickable="true"
+                android:windowSoftInputMode="adjustResize"
+                />
+
+             />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/create_profile"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@+id/bottom"
+            android:textSize="15dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/signup_round"
+            android:gravity="center"
+            android:text="@string/create_account"
+            android:textAppearance="@style/TextAppearance.AppCompat.Inverse" />
+
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

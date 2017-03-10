@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 27.02.2016
 
-package com.project.uimodule;
+package com.project.uimodule.main;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

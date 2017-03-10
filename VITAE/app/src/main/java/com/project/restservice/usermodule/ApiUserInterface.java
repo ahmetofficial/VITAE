@@ -3,7 +3,8 @@
 
 package com.project.restservice.usermodule;
 
-import com.project.usermodule.login.LoginActivity;
+import com.project.uimodule.login.LoginActivity;
+import com.project.usermodule.Patient;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,5 +13,8 @@ import retrofit2.http.POST;
 public interface ApiUserInterface {
 
     @POST("userModule/users/login")
-    Call<LoginResponse> authenticateLogin(@Body LoginActivity.UserLoginPost userLoginPost);
+    Call<SignInUpResponse> authenticateLogin(@Body LoginActivity.UserLoginPost userLoginPost);
+
+    @POST("userModule/users/registerPatient")
+    Call<SignInUpResponse> createPatient(@Body Patient patient);
 }

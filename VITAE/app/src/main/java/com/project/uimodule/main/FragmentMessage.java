@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 27.02.2016
 
-package com.project.uimodule;
+package com.project.uimodule.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,10 +13,6 @@ import android.view.ViewGroup;
 import com.lavie.users.R;
 
 public class FragmentMessage extends Fragment {
-
-    public FragmentMessage() {
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

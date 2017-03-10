@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding.enabled true //make avaible data bindind in our project
+    dataBinding.enabled true //make avaible data binding in our project
 }
 
 dependencies {
@@ -33,5 +33,11 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'me.relex:circleindicator:1.2.2@aar'
+    compile 'com.github.Kshitij-Jain:IndicatorView:1.25'
+    compile 'com.jaredrummler:material-spinner:1.1.0'
+    compile 'com.github.IntruderShanky:Frisson:2.1.1'
+    compile 'com.github.florent37:singledateandtimepicker:1.0.8'
+
 }

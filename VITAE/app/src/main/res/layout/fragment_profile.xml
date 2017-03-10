@@ -3,13 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project.uimodule.FragmentProfile">
+    tools:context="com.project.uimodule.main.FragmentProfile">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"/>
+
+    <com.intrusoft.library.FrissonView
+        android:id="@+id/wave_head"
+        android:src="@drawable/background"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/profile_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/wave_head" />
 
 </RelativeLayout>
