@@ -8,6 +8,7 @@ import com.project.usermodule.Patient;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiUserInterface {
@@ -17,4 +18,7 @@ public interface ApiUserInterface {
 
     @POST("userModule/users/registerPatient")
     Call<SignInUpResponse> createPatient(@Body Patient patient);
+
+    @GET("userModule/patients/getPatientProfile/ahmetkaymak")
+    Call<Patient> getPatientProfileInformation();
 }

@@ -1,25 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.project.uimodule.main.FragmentProfile">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-
-    <com.intrusoft.library.FrissonView
-        android:id="@+id/wave_head"
-        android:src="@drawable/background"
-        android:layout_weight="1"
+    <ScrollView
+        android:id="@+id/fragment_profile_scrollView"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/colorPrimaryDark">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/colorPrimaryDark"
+                    >
+
+                </LinearLayout>
+
+                <!-- Profile picture -->
+                <com.alexzh.circleimageview.CircleImageView
+                    android:id="@+id/fragment_profile_circle_image"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    app:view_borderColor="#cccccc"
+                    app:view_borderWidth="2dp"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fragment_profile_txtUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:textColor="@color/darkText"
+                    android:textSize="22sp"/>
+
+                <TextView
+                    android:id="@+id/fragment_profile_txtUserId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/primaryText"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/fragment_profile_txtAboutMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="14sp"/>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/profile_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:layout_below="@+id/wave_head" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fragment_profile_txtEditProfile"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/profile_round"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/secondaryText"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="40dp"
+                android:background="#ACACAC"/>
+
+            <View
+                android:id="@+id/fragment_profile_post_upper_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="#ACACAC"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_profile_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fragment_profile_post_upper_line"
+                    android:isScrollContainer="false"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="3dp"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </RelativeLayout>

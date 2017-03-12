@@ -15,7 +15,7 @@ import com.project.restservice.ApiClient;
 import com.project.restservice.usermodule.SignInUpResponse;
 import com.project.uimodule.main.MenuActivity;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +33,11 @@ public class Patient extends User {
 
     @SerializedName("birthday")
     @Expose
-    private Calendar birthday;
+    private String birthday;
+
+    @SerializedName("PATIENTs")
+    @Expose
+    private ArrayList<Patient> thisPatient;
 
     public static void createPatient(Patient patient, final Fragment fragment) {
         ApiClient.userApi().createPatient(patient).enqueue(new Callback<SignInUpResponse>() {
@@ -72,11 +76,16 @@ public class Patient extends User {
         this.bloodTypeId = bloodTypeId;
     }
 
-    public Calendar getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    public ArrayList<Patient> getThisPatient() {
+        return thisPatient;
+    }
+
 }

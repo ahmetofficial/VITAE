@@ -89,7 +89,7 @@ public class FragmentTwo extends Fragment {
                 }
 
                 DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show( getFragmentManager(), "Birtday" );
+                newFragment.show( getFragmentManager(), "Birthday" );
 
             }
         } );
@@ -118,7 +118,7 @@ public class FragmentTwo extends Fragment {
                 BloodType bt = new BloodType( bloodTypeName, rhFactor );
                 //patient.setBloodTypeId(BloodType.getBloodTypeId(bt));
                 patient.setBloodTypeId( 1 );
-                patient.setBirthday( birthday );
+                patient.setBirthday( birthday.toString() );
 
                 Patient.createPatient( patient, FragmentTwo.this );
             }

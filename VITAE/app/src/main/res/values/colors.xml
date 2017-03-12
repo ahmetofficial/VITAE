@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#88e0ea</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPrimary">#009a9a </color>
+    <color name="colorPrimaryDark">#004D40 </color>
+    <color name="colorAccent">#CDDC39</color>
+    <color name="darkText">#fff</color>
+    <color name="primaryText">#FAFAFA</color>
+    <color name="secondaryText">#F5F5F5</color>
+    <color name="hintText">#EEEEEE</color>
+    <color name="dividers">#d3d6db</color>
+
+
+    <color name="timelineBackground">#1F2854 </color>
     <color name="patientUserBackgroud">#8BC34A</color>
     <color name="doctorUserBackground">#FFEB3B</color>
     <color name="hospitalUserBackground">#00BCD4</color>
     <color name="instituteUserBackground">#B71C1C</color>
-    <color name="colorOrange">#FF3909</color>
-    <color name="colorAccentDark">#00B482</color>
-    <color name="colorBlack">#555555</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorGrey">#707070</color>
-    <color name="colorGreyLight">#8A8A8A</color>
 
     <!-- Timeline colors-->
     <color name="white">#ffffff</color>
@@ -24,4 +27,9 @@
     <color name="title">#222222</color>
     <color name="year">#999999</color>
     <color name="feed_bg">#d3d6db</color>
+
+    <!--Fragment Profile-->
+    <color name="edit_profile">#5F76BF</color>
+
+
 </resources>

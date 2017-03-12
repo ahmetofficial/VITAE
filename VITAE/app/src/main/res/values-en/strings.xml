@@ -31,4 +31,7 @@
         <item>@string/navigation_item_profile</item>
     </string-array>
 
+    <!-- Profile-->
+    <string name="edit_profile">Edit Profile</string>
+
 </resources>

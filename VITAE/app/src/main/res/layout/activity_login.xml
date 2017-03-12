@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/loginbackground">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/loginbackground">
 
     <ImageView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:gravity="center"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"/>
 
         >
     </LinearLayout>
@@ -31,8 +31,8 @@
         android:id="@+id/singIn_middle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/signIn_top">
+        android:layout_below="@+id/signIn_top"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
-                android:src="@drawable/signup_username" />
+                android:src="@drawable/signup_username"/>
 
             <EditText
                 android:id="@+id/txt_signIn_username"
@@ -63,7 +63,7 @@
                 android:paddingLeft="10dp"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
-                android:textSize="13dp" />
+                android:textSize="13dp"/>
 
         </LinearLayout>
 
@@ -82,7 +82,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
-                android:src="@drawable/signup_password" />
+                android:src="@drawable/signup_password"/>
 
             <EditText
                 android:id="@+id/txt_signIn_password"
@@ -97,14 +97,13 @@
                 android:paddingLeft="10dp"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
-                android:textSize="13dp" />
+                android:textSize="13dp"/>
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_signIn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="15dp"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -112,11 +111,13 @@
             android:background="@drawable/signup_round"
             android:gravity="center"
             android:text="@string/sign_in"
-            android:textAppearance="@style/TextAppearance.AppCompat.Inverse" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+            android:textSize="15dp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/signIn_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
@@ -131,7 +132,6 @@
             android:id="@+id/btn_signIn_create_account"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="15dp"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -139,7 +139,8 @@
             android:background="@drawable/signup_round"
             android:gravity="center"
             android:text="@string/create_account"
-            android:textAppearance="@style/TextAppearance.AppCompat.Inverse" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+            android:textSize="15dp"/>
 
     </LinearLayout>
 

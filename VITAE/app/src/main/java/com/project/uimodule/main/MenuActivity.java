@@ -12,6 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.lavie.users.R;
+import com.project.uimodule.main.message.FragmentMessage;
+import com.project.uimodule.main.profile.FragmentProfile;
+import com.project.uimodule.main.timeline.FragmentTimeline;
 
 import java.util.ArrayList;
 import java.util.List;

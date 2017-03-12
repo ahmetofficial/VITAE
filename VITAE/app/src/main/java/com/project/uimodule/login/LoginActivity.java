@@ -30,43 +30,43 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_login );
 
-        btn_login = (Button) findViewById(R.id.btn_signIn);
-        btn_signUp = (Button) findViewById(R.id.btn_signIn_create_account);
-        txt_userId = (EditText) findViewById(R.id.txt_signIn_username);
-        txt_password = (EditText) findViewById(R.id.txt_signIn_password);
+        btn_login = (Button) findViewById( R.id.btn_signIn );
+        btn_signUp = (Button) findViewById( R.id.btn_signIn_create_account );
+        txt_userId = (EditText) findViewById( R.id.txt_signIn_username );
+        txt_password = (EditText) findViewById( R.id.txt_signIn_password );
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        btn_login.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 authentication = false;
-                loginUser(txt_userId.getText().toString(), txt_password.getText().toString());
+                loginUser( txt_userId.getText().toString(), txt_password.getText().toString() );
             }
 
-        });
+        } );
 
-        btn_signUp.setOnClickListener(new View.OnClickListener() {
+        btn_signUp.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+                startActivity( new Intent( LoginActivity.this, SignUpActivity.class ) );
             }
-        });
+        } );
 
     }
 
     private void loginUser(String user_id, String password) {
         try {
-            ApiClient.userApi().authenticateLogin(new UserLoginPost(user_id, password))
-                    .enqueue(new Callback<SignInUpResponse>() {
+            ApiClient.userApi().authenticateLogin( new UserLoginPost( user_id, password ) )
+                    .enqueue( new Callback<SignInUpResponse>() {
                         @Override
                         public void onResponse(Call<SignInUpResponse> call, Response<SignInUpResponse> response) {
                             if (response.isSuccessful()) {
-                                if (!response.body().getStatus().equals(null)) {
-                                    Toast.makeText(LoginActivity.this, "user login" + response.body().getStatus() + " ", Toast.LENGTH_SHORT).show();
-                                    if (response.body().getStatus().equals("true")) {
-                                        startActivity(new Intent(LoginActivity.this, MenuActivity.class));
+                                if (!response.body().getStatus().equals( null )) {
+                                    Toast.makeText( LoginActivity.this, "user login" + " " + response.body().getStatus(), Toast.LENGTH_SHORT ).show();
+                                    if (response.body().getStatus().equals( "true" )) {
+                                        startActivity( new Intent( LoginActivity.this, MenuActivity.class ) );
                                     }
                                 }
                             }
@@ -74,13 +74,13 @@ public class LoginActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<SignInUpResponse> call, Throwable t) {
-                            Log.e("MenuActivity", t.getMessage());
+                            Log.e( "MenuActivity", t.getMessage() );
                         }
-                    });
+                    } );
 
 
         } catch (Exception e) {
-            Log.e("MenuActivity", e.getMessage());
+            Log.e( "MenuActivity", e.getMessage() );
 
         }
     }

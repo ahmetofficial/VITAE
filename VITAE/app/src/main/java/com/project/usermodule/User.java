@@ -10,6 +10,9 @@ import java.util.Date;
 
 public class User {
 
+    User(){}
+    public User(String userId){this.userId=userId;}
+
     @SerializedName("user_id")
     @Expose
     protected String userId;
@@ -48,7 +51,7 @@ public class User {
 
     @SerializedName("is_official_user")
     @Expose
-    protected boolean isOfficialUser;
+    protected int isOfficialUser;
 
     @SerializedName("profile_picture_id")
     @Expose
@@ -61,7 +64,6 @@ public class User {
     @SerializedName("updated_at")
     @Expose
     protected Date updatedAt;
-
 
     public String getUserId() {
         return userId;
@@ -135,11 +137,11 @@ public class User {
         this.friendCount = friendCount;
     }
 
-    public boolean isOfficialUser() {
+    public int isOfficialUser() {
         return isOfficialUser;
     }
 
-    public void setOfficialUser(boolean officialUser) {
+    public void setOfficialUser(int officialUser) {
         isOfficialUser = officialUser;
     }
 
@@ -166,4 +168,6 @@ public class User {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }
