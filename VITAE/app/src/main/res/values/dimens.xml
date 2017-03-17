@@ -23,5 +23,5 @@
     <dimen name="custom_tab_layout_height">72dp</dimen>
 
     <!-- SignUp Fragment dimentions-->
-    <dimen name="sign_up_pageViewer_height">530dp</dimen>
+    <dimen name="sign_up_pageViewer_height">550dp</dimen>
 </resources>

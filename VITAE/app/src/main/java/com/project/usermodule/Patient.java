@@ -13,9 +13,10 @@ import com.google.gson.annotations.SerializedName;
 import com.lavie.users.R;
 import com.project.restservice.ApiClient;
 import com.project.restservice.usermodule.SignInUpResponse;
-import com.project.uimodule.main.MenuActivity;
+import com.project.uimodule.login.LoginActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +26,7 @@ public class Patient extends User {
 
     @SerializedName("gender")
     @Expose
-    private String gender;
+    private int gender;
 
     @SerializedName("blood_type_id")
     @Expose
@@ -33,7 +34,7 @@ public class Patient extends User {
 
     @SerializedName("birthday")
     @Expose
-    private String birthday;
+    private Date birthday;
 
     @SerializedName("PATIENTs")
     @Expose
@@ -46,7 +47,7 @@ public class Patient extends User {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().equals("true")) {
                         Toast.makeText(fragment.getActivity(), fragment.getContext().getString(R.string.user_succeffully_created), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(fragment.getActivity(), MenuActivity.class);
+                        Intent intent = new Intent(fragment.getActivity(), LoginActivity.class);
                         fragment.startActivity(intent);
                     }else{
                         Toast.makeText(fragment.getActivity(), fragment.getContext().getString(R.string.user_cannot_created), Toast.LENGTH_SHORT).show();
@@ -60,11 +61,11 @@ public class Patient extends User {
         });
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -76,11 +77,11 @@ public class Patient extends User {
         this.bloodTypeId = bloodTypeId;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

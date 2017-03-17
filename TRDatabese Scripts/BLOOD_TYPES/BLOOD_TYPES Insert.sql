@@ -3,6 +3,9 @@
 -- Description: Tüm kan tipleri BLOOD_TYPES tablosuna eklendi.
 
 INSERT INTO BLOOD_TYPES
+VALUES(0,'undefinied','undef');
+
+INSERT INTO BLOOD_TYPES
 VALUES(1,'0','Rh+');
 
 INSERT INTO BLOOD_TYPES

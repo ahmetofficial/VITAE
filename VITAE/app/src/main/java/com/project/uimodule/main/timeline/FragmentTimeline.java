@@ -30,9 +30,10 @@ public class FragmentTimeline extends Fragment {
     private List<UserPost> postList = new ArrayList<>();
     private RecyclerView recyclerView;
     private UserPostAdapter mAdapter;
+    private String userId;
 
-    public FragmentTimeline() {
-
+    public FragmentTimeline(String userId) {
+        this.userId=userId;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class FragmentTimeline extends Fragment {
 
         final View timelineView = inflater.inflate(R.layout.fragment_timeline, container, false);
         try {
-            ApiClient.postApi().getUserPosts().enqueue(new Callback<UserPost>() {
+            ApiClient.postApi().getUserPosts(userId).enqueue(new Callback<UserPost>() {
                 @Override
                 public void onResponse(Call<UserPost> call, Response<UserPost> response) {
                     if (response.isSuccessful()) {

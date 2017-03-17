@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private void loginUser(String user_id, String password) {
+    private void loginUser(final String user_id, String password) {
         try {
             ApiClient.userApi().authenticateLogin( new UserLoginPost( user_id, password ) )
                     .enqueue( new Callback<SignInUpResponse>() {
@@ -66,6 +66,7 @@ public class LoginActivity extends BaseActivity {
                                 if (!response.body().getStatus().equals( null )) {
                                     Toast.makeText( LoginActivity.this, "user login" + " " + response.body().getStatus(), Toast.LENGTH_SHORT ).show();
                                     if (response.body().getStatus().equals( "true" )) {
+                                        MenuActivity.userId=user_id;
                                         startActivity( new Intent( LoginActivity.this, MenuActivity.class ) );
                                     }
                                 }

@@ -52,4 +52,7 @@ dependencies {
     compile 'com.mikhaellopez:circularimageview:2.0.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
 
+    //menu floating point
+    compile 'com.github.clans:fab:1.6.4'
+
 }

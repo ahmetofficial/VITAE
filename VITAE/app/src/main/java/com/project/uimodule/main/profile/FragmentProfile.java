@@ -48,8 +48,10 @@ public class FragmentProfile extends Fragment {
     private TextView editProfile;
     private ImageView profile_picture;
     private Bitmap bitmap;
+    private String userID;
 
-    public FragmentProfile() {
+    public FragmentProfile(String userID) {
+        this.userID=userID;
     }
 
     @Override
@@ -78,7 +80,7 @@ public class FragmentProfile extends Fragment {
 
     private void getPatientProfileInformations() {
         try {
-            ApiClient.userApi().getPatientProfileInformation().enqueue( new Callback<Patient>() {
+            ApiClient.userApi().getPatientProfileInformation(userID).enqueue( new Callback<Patient>() {
                 @Override
                 public void onResponse(Call<Patient> call, Response<Patient> response) {
                     if (response.isSuccessful()) {
@@ -112,7 +114,7 @@ public class FragmentProfile extends Fragment {
 
     private void getUserProfilePost() {
         try {
-            ApiClient.postApi().getUserPostById().enqueue( new Callback<UserPost>() {
+            ApiClient.postApi().getUserPostById(userID).enqueue( new Callback<UserPost>() {
                 @Override
                 public void onResponse(Call<UserPost> call, Response<UserPost> response) {
                     if (response.isSuccessful()) {
@@ -131,10 +133,12 @@ public class FragmentProfile extends Fragment {
                 @Override
                 public void onFailure(Call<UserPost> call, Throwable t) {
                     Log.e( "UserTimeline", t.getMessage() );
+                    Toast.makeText( getActivity(), t.getMessage(), Toast.LENGTH_LONG ).show();
                 }
             } );
         } catch (Exception e) {
             Log.e( "UserTimeline", e.getMessage() );
+            Toast.makeText( this.getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
         }
     }
 }

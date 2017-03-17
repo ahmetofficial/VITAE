@@ -23,7 +23,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    public static String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,9 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new FragmentTimeline(), "Timeline");
+        adapter.addFrag(new FragmentTimeline(userId), "Timeline");
         adapter.addFrag(new FragmentMessage(), "Message");
-        adapter.addFrag(new FragmentProfile(), "Profile");
+        adapter.addFrag(new FragmentProfile(userId), "Profile");
         viewPager.setAdapter(adapter);
     }
 
