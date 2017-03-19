@@ -12,7 +12,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.lavie.users.R;
 import com.project.restservice.ApiClient;
-import com.project.restservice.usermodule.SignInUpResponse;
+import com.project.restservice.ServerResponse;
 import com.project.uimodule.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -41,9 +41,9 @@ public class Patient extends User {
     private ArrayList<Patient> thisPatient;
 
     public static void createPatient(Patient patient, final Fragment fragment) {
-        ApiClient.userApi().createPatient(patient).enqueue(new Callback<SignInUpResponse>() {
+        ApiClient.userApi().createPatient(patient).enqueue(new Callback<ServerResponse>() {
             @Override
-            public void onResponse(Call<SignInUpResponse> call, Response<SignInUpResponse> response) {
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().equals("true")) {
                         Toast.makeText(fragment.getActivity(), fragment.getContext().getString(R.string.user_succeffully_created), Toast.LENGTH_SHORT).show();
@@ -55,7 +55,7 @@ public class Patient extends User {
                 }
             }
             @Override
-            public void onFailure(Call<SignInUpResponse> call, Throwable t) {
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
                 Log.e("MenuActivity", t.getMessage());
             }
         });

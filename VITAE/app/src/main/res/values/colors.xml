@@ -4,12 +4,17 @@
     <color name="colorPrimary">#009a9a </color>
     <color name="colorPrimaryDark">#004D40 </color>
     <color name="colorAccent">#CDDC39</color>
-    <color name="darkText">#fff</color>
+
+    <color name="brightText">#fff</color>
     <color name="primaryText">#FAFAFA</color>
     <color name="secondaryText">#F5F5F5</color>
+
+    <color name="darkText">#222222</color>
+    <color name="primaryDarkText">#535353</color>
+    <color name="secondaryDarkText">#999999</color>
+
     <color name="hintText">#EEEEEE</color>
     <color name="dividers">#d3d6db</color>
-
 
     <color name="timelineBackground">#1F2854 </color>
     <color name="patientUserBackgroud">#8BC34A</color>

@@ -1,12 +1,12 @@
 // Developer: Ahmet Kaymak
 // Date: 18.02.2016
 
-package com.project.restservice.usermodule;
+package com.project.restservice;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SignInUpResponse {
+public class ServerResponse {
     @SerializedName("status")
     @Expose
     private String status;

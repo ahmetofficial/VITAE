@@ -11,7 +11,7 @@
     <!-- uygulamaya internet bağlantısı izni verildi -->
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/menu_post"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
@@ -27,6 +27,7 @@
         <activity android:name="com.project.uimodule.DashboardActivity"/>
         <activity android:name="com.project.uimodule.main.MenuActivity"/>
         <activity android:name="com.project.uimodule.signup.SignUpActivity"/>
+        <activity android:name="com.project.uimodule.main.PostActivity"/>
 
     </application>
 

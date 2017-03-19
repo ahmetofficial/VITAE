@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.lavie.users.R;
 import com.project.restservice.ApiClient;
-import com.project.restservice.usermodule.SignInUpResponse;
+import com.project.restservice.ServerResponse;
 import com.project.uimodule.BaseActivity;
 import com.project.uimodule.main.MenuActivity;
 import com.project.uimodule.signup.SignUpActivity;
@@ -59,9 +59,9 @@ public class LoginActivity extends BaseActivity {
     private void loginUser(final String user_id, String password) {
         try {
             ApiClient.userApi().authenticateLogin( new UserLoginPost( user_id, password ) )
-                    .enqueue( new Callback<SignInUpResponse>() {
+                    .enqueue( new Callback<ServerResponse>() {
                         @Override
-                        public void onResponse(Call<SignInUpResponse> call, Response<SignInUpResponse> response) {
+                        public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                             if (response.isSuccessful()) {
                                 if (!response.body().getStatus().equals( null )) {
                                     Toast.makeText( LoginActivity.this, "user login" + " " + response.body().getStatus(), Toast.LENGTH_SHORT ).show();
@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<SignInUpResponse> call, Throwable t) {
+                        public void onFailure(Call<ServerResponse> call, Throwable t) {
                             Log.e( "MenuActivity", t.getMessage() );
                         }
                     } );

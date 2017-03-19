@@ -47,12 +47,22 @@ dependencies {
     //date selection
     compile 'com.github.florent37:singledateandtimepicker:1.0.8'
 
-    //circle image view
+    //circle image view of profile
     compile 'com.alexzh:circleimageview:1.1.2@aar'
     compile 'com.mikhaellopez:circularimageview:2.0.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
 
     //menu floating point
-    compile 'com.github.clans:fab:1.6.4'
+    compile 'com.github.coyarzun89:fabtransitionactivity:0.2.0'
+
+    //butter knife for binding from layouts
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    //android process button
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
+
+    //Material text field
+    compile 'com.github.florent37:materialtextfield:1.0.7'
 
 }

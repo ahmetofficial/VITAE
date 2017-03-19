@@ -31,6 +31,10 @@
         <item>@string/navigation_item_profile</item>
     </string-array>
 
+    <!--Post-->
+    <string name="send">Send</string>
+    <string name="shareSomething">Share something...</string>
+
     <!-- Profile-->
     <string name="edit_profile">Edit Profile</string>
 
