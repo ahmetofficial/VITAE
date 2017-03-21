@@ -2,6 +2,8 @@
 
     <!--SigIn-->
     <string name="sign_in">Sign In</string>
+    <string name="login_succesfull">User login is succesfull</string>
+    <string name="login_unsuccesfull"> Please control your login informations and try again</string>
 
     <!--SignUp-->
     <string name="create_account">Create Profile</string>

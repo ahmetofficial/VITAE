@@ -3,12 +3,22 @@
 
 package com.project.postmodule;
 
+import android.app.Activity;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.project.restservice.ApiClient;
+import com.project.restservice.ServerResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserPost {
 
@@ -99,6 +109,34 @@ public class UserPost {
 
     public List<UserPost> getPosts() {
         return posts;
+    }
+
+    public static boolean createUserPost(String userId, UserPost userPost, final Activity activity) {
+        final boolean[] isTransactionSuccesful = {false};
+        try {
+            ApiClient.postApi().createNewPost( userId, userPost ).enqueue( new Callback<ServerResponse>() {
+                @Override
+                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getStatus().equals( "true" )) {
+                            isTransactionSuccesful[0] =true;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ServerResponse> call, Throwable t) {
+                    Log.e( "UserTimeline", t.getMessage() );
+                    Toast.makeText( activity.getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                    isTransactionSuccesful[0] =false;
+                }
+            } );
+        } catch (Exception e) {
+            Log.e( "UserTimeline", e.getMessage() );
+            Toast.makeText( activity.getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+            isTransactionSuccesful[0] =false;
+        }
+        return  isTransactionSuccesful[0];
     }
 
 }

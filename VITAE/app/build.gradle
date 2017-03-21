@@ -64,5 +64,4 @@ dependencies {
 
     //Material text field
     compile 'com.github.florent37:materialtextfield:1.0.7'
-
 }

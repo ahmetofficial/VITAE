@@ -26,7 +26,7 @@ public class VitaeTextView extends android.support.v7.widget.AppCompatTextView {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "Fonts/Roboto-Regular.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "Fonts/Roboto-Thin.ttf");
             setTypeface(tf);
         }
     }

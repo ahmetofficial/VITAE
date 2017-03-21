@@ -30,8 +30,8 @@ public class PostActivity extends AppCompatActivity {
             super.onCreate( savedInstanceState );
             setContentView( R.layout.activity_post );
 
-            txt_post_text = (EditText) findViewById( R.id.txt_post_text );
-            btn_send_post = (Button) findViewById( R.id.activity_post_send_button );
+            txt_post_text = (EditText) findViewById( R.id.activity_post_txt_post );
+            btn_send_post = (Button) findViewById( R.id.activity_post_btn_post );
 
             btn_send_post.setOnClickListener( new View.OnClickListener() {
                 @Override

@@ -4,6 +4,7 @@
 package com.project.postmodule.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,12 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
         UserPost userPost = userPosts.get(position);
         holder.user_id.setText(userPost.getUser_id());
         holder.post_text.setText(userPost.getPost_text());
-        holder.timestamp.setText(userPost.getCreated_at().toString());
+
+        CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
+                userPost.getCreated_at().getTime(),
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
+        holder.timestamp.setText(timeAgo);
+
         holder.url.setText(userPost.getUrl());
     }
 

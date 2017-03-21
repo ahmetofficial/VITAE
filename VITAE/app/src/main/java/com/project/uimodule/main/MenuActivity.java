@@ -3,6 +3,7 @@
 
 package com.project.uimodule.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,10 +14,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.fabtransitionactivity.SheetLayout;
-import com.github.fabtransitionactivity.SheetLayout.OnFabAnimationEndListener;
 import com.lavie.users.R;
 import com.project.uimodule.main.message.FragmentMessage;
 import com.project.uimodule.main.profile.FragmentProfile;
@@ -29,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MenuActivity extends AppCompatActivity implements OnFabAnimationEndListener {
+public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFabAnimationEndListener {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -40,6 +44,11 @@ public class MenuActivity extends AppCompatActivity implements OnFabAnimationEnd
     @BindView(R.id.menu_FAB)
     FloatingActionButton mFab;
     private static final int REQUEST_CODE = 1;
+
+    //Post Fields
+    private EditText txt_post_text;
+    private Button btn_send_post;
+    private View postView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +62,16 @@ public class MenuActivity extends AppCompatActivity implements OnFabAnimationEnd
         tabLayout.setupWithViewPager( viewPager );
         setupTabIcons();
 
+        //Post Fields
+        LayoutInflater userPostInflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        postView = userPostInflater.inflate( R.layout.activity_post, null );
+        txt_post_text = (EditText) postView.findViewById( R.id.activity_post_txt_post );
+        btn_send_post = (Button) postView.findViewById( R.id.activity_post_btn_post );
+
         ButterKnife.bind( this );
         mSheetLayout.setFab( mFab );
         mSheetLayout.setFabAnimationEndListener( this );
     }
-
 
     @OnClick(R.id.menu_FAB)
     void onFabClick() {
@@ -93,6 +107,7 @@ public class MenuActivity extends AppCompatActivity implements OnFabAnimationEnd
             Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
         }
     }
+
 
     private void setupTabIcons() {
         int[] tabIcons = {

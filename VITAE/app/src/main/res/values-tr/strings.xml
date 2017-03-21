@@ -2,6 +2,8 @@
 
     <!--SigIn-->
     <string name="sign_in">Giriş Yap</string>
+    <string name="login_succesfull">Kullanıcı giriş işlemi başarılı</string>
+    <string name="login_unsuccesfull">Lütfen girdiğiniz bilgileri kontrol ederek tekrar deneyiniz </string>
 
     <!--SignUp-->
     <string name="create_account">Hesap Oluştur</string>
@@ -33,7 +35,7 @@
 
     <!--Post-->
     <string name="send">Gönder</string>
-    <string name="shareSomething">Birşeyler paylaş...</string>
+    <string name="shareSomething">Bir şeyler paylaş...</string>
 
     <!-- Profile-->
     <string name="edit_profile">Profili Düzenle</string>

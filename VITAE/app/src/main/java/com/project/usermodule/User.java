@@ -10,8 +10,12 @@ import java.util.Date;
 
 public class User {
 
-    User(){}
-    public User(String userId){this.userId=userId;}
+    public User() {
+    }
+
+    public User(String userId) {
+        this.userId = userId;
+    }
 
     @SerializedName("user_id")
     @Expose
@@ -168,6 +172,4 @@ public class User {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-
 }

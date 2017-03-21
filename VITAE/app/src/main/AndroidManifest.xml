@@ -28,7 +28,6 @@
         <activity android:name="com.project.uimodule.main.MenuActivity"/>
         <activity android:name="com.project.uimodule.signup.SignUpActivity"/>
         <activity android:name="com.project.uimodule.main.PostActivity"/>
-
     </application>
 
 </manifest>
