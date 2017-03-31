@@ -5,7 +5,6 @@ package com.project.uimodule.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +37,8 @@ public class LoginActivity extends BaseActivity {
         session = new UserSessionManager( getApplicationContext() );
         if (session.isUserLoggedIn()) {
             HashMap<String, String> user = session.getUserDetails();
-            String userId = user.get(UserSessionManager.KEY_USERNAME );
-            MenuActivity.userId=userId;
+            String userId = user.get( UserSessionManager.KEY_USERNAME );
+            MenuActivity.userId = userId;
             startActivity( new Intent( LoginActivity.this, MenuActivity.class ) );
         } else {
 
@@ -74,8 +73,8 @@ public class LoginActivity extends BaseActivity {
                                 if (!response.body().getStatus().equals( null )) {
                                     Toast.makeText( LoginActivity.this, getString( R.string.login_succesfull ), Toast.LENGTH_SHORT ).show();
                                     if (response.body().getStatus().equals( "true" )) {
-                                        MenuActivity.userId=userId;
-                                        session.createUserLoginSession( userId,password );
+                                        MenuActivity.userId = userId;
+                                        session.createUserLoginSession( userId, password );
                                         startActivity( new Intent( LoginActivity.this, MenuActivity.class ) );
                                     }
                                 }
@@ -84,11 +83,11 @@ public class LoginActivity extends BaseActivity {
 
                         @Override
                         public void onFailure(Call<ServerResponse> call, Throwable t) {
-                            Log.e( "MenuActivity", t.getMessage() );
+                            Toast.makeText( LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT ).show();
                         }
                     } );
         } catch (Exception e) {
-            Log.e( "MenuActivity", e.getMessage() );
+            Toast.makeText( LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT ).show();
         }
     }
 

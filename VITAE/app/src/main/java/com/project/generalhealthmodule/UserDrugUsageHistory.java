@@ -1,72 +1,42 @@
+// Developer: Ahmet Kaymak
+// Date: 31.03.2017
+
 package com.project.generalhealthmodule;
 
-import com.project.diseasemodule.Disease;
-import com.project.drugmodule.Drug;
-import com.project.usermodule.User;
-import java.util.Date;
-
-/**
- * Created by Ahmet Kaymak on 26.12.2016.
- */
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class UserDrugUsageHistory {
 
-    public UserDrugUsageHistory(){}
-    public UserDrugUsageHistory(User user, Disease disease, Drug drug) {
-        this.user = user;
-        this.disease = disease;
-        this.drug = drug;
+    @SerializedName("user_id")
+    @Expose
+    private String userId;
+
+    @SerializedName("disease_id")
+    @Expose
+    private String diseaseId;
+
+    @SerializedName("disease_count")
+    @Expose
+    private int diseaseCount;
+
+    public String getUserId() {
+        return userId;
     }
 
-    private User user;
-    private Disease disease;
-    private Drug drug;
-    private Date drugUsageStartDate;
-    private Date drugUsageSystemRegistrationDate;
-    private Date drugUsageFinishDate;
-    private int drugEffectOnDisease; //values led between -10 / 10
-
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
-    public Disease getDisease() {
-        return disease;
-    }
-    public void setDisease(Disease disease) {
-        this.disease = disease;
-    }
-    public Drug getDrug() {
-        return drug;
-    }
-    public void setDrug(Drug drug) {
-        this.drug = drug;
-    }
-    public Date getDrugUsageStartDate() {
-        return drugUsageStartDate;
-    }
-    public void setDrugUsageStartDate(Date drugUsageStartDate) {
-        this.drugUsageStartDate = drugUsageStartDate;
-    }
-    public Date getDrugUsageSystemRegistrationDate() {
-        return drugUsageSystemRegistrationDate;
-    }
-    public void setDrugUsageSystemRegistrationDate(Date drugUsageSystemRegistrationDate) {
-        this.drugUsageSystemRegistrationDate = drugUsageSystemRegistrationDate;
-    }
-    public Date getDrugUsageFinishDate() {
-        return drugUsageFinishDate;
-    }
-    public void setDrugUsageFinishDate(Date drugUsageFinishDate) {
-        this.drugUsageFinishDate = drugUsageFinishDate;
-    }
-    public int getDrugEffectOnDisease() {
-        return drugEffectOnDisease;
-    }
-    public void setDrugEffectOnDisease(int drugEffectOnDisease) {
-        this.drugEffectOnDisease = drugEffectOnDisease;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
+    public String getDiseaseId() {
+        return diseaseId;
+    }
+
+    public void setDiseaseId(String diseaseId) {
+        this.diseaseId = diseaseId;
+    }
+
+    public int getDiseaseCount() {
+        return diseaseCount;
+    }
 }

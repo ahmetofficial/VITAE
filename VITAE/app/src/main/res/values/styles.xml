@@ -11,4 +11,37 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="HealthTreeHeaderText" parent="AppTheme">
+        <item name="android:textColor">@color/darkText</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="HealthTreeText" parent="AppTheme">
+        <item name="android:textColor">@color/secondaryDarkText</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="NumberOfCellItem" parent="AppTheme">
+        <item name="android:textColor">@color/secondaryDarkText</item>
+        <item name="android:textSize">80dp</item>
+    </style>
+
+    <style name="ContentImageBadgeText" parent="AppTheme">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContentMainBadgeTitle" parent="AppTheme">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="ContentImageBadgeTitle" parent="AppTheme">
+        <item name="android:alpha">0.5</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
 </resources>

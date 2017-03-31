@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.github.fabtransitionactivity.SheetLayout;
 import com.lavie.users.R;
-import com.project.uimodule.main.message.FragmentMessage;
+import com.project.uimodule.main.healthtree.FragmentHealthTree;
 import com.project.uimodule.main.profile.FragmentProfile;
 import com.project.uimodule.main.timeline.FragmentTimeline;
 
@@ -124,7 +124,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         adapter.addFrag( new FragmentTimeline( userId ), "Timeline" );
-        adapter.addFrag( new FragmentMessage(), "Message" );
+        adapter.addFrag( new FragmentHealthTree( userId), "Health Tree" );
         adapter.addFrag( new FragmentProfile( userId ), "Profile" );
         viewPager.setAdapter( adapter );
     }

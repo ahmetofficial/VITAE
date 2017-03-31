@@ -41,7 +41,7 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'com.github.Kshitij-Jain:IndicatorView:1.25'
 
-    //timeline spinner
+    //Search spinner
     compile 'com.jaredrummler:material-spinner:1.1.0'
 
     //date selection
@@ -64,4 +64,9 @@ dependencies {
 
     //Material text field
     compile 'com.github.florent37:materialtextfield:1.0.7'
+
+    //FoldingView for Health Tree
+    compile 'com.ramotion.foldingcell:folding-cell:1.1.0'
+
+
 }

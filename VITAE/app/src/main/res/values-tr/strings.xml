@@ -22,17 +22,65 @@
     <string name="birthday">Doğum Günü</string>
     <string name="user_succeffully_created">Kullanıcı hesabı başarıyla oluşturuldu.</string>
     <string name="user_cannot_created">Kullanıcı oluşturulamadı.</string>
+    <string name="edit">Düzenle</string>
+    <string name="add">Ekle</string>
+
+    <string name="unknown_phase">Bilinmiyor</string>
+    <string name="diagnosis_phase">Teşhis</string>
+    <string name="progression_phase">İlerleme</string>
+    <string name="stabile_phase">Durgun</string>
+    <string name="lysis_phase">Gerileme</string>
+    <string name="recurrence_phase">Tekrarlama</string>
+    <string name="healing_phase">İyileşme</string>
+
+    <string name="at_beginning">Başlangıç</string>
+    <string name="preliminary">Hafif</string>
+    <string name="moderate">Orta</string>
+    <string name="heavy">Ağır</string>
+    <string name="severe">İleri</string>
 
     <!-- Timeline-->
     <string name="navigation_item_profile">Profil</string>
     <string name="navigation_item_timeline">Akış</string>
-    <string name="navigation_item_messages">Mesaj</string>
+    <string name="navigation_item_messages">Mesajlar</string>
     <string-array name="nav_drawer_labels">
         <item>@string/navigation_item_timeline</item>
         <item>@string/navigation_item_messages</item>
         <item>@string/navigation_item_profile</item>
     </string-array>
 
+    <!-- Health Tree-->
+    <string name="my_health_tree">Sağlık Ağacım</string>
+    <string name="my_disease_history">Hastalık Geçmişi</string>
+    <string name="my_drug_history">İlaç Geçmişi</string>
+    <string name="my_treathment_history">Tedavi Geçmişi</string>
+    <string name="total_medicine_count">TOPLAM İLAÇ</string>
+    <string name="succes_story">Başarı Hikayesi</string>
+    <string name="health_journey">Sağlık Yolculuğu</string>
+
+    <!--Disease Cell-->
+    <string name="my_diseases">Hastalıklarım</string>
+    <string name="state_of_disease">Güncel Durum</string>
+    <string name="level_of_disease">Güncel Seviye</string>
+
+    <string-array name="disease_state_array">
+        <item>@string/unknown_phase</item>
+        <item>@string/diagnosis_phase</item>
+        <item>@string/progression_phase</item>
+        <item>@string/stabile_phase</item>
+        <item>@string/lysis_phase</item>
+        <item>@string/recurrence_phase</item>
+        <item>@string/healing_phase</item>
+    </string-array>
+
+    <string-array name="disease_level_array">
+        <item>@string/unknown_phase</item>
+        <item>@string/at_beginning</item>
+        <item>@string/preliminary</item>
+        <item>@string/moderate</item>
+        <item>@string/heavy</item>
+        <item>@string/severe</item>
+    </string-array>
     <!--Post-->
     <string name="send">Gönder</string>
     <string name="shareSomething">Bir şeyler paylaş...</string>

@@ -9,7 +9,7 @@
     <color name="primaryText">#FAFAFA</color>
     <color name="secondaryText">#F5F5F5</color>
 
-    <color name="darkText">#222222</color>
+    <color name="darkText">#343d43</color>
     <color name="primaryDarkText">#535353</color>
     <color name="secondaryDarkText">#999999</color>
 
@@ -35,6 +35,10 @@
 
     <!--Fragment Profile-->
     <color name="edit_profile">#5F76BF</color>
+
+    <!--Health Tree Profile -->
+    <color name="health_tree_drug_background">#FFD600</color>
+    <color name="health_tree_disease_background">#D50000</color>
 
 
 </resources>

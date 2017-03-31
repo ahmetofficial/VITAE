@@ -22,6 +22,22 @@
     <string name="birthday">Birthday</string>
     <string name="user_succeffully_created">User succesfully created</string>
     <string name="user_cannot_created">User cannot be created.</string>
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+
+    <string name="unknown_phase">Unknown</string>
+    <string name="diagnosis_phase">Diagnosis Phase</string>
+    <string name="progression_phase">Progression</string>
+    <string name="stabile_phase">Stabile</string>
+    <string name="lysis_phase">Lysis</string>
+    <string name="recurrence_phase">Recurrence</string>
+    <string name="healing_phase">Healed</string>
+
+    <string name="at_beginning">At Beginning</string>
+    <string name="preliminary">Preliminary</string>
+    <string name="moderate">Moderate</string>
+    <string name="heavy">Heavy</string>
+    <string name="severe">Severe</string>
 
     <!-- Timeline-->
     <string name="navigation_item_profile">Profile</string>
@@ -31,6 +47,39 @@
         <item>@string/navigation_item_timeline</item>
         <item>@string/navigation_item_messages</item>
         <item>@string/navigation_item_profile</item>
+    </string-array>
+
+    <!-- Health Tree-->
+    <string name="my_health_tree">My Health Tree</string>
+    <string name="my_disease_history">Disease History</string>
+    <string name="my_drug_history">Medicine History</string>
+    <string name="my_treathment_history">Treathment History</string>
+    <string name="total_medicine_count">TOTAL MEDICINE</string>
+    <string name="succes_story"> Success Story</string>
+    <string name="health_journey">Health Journey</string>
+
+    <!--Disease Cell-->
+    <string name="my_diseases">My Diseases</string>
+    <string name="state_of_disease">Recent State</string>
+    <string name="level_of_disease">Recent Level</string>
+
+    <string-array name="disease_state_array">
+        <item>@string/unknown_phase</item>
+        <item>@string/diagnosis_phase</item>
+        <item>@string/progression_phase</item>
+        <item>@string/stabile_phase</item>
+        <item>@string/lysis_phase</item>
+        <item>@string/recurrence_phase</item>
+        <item>@string/healing_phase</item>
+    </string-array>
+
+    <string-array name="disease_level_array">
+        <item>@string/unknown_phase</item>
+        <item>@string/at_beginning</item>
+        <item>@string/preliminary</item>
+        <item>@string/moderate</item>
+        <item>@string/heavy</item>
+        <item>@string/severe</item>
     </string-array>
 
     <!--Post-->
