@@ -57,6 +57,9 @@
     <string name="total_medicine_count">TOPLAM İLAÇ</string>
     <string name="succes_story">Başarı Hikayesi</string>
     <string name="health_journey">Sağlık Yolculuğu</string>
+    <string name="disease">Hastalık</string>
+    <string name="treatment">Tedavi</string>
+    <string name="drug">İlaç</string>
 
     <!--Disease Cell-->
     <string name="my_diseases">Hastalıklarım</string>
@@ -72,7 +75,6 @@
         <item>@string/recurrence_phase</item>
         <item>@string/healing_phase</item>
     </string-array>
-
     <string-array name="disease_level_array">
         <item>@string/unknown_phase</item>
         <item>@string/at_beginning</item>
@@ -81,6 +83,14 @@
         <item>@string/heavy</item>
         <item>@string/severe</item>
     </string-array>
+
+    <!--Treatment Cell-->
+    <string name="my_treatments">Hastalıklarım</string>
+
+    <!--Drug Cell-->
+    <string name="my_drugs">İlaçlarım</string>
+    <string name="drug_cell_welcome">VITAE\'de kayıtlı bir ilaç kullanımınız bulunmamaktadır.</string>
+
     <!--Post-->
     <string name="send">Gönder</string>
     <string name="shareSomething">Bir şeyler paylaş...</string>

@@ -12,7 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface ApiPostInterface {
+public interface ApiPost {
 
     @GET("postModule/posts/liveFeed/{user_id}")
     Call<UserPost> getUserPosts(@Path("user_id") String userId);

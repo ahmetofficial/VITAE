@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/colorPrimary"
-              android:clipChildren="false"
-              android:clipToPadding="false"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
-                                          android:id="@+id/disease_folding_cell"
-                                          android:layout_width="match_parent"
-                                          android:layout_height="wrap_content">
+    <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@color/colorPrimary"
+                  android:clipChildren="false"
+                  android:clipToPadding="false"
+                  android:orientation="vertical"
+                  android:paddingBottom="@dimen/activity_vertical_margin"
+                  android:paddingLeft="@dimen/activity_horizontal_margin"
+                  android:paddingRight="@dimen/activity_horizontal_margin"
+                  android:paddingTop="@dimen/activity_vertical_margin">
 
-        <include layout="@layout/disease_cell_content"/>
+        <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+                                              android:id="@+id/disease_folding_cell"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="wrap_content">
 
-        <include layout="@layout/disease_cell_header" />
+            <include layout="@layout/cell_disease_content"/>
 
-    </com.ramotion.foldingcell.FoldingCell>
+            <include layout="@layout/cell_disease_header"/>
 
-    <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
-                                          android:id="@+id/drug_folding_cell"
-                                          android:layout_width="match_parent"
-                                          android:layout_height="wrap_content"
-                                          android:layout_marginTop="16dp">
+        </com.ramotion.foldingcell.FoldingCell>
 
-        <include layout="@layout/drug_cell_content"/>
+        <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+                                              android:id="@+id/treatment_folding_cell"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="wrap_content"
+                                              android:layout_marginTop="16dp">
 
-        <include layout="@layout/drug_cell_header" />
+            <include layout="@layout/cell_treatment_content"/>
+
+            <include layout="@layout/cell_treatment_header"/>
 
 
-    </com.ramotion.foldingcell.FoldingCell>
+        </com.ramotion.foldingcell.FoldingCell>
 
-</LinearLayout>
+        <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+                                              android:id="@+id/drug_folding_cell"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="wrap_content"
+                                              android:layout_marginTop="16dp">
+
+            <include layout="@layout/cell_drug_content"/>
+
+            <include layout="@layout/cell_drug_header"/>
+
+
+        </com.ramotion.foldingcell.FoldingCell>
+
+    </LinearLayout>
+</ScrollView>

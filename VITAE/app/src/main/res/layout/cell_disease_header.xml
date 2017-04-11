@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_weight="3"
-        android:background="@color/health_tree_disease_background"
+        android:background="@color/disease_color"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="10dp"
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/health_tree_disease_icon_white"
+            android:src="@drawable/icon_disease_white"
             android:layout_centerVertical="true"/>
 
 
@@ -39,7 +39,7 @@
         android:layout_marginTop="15dp">
 
         <ImageView
-            android:id="@+id/disease_cell_dots_divider"
+            android:id="@+id/dots_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="10dp"
-            android:layout_below="@id/disease_cell_dots_divider" />
+            android:layout_below="@id/dots_divider" />
 
     </RelativeLayout>
 

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_weight="3"
-        android:background="@color/health_tree_drug_background"
+        android:background="@color/treatment_color"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="10dp"
@@ -23,8 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/health_tree_drug_icon"
-            android:layout_centerVertical="true"/>
+            android:src="@drawable/icon_treatment_white"
+            android:layout_centerVertical="true"
+            tools:ignore="ContentDescription"/>
 
 
     </RelativeLayout>
@@ -36,34 +37,35 @@
         android:background="@color/white"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        tools:ignore="RtlHardcoded">
 
         <ImageView
-            android:id="@+id/disease_cell_dots_divider"
+            android:id="@+id/dots_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:src="@color/dividers"
             tools:ignore="ContentDescription"/>
 
 
         <TextView
-            android:id="@+id/disease_cell_history_text"
+            android:id="@+id/treatment_cell_history_text"
             style="@style/HealthTreeHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/my_drug_history" />
+            android:text="@string/my_treathment_history"/>
 
         <TextView
-            android:id="@+id/disease_cell_total_disease_number"
+            android:id="@+id/treatment_cell_total_treatment_number"
             style="@style/NumberOfCellItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/dots_divider"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/disease_cell_dots_divider"
-            android:text="7" />
+            android:gravity="center"/>
+
     </RelativeLayout>
 
 </LinearLayout>

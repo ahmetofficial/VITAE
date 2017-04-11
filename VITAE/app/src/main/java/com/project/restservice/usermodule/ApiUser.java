@@ -13,7 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface ApiUserInterface {
+public interface ApiUser {
 
     @POST("userModule/users/login")
     Call<ServerResponse> authenticateLogin(@Body LoginActivity.UserLoginPost userLoginPost);

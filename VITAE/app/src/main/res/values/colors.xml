@@ -16,11 +16,7 @@
     <color name="hintText">#EEEEEE</color>
     <color name="dividers">#d3d6db</color>
 
-    <color name="timelineBackground">#1F2854 </color>
     <color name="patientUserBackgroud">#8BC34A</color>
-    <color name="doctorUserBackground">#FFEB3B</color>
-    <color name="hospitalUserBackground">#00BCD4</color>
-    <color name="instituteUserBackground">#B71C1C</color>
 
     <!-- Timeline colors-->
     <color name="white">#ffffff</color>
@@ -37,8 +33,9 @@
     <color name="edit_profile">#5F76BF</color>
 
     <!--Health Tree Profile -->
-    <color name="health_tree_drug_background">#FFD600</color>
-    <color name="health_tree_disease_background">#D50000</color>
+    <color name="drug_color">#FFD600</color>
+    <color name="disease_color">#D50000</color>
+    <color name="treatment_color">#1B5E20</color>
 
 
 </resources>

@@ -9,7 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface ApiBloodInterface {
+public interface ApiBlood {
     @POST("generalHealthModule/bloodTypes/getBloodType'")
     Call<BloodType> getBloodType(@Body BloodType bloodType);
 

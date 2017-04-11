@@ -3,11 +3,12 @@
 
 package com.project.restservice;
 
-import com.project.restservice.generalhealthmodule.ApiBloodInterface;
-import com.project.restservice.generalhealthmodule.ApiUserDiseaseHistoryInterface;
-import com.project.restservice.generalhealthmodule.ApiUserDrugUsageHistoryInterface;
-import com.project.restservice.postmodule.ApiPostInterface;
-import com.project.restservice.usermodule.ApiUserInterface;
+import com.project.restservice.generalhealthmodule.ApiBlood;
+import com.project.restservice.generalhealthmodule.ApiUserDiseaseHistory;
+import com.project.restservice.generalhealthmodule.ApiUserDrugUsageHistory;
+import com.project.restservice.generalhealthmodule.ApiUserTreatmentHistory;
+import com.project.restservice.postmodule.ApiPost;
+import com.project.restservice.usermodule.ApiUser;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,55 +16,65 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
     public static final String BASE_URL = "http://178.62.223.153:3000/";
     static Retrofit retrofit;
-    static ApiUserInterface userApi;
-    static ApiPostInterface postApi;
-    static ApiBloodInterface bloodApi;
-    static ApiUserDiseaseHistoryInterface userDiseaseHistoryApi;
-    static ApiUserDrugUsageHistoryInterface userDrugUsageHistoryApi;
+    static ApiUser userApi;
+    static ApiPost postApi;
+    static ApiBlood bloodApi;
+    static ApiUserDiseaseHistory userDiseaseHistoryApi;
+    static ApiUserDrugUsageHistory userDrugUsageHistoryApi;
+    static ApiUserTreatmentHistory userTreatmentHistoryApi;
 
-    public static ApiUserInterface userApi() {
+    public static ApiUser userApi() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        userApi = retrofit.create(ApiUserInterface.class);
+        userApi = retrofit.create(ApiUser.class);
         return userApi;
     }
 
-    public static ApiPostInterface postApi() {
+    public static ApiPost postApi() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        postApi = retrofit.create(ApiPostInterface.class);
+        postApi = retrofit.create(ApiPost.class);
         return postApi;
     }
 
-    public static ApiBloodInterface bloodApi() {
+    public static ApiBlood bloodApi() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        bloodApi = retrofit.create(ApiBloodInterface.class);
+        bloodApi = retrofit.create(ApiBlood.class);
         return bloodApi;
     }
 
-    public static ApiUserDiseaseHistoryInterface userDiseaseHistoryApi(){
+    public static ApiUserDiseaseHistory userDiseaseHistoryApi(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        userDiseaseHistoryApi = retrofit.create( ApiUserDiseaseHistoryInterface.class );
+        userDiseaseHistoryApi = retrofit.create( ApiUserDiseaseHistory.class );
         return  userDiseaseHistoryApi;
     }
 
-    public static ApiUserDrugUsageHistoryInterface userDrugUsageHistoryApi(){
+    public static ApiUserDrugUsageHistory userDrugUsageHistoryApi(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        userDrugUsageHistoryApi = retrofit.create( ApiUserDrugUsageHistoryInterface.class );
+        userDrugUsageHistoryApi = retrofit.create( ApiUserDrugUsageHistory.class );
         return  userDrugUsageHistoryApi;
+    }
+
+    public static ApiUserTreatmentHistory userTreatmentHistoryApi(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        userTreatmentHistoryApi = retrofit.create( ApiUserTreatmentHistory.class );
+        return  userTreatmentHistoryApi;
     }
 
 }

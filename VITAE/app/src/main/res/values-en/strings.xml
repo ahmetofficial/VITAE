@@ -57,6 +57,9 @@
     <string name="total_medicine_count">TOTAL MEDICINE</string>
     <string name="succes_story"> Success Story</string>
     <string name="health_journey">Health Journey</string>
+    <string name="disease">Disease</string>
+    <string name="treatment">Treatment</string>
+    <string name="drug">Drug</string>
 
     <!--Disease Cell-->
     <string name="my_diseases">My Diseases</string>
@@ -72,7 +75,6 @@
         <item>@string/recurrence_phase</item>
         <item>@string/healing_phase</item>
     </string-array>
-
     <string-array name="disease_level_array">
         <item>@string/unknown_phase</item>
         <item>@string/at_beginning</item>
@@ -81,6 +83,13 @@
         <item>@string/heavy</item>
         <item>@string/severe</item>
     </string-array>
+
+    <!--Treatment Cell-->
+    <string name="my_treatments">My Treatments</string>
+
+    <!--Drug Cell-->
+    <string name="my_drugs">My Drugs</string>
+    <string name="drug_cell_welcome">There is no drug usage has recorded to VITAE</string>
 
     <!--Post-->
     <string name="send">Send</string>

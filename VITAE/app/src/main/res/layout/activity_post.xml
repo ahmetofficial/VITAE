@@ -38,40 +38,36 @@
 
         <ImageView
             android:id="@+id/post_activity_drug"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/post_activity_drug"
             tools:ignore="ContentDescription,RtlHardcoded"
             android:contentDescription=""/>
 
         <ImageView
             android:id="@+id/post_activity_hospital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/post_activity_hospital"
             tools:ignore="ContentDescription,RtlHardcoded"/>
 
         <ImageView
             android:id="@+id/post_activity_treatment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/post_activity_treatment"
             tools:ignore="ContentDescription,RtlHardcoded"
             android:contentDescription=""/>
 
         <ImageView
             android:id="@+id/post_activity_disease"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/post_activity_disease"
             tools:ignore="ContentDescription,RtlHardcoded"
             android:contentDescription=""/>
 

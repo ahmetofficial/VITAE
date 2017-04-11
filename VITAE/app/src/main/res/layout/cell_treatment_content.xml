@@ -4,7 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:visibility="gone">>
+              android:visibility="gone">
+
     <!--android:visibility="gone">-->
 
 
@@ -12,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/health_tree_disease_background"
+        android:background="@color/treatment_color"
         android:paddingBottom="7dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/my_disease_history"
+            android:text="@string/my_treathment_history"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
 
@@ -36,7 +37,7 @@
 
     </RelativeLayout>
 
-    <!-- Disease Search -->
+    <!-- Treatment Search -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -45,17 +46,17 @@
             android:id="@+id/head_image"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/health_tree_disease_background"
+            android:background="@color/treatment_color"
             tools:ignore="ContentDescription"/>
 
         <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/disease_spinner"
+            android:id="@+id/treatment_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:hint="@string/my_diseases"/>
+            android:hint="@string/my_treatments"/>
 
     </RelativeLayout>
 
@@ -77,80 +78,57 @@
             android:layout_marginBottom="10dp">
 
             <ImageView
-                android:id="@+id/health_tree_disease_icon"
+                android:id="@+id/health_tree_treatment_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/health_tree_disease_icon_red"
+                android:src="@drawable/icon_treatment_green"
                 tools:ignore="ContentDescription"/>
 
             <TextView
-                android:id="@+id/disease_cell_disease_name_text"
+                android:id="@+id/treatment_cell_treatment_name_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/health_tree_disease_icon"
+                android:layout_alignTop="@id/health_tree_treatment_icon"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/health_tree_disease_icon"
+                android:layout_toRightOf="@id/health_tree_treatment_icon"
                 android:textColor="@color/darkText"
-                android:textSize="35sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded"/>
 
             <TextView
-                android:id="@+id/disease_cell_level_of_disease_text"
+                android:id="@+id/treatment_cell_header_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/disease_cell_disease_name_text"
+                android:layout_below="@id/treatment_cell_treatment_name_text"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/health_tree_disease_icon"
+                android:layout_toRightOf="@id/health_tree_treatment_icon"
+                android:text="@string/disease"
+                android:textColor="@color/darkText"
+                android:textSize="14sp"
+                tools:ignore="RtlHardcoded"/>
+
+            <TextView
+                android:id="@+id/treatment_cell_associated_disease_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/treatment_cell_header_left"
+                android:layout_below="@id/treatment_cell_header_left"
                 android:textColor="@color/darkText"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded"/>
 
-            <TextView
-                android:id="@+id/disease_cell_header_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/disease_cell_level_of_disease_text"
-                android:layout_below="@id/disease_cell_level_of_disease_text"
-                android:text="@string/level_of_disease"
-                android:textColor="@color/darkText"
-                android:textSize="14sp"
-                tools:ignore="RtlHardcoded"/>
-
-            <TextView
-                android:id="@+id/disease_cell_state_of_disease_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/disease_cell_level_of_disease_text"
-                android:layout_marginLeft="35dp"
-                android:layout_toRightOf="@id/disease_cell_header_left"
-                android:textColor="@color/darkText"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/disease_cell_header_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/disease_cell_header_left"
-                android:layout_below="@id/disease_cell_state_of_disease_text"
-                android:layout_marginLeft="35dp"
-                android:layout_toRightOf="@id/disease_cell_header_left"
-                android:text="@string/state_of_disease"
-                android:textColor="@color/darkText"
-                android:textSize="14sp"
-                tools:ignore="RtlHardcoded"/>
 
         </RelativeLayout>
 
         <!-- Divider 2 -->
         <ImageView
-            android:id="@+id/health_tree_cell_divider_2"
+            android:id="@+id/divider1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="6dp"
@@ -168,21 +146,21 @@
             tools:ignore="InefficientWeight,RtlHardcoded,RtlSymmetry">
 
             <ImageView
-                android:id="@+id/disease_cell_time_icon"
+                android:id="@+id/treatment_cell_time_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/health_tree_time_icon"
+                android:src="@drawable/time_icon_green"
                 tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <TextView
-                android:id="@+id/disease_cell_content_start_date"
+                android:id="@+id/treatment_cell_treatment_start_date"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/disease_cell_time_icon"
+                android:layout_alignTop="@+id/treatment_cell_time_icon"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="4dp"
-                android:layout_toRightOf="@+id/disease_cell_time_icon"
+                android:layout_toRightOf="@+id/treatment_cell_time_icon"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:max="1"
@@ -192,25 +170,25 @@
                 tools:ignore="RtlHardcoded"/>
 
             <ImageView
-                android:id="@+id/health_tree_cell_divider_3"
+                android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_alignRight="@+id/disease_cell_content_start_date"
-                android:layout_below="@id/disease_cell_content_start_date"
+                android:layout_alignRight="@+id/treatment_cell_treatment_start_date"
+                android:layout_below="@id/treatment_cell_treatment_start_date"
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="2dp"
-                android:layout_toRightOf="@+id/disease_cell_time_icon"
+                android:layout_toRightOf="@+id/treatment_cell_time_icon"
                 android:src="@color/dividers"
                 tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <TextView
-                android:id="@+id/disease_cell_content_finish_date"
+                android:id="@+id/treatment_cell_treatment_finish_date"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/health_tree_cell_divider_3"
+                android:layout_below="@id/divider2"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/disease_cell_time_icon"
+                android:layout_toRightOf="@id/treatment_cell_time_icon"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:maxLines="1"
@@ -220,46 +198,24 @@
                 tools:ignore="RtlHardcoded"/>
 
             <ImageView
-                android:id="@+id/disease_cell_drug_icon"
+                android:id="@+id/treatment_cell_drug_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_alignTop="@+id/disease_cell_time_icon"
+                android:layout_alignTop="@+id/treatment_cell_time_icon"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/health_tree_cell_divider_3"
-                android:src="@drawable/drug_icon_yellow"
+                android:layout_toRightOf="@+id/divider2"
+                android:src="@drawable/icon_drug_yellow"
+                android:clickable="true"
                 tools:ignore="ContentDescription,RtlHardcoded"/>
 
             <TextView
-                android:id="@+id/disease_cell_number_of_drugs"
+                android:id="@+id/treatment_cell_number_of_drugs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/disease_cell_drug_icon"
-                android:layout_alignTop="@+id/disease_cell_drug_icon"
-                android:layout_toRightOf="@+id/disease_cell_drug_icon"
-                android:gravity="center"
-                android:textColor="@color/secondaryDarkText"
-                android:textSize="25sp"
-                tools:ignore="RtlHardcoded"/>
-
-            <ImageView
-                android:id="@+id/disease_cell_treatment_icon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignTop="@+id/disease_cell_time_icon"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/disease_cell_number_of_drugs"
-                android:src="@drawable/treatment_icon_yellow"
-                tools:ignore="ContentDescription,RtlHardcoded"/>
-
-            <TextView
-                android:id="@+id/disease_cell_number_of_treatments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/disease_cell_treatment_icon"
-                android:layout_alignTop="@+id/disease_cell_treatment_icon"
-                android:layout_toRightOf="@+id/disease_cell_treatment_icon"
+                android:layout_alignBottom="@+id/treatment_cell_drug_icon"
+                android:layout_alignTop="@+id/treatment_cell_drug_icon"
+                android:layout_toRightOf="@+id/treatment_cell_drug_icon"
                 android:gravity="center"
                 android:textColor="@color/secondaryDarkText"
                 android:textSize="25sp"
@@ -267,24 +223,24 @@
 
 
             <Button
-                android:id="@+id/disease_cell_edit_disease_button"
+                android:id="@+id/treatment_cell_edit_disease_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/disease_cell_time_icon"
+                android:layout_below="@+id/treatment_cell_time_icon"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/red_round_button"
+                android:background="@drawable/button_green_round"
                 android:padding="10dp"
                 android:text="@string/edit"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
                 />
 
             <Button
-                android:id="@+id/disease_cell_add_disease_button"
+                android:id="@+id/treatment_cell_add_disease_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/disease_cell_edit_disease_button"
+                android:layout_below="@+id/treatment_cell_edit_disease_button"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/red_round_button"
+                android:background="@drawable/button_green_round"
                 android:padding="10dp"
                 android:text="@string/add"
                 android:textAlignment="center"

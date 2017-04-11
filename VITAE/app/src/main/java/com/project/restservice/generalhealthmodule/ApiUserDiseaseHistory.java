@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface ApiUserDiseaseHistoryInterface {
+public interface ApiUserDiseaseHistory {
 
     @GET("generalHealthModule/userDiseaseHistory/getHistory/{user_id}")
     Call<UserDiseaseHistory> getUserDiseaseHistory(@Path("user_id") String userId);
