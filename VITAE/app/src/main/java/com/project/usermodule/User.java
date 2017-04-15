@@ -17,7 +17,7 @@ public class User {
         this.userId = userId;
     }
 
-    @SerializedName("user_id")
+    @SerializedName("hospitalName")
     @Expose
     protected String userId;
 

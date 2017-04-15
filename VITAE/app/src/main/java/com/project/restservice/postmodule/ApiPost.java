@@ -14,12 +14,12 @@ import retrofit2.http.Path;
 
 public interface ApiPost {
 
-    @GET("postModule/posts/liveFeed/{user_id}")
-    Call<UserPost> getUserPosts(@Path("user_id") String userId);
+    @GET("postModule/posts/liveFeed/{hospitalName}")
+    Call<UserPost> getUserPosts(@Path("hospitalName") String userId);
 
-    @GET("postModule/posts/getByUserId/{user_id}")
-    Call<UserPost> getUserPostById(@Path("user_id") String userId);
+    @GET("postModule/posts/getByUserId/{hospitalName}")
+    Call<UserPost> getUserPostById(@Path("hospitalName") String userId);
 
-    @POST("postModule/posts/create/{user_id}")
-    Call<ServerResponse> createNewPost(@Path("user_id") String userId, @Body UserPost userLoginPost);
+    @POST("postModule/posts/create/{hospitalName}")
+    Call<ServerResponse> createNewPost(@Path("hospitalName") String userId, @Body UserPost userLoginPost);
 }

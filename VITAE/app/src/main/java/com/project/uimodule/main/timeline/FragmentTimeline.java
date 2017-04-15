@@ -12,10 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.lavie.users.R;
 import com.project.postmodule.UserPost;
-import com.project.postmodule.adapter.UserPostAdapter;
+import com.project.uimodule.main.timeline.adapter.UserPostAdapter;
 import com.project.restservice.ApiClient;
 
 import java.util.ArrayList;
@@ -39,7 +40,6 @@ public class FragmentTimeline extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -70,7 +70,8 @@ public class FragmentTimeline extends Fragment {
                 }
             });
         } catch (Exception e) {
-            Log.e("UserTimeline", e.getMessage());
+            Log.e( "UserHealthTree", e.getMessage() );
+            Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
         }
 
         return timelineView;

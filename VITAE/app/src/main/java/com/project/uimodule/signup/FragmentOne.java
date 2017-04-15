@@ -48,7 +48,7 @@ public class FragmentOne extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View signUp1 = inflater.inflate( R.layout.fragment_signup_one, container, false );
+        final View signUp1 = inflater.inflate( R.layout.fragment_signup, container, false );
 
         MaterialSpinner genderSpinner = (MaterialSpinner) signUp1.findViewById( R.id.signUp_gender_spinner );
         genderSpinner.setItems( getString( R.string.male ), getString( R.string.female ), getString( R.string.undefined ) );

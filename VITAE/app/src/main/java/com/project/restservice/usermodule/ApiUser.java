@@ -21,6 +21,6 @@ public interface ApiUser {
     @POST("userModule/users/registerPatient")
     Call<ServerResponse> createPatient(@Body Patient patient);
 
-    @GET("userModule/patients/getPatientProfile/{user_id}")
-    Call<Patient> getPatientProfileInformation(@Path("user_id") String userId);
+    @GET("userModule/patients/getPatientProfile/{hospitalName}")
+    Call<Patient> getPatientProfileInformation(@Path("hospitalName") String userId);
 }

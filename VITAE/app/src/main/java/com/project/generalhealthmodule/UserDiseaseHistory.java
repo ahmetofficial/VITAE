@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class UserDiseaseHistory {
 
-    @SerializedName("user_id")
+    @SerializedName("hospitalName")
     @Expose
     private String userId;
 

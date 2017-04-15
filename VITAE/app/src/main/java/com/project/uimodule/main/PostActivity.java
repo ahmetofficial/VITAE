@@ -1,3 +1,6 @@
+// Developer: Ahmet Kaymak
+// Date: 03.04.2017
+
 package com.project.uimodule.main;
 
 import android.content.Intent;

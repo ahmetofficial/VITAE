@@ -27,6 +27,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:cardview-v7:23.3.+'
     testCompile 'junit:junit:4.12'
 
     // retrofit, gson dependencies for HTTP rest-api requests
@@ -68,5 +69,10 @@ dependencies {
     //FoldingView for Health Tree
     compile 'com.ramotion.foldingcell:folding-cell:1.1.0'
 
+    //Search Bar
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    //Rating Library
+    compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
 
 }

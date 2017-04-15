@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
-// Date: 22.02.2016
+// Date: 22.02.2017
 
-package com.project.postmodule.adapter;
+package com.project.uimodule.main.timeline.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -9,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.lavie.users.R;
 import com.project.postmodule.UserPost;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,6 @@ public class UserPostAdapter extends RecyclerView.Adapter<UserPostAdapter.MyView
             url = (TextView) view.findViewById(R.id.postURL);
         }
     }
-
 
     public UserPostAdapter(List<UserPost> userPosts) {
         this.userPosts = userPosts;

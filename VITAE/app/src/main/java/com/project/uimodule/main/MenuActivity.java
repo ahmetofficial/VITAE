@@ -6,15 +6,17 @@ package com.project.uimodule.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,12 +24,14 @@ import android.widget.Toast;
 
 import com.github.fabtransitionactivity.SheetLayout;
 import com.lavie.users.R;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.project.uimodule.ViewPagerAdapter;
 import com.project.uimodule.main.healthtree.FragmentHealthTree;
 import com.project.uimodule.main.profile.FragmentProfile;
+import com.project.uimodule.main.seach.SearchActivity;
 import com.project.uimodule.main.timeline.FragmentTimeline;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +42,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private TabLayout tabLayout;
     private ViewPager viewPager;
     public static String userId;
+    private MaterialSearchView searchView;
 
     @BindView(R.id.menu_post_sheet)
     SheetLayout mSheetLayout;
@@ -46,8 +51,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private static final int REQUEST_CODE = 1;
 
     //Post Fields
-    private EditText txt_post_text;
-    private Button btn_send_post;
+    private EditText mainPostText;
+    private Button mainPostSendButton;
     private View postView;
 
     @Override
@@ -65,12 +70,90 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         //Post Fields
         LayoutInflater userPostInflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         postView = userPostInflater.inflate( R.layout.activity_post, null );
-        txt_post_text = (EditText) postView.findViewById( R.id.activity_post_txt_post );
-        btn_send_post = (Button) postView.findViewById( R.id.activity_post_btn_post );
+        mainPostText = (EditText) postView.findViewById( R.id.activity_post_txt_post );
+        mainPostSendButton = (Button) postView.findViewById( R.id.activity_post_btn_post );
 
         ButterKnife.bind( this );
         mSheetLayout.setFab( mFab );
         mSheetLayout.setFabAnimationEndListener( this );
+
+        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+        setSupportActionBar( toolbar );
+        searchView = (MaterialSearchView) findViewById( R.id.search_view );
+        searchView.setVoiceSearch( false );
+        searchView.setCursorDrawable( R.drawable.custom_cursor );
+        searchView.setEllipsize( true );
+        searchView.setSuggestions( null );
+
+        searchView.setOnQueryTextListener( new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                SearchActivity.query=query;
+                startActivity( new Intent( MenuActivity.this, SearchActivity.class) );
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //listSearchResult( newText );
+                return false;
+            }
+        } );
+
+        searchView.setOnSearchViewListener( new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        } );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate( R.menu.menu_main, menu );
+
+        MenuItem item = menu.findItem( R.id.action_search );
+        searchView.setMenuItem( item );
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            if (requestCode == REQUEST_CODE) {
+                mSheetLayout.contractFab();
+            }
+            if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
+                ArrayList<String> matches = data.getStringArrayListExtra( RecognizerIntent.EXTRA_RESULTS );
+                if (matches != null && matches.size() > 0) {
+                    String searchWrd = matches.get( 0 );
+                    if (!TextUtils.isEmpty( searchWrd )) {
+                        searchView.setQuery( searchWrd, false );
+                    }
+                }
+
+                return;
+            }
+        } catch (Exception e) {
+            Log.e( "UserTimeline", e.getMessage() );
+            Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
+        }
+        super.onActivityResult( requestCode, resultCode, data );
     }
 
     @OnClick(R.id.menu_FAB)
@@ -86,7 +169,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     @Override
     public void onFabAnimationEnd() {
         try {
-            PostActivity.userId=userId;
+            PostActivity.userId = userId;
             Intent intent = new Intent( this, PostActivity.class );
             startActivityForResult( intent, REQUEST_CODE );
         } catch (Exception e) {
@@ -94,20 +177,6 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
         }
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try {
-            super.onActivityResult( requestCode, resultCode, data );
-            if (requestCode == REQUEST_CODE) {
-                mSheetLayout.contractFab();
-            }
-        } catch (Exception e) {
-            Log.e( "UserTimeline", e.getMessage() );
-            Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
-        }
-    }
-
 
     private void setupTabIcons() {
         int[] tabIcons = {
@@ -124,39 +193,9 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         adapter.addFrag( new FragmentTimeline( userId ), "Timeline" );
-        adapter.addFrag( new FragmentHealthTree( userId), "Health Tree" );
+        adapter.addFrag( new FragmentHealthTree( userId ), "Health Tree" );
         adapter.addFrag( new FragmentProfile( userId ), "Profile" );
         viewPager.setAdapter( adapter );
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super( manager );
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get( position );
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFrag(Fragment fragment, String title) {
-            mFragmentList.add( fragment );
-            mFragmentTitleList.add( title );
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            // return null to display only the icon
-            return null;
-        }
-    }
 }

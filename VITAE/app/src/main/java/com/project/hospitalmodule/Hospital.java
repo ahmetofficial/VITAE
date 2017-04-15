@@ -1,92 +1,194 @@
+// Developer: Ahmet Kaymak
+// Date: 14.04.2017
+
 package com.project.hospitalmodule;
 
-import com.project.locationmodule.Adress;
-import com.project.usermodule.Doctor;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Hospital {
 
-    public Hospital(){}
-    public Hospital(int hospitalId, String hospitalUserId, String hospitalName, String hospitalType, boolean isActive, Date establishmentDate, Adress adress, String website, String phoneNumber) {
-        this.hospitalId = hospitalId;
-        this.hospitalUserId = hospitalUserId;
-        this.hospitalName = hospitalName;
-        this.hospitalType = hospitalType;
-        this.isActive = isActive;
-        this.establishmentDate = establishmentDate;
-        this.adress = adress;
-        this.website = website;
-        this.phoneNumber = phoneNumber;
-    }
-
+    @SerializedName("hospital_id")
+    @Expose
     private int hospitalId;
-    private String hospitalUserId;
-    private String hospitalName;
-    private String hospitalType;
-    private Adress adress;
-    private Date establishmentDate;
-    private boolean isActive;
-    private String website;
-    private String phoneNumber;
 
-    private ArrayList<Clinic> hospitalHaveClinics=new ArrayList<>();
-    private ArrayList<Doctor> hospitalHaveDoctors=new ArrayList<>();
+    @SerializedName("hospital_user_id")
+    @Expose
+    private String hospitalUserId;
+
+    @SerializedName("hospital_name")
+    @Expose
+    private String hospitalName;
+
+    @SerializedName("hospital_type")
+    @Expose
+    private int hospitalType;
+
+    @SerializedName("establishement_date")
+    @Expose
+    private Date establishmentDate;
+
+    @SerializedName("total_score")
+    @Expose
+    BigInteger totalScore;
+
+    @SerializedName("total_vote_number")
+    @Expose
+    int totalVoteNumber;
+
+    @SerializedName("overall_score")
+    @Expose
+    double overallScore;
+
+    @SerializedName("is_active")
+    @Expose
+    int isActive;
+
+    @SerializedName("website")
+    @Expose
+    String website;
+
+    @SerializedName("phone_number")
+    @Expose
+    String phoneNumber;
+
+    @SerializedName("mail")
+    @Expose
+    String mail;
+
+    @SerializedName("created_at")
+    @Expose
+    Date createdAt;
+
+    @SerializedName("updated_at")
+    @Expose
+    Date updatedAt;
+
+    @SerializedName("hospitals")
+    @Expose
+    ArrayList<Hospital> hospitals;
 
     public int getHospitalId() {
         return hospitalId;
     }
+
     public void setHospitalId(int hospitalId) {
         this.hospitalId = hospitalId;
     }
+
     public String getHospitalUserId() {
         return hospitalUserId;
     }
+
     public void setHospitalUserId(String hospitalUserId) {
         this.hospitalUserId = hospitalUserId;
     }
+
     public String getHospitalName() {
         return hospitalName;
     }
+
     public void setHospitalName(String hospitalName) {
         this.hospitalName = hospitalName;
     }
-    public String getHospitalType() {
+
+    public int getHospitalType() {
         return hospitalType;
     }
-    public void setHospitalType(String hospitalType) {
+
+    public void setHospitalType(int hospitalType) {
         this.hospitalType = hospitalType;
     }
-    public Adress getAdress() {
-        return adress;
-    }
-    public void setAdress(Adress adress) {
-        this.adress = adress;
-    }
+
     public Date getEstablishmentDate() {
         return establishmentDate;
     }
+
     public void setEstablishmentDate(Date establishmentDate) {
         this.establishmentDate = establishmentDate;
     }
-    public boolean isActive() {
+
+    public BigInteger getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(BigInteger totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public int getTotalVoteNumber() {
+        return totalVoteNumber;
+    }
+
+    public void setTotalVoteNumber(int totalVoteNumber) {
+        this.totalVoteNumber = totalVoteNumber;
+    }
+
+    public double getOverallScore() {
+        return overallScore;
+    }
+
+    public void setOverallScore(double overallScore) {
+        this.overallScore = overallScore;
+    }
+
+    public int getIsActive() {
         return isActive;
     }
-    public void setActive(boolean active) {
-        isActive = active;
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
+
     public String getWebsite() {
         return website;
     }
+
     public void setWebsite(String website) {
         this.website = website;
     }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public ArrayList<Hospital> getHospitals() {
+        return hospitals;
+    }
+
+    public void setHospitals(ArrayList<Hospital> hospitals) {
+        this.hospitals = hospitals;
+    }
 }

@@ -13,8 +13,8 @@ import retrofit2.http.Path;
 
 public interface ApiUserDiseaseHistory {
 
-    @GET("generalHealthModule/userDiseaseHistory/getHistory/{user_id}")
-    Call<UserDiseaseHistory> getUserDiseaseHistory(@Path("user_id") String userId);
+    @GET("generalHealthModule/userDiseaseHistory/getHistory/{hospitalName}")
+    Call<UserDiseaseHistory> getUserDiseaseHistory(@Path("hospitalName") String userId);
 
     @POST("generalHealthModule/userDiseaseHistory/create")
     Call<ServerResponse> createUserDiseaseHistory(UserDiseaseHistory userDiseaseHistory);

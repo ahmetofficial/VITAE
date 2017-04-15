@@ -7,6 +7,7 @@ import com.project.restservice.generalhealthmodule.ApiBlood;
 import com.project.restservice.generalhealthmodule.ApiUserDiseaseHistory;
 import com.project.restservice.generalhealthmodule.ApiUserDrugUsageHistory;
 import com.project.restservice.generalhealthmodule.ApiUserTreatmentHistory;
+import com.project.restservice.hospitalmodule.ApiHospital;
 import com.project.restservice.postmodule.ApiPost;
 import com.project.restservice.usermodule.ApiUser;
 
@@ -22,6 +23,7 @@ public class ApiClient {
     static ApiUserDiseaseHistory userDiseaseHistoryApi;
     static ApiUserDrugUsageHistory userDrugUsageHistoryApi;
     static ApiUserTreatmentHistory userTreatmentHistoryApi;
+    static ApiHospital hospitalApi;
 
     public static ApiUser userApi() {
         retrofit = new Retrofit.Builder()
@@ -75,6 +77,15 @@ public class ApiClient {
                 .build();
         userTreatmentHistoryApi = retrofit.create( ApiUserTreatmentHistory.class );
         return  userTreatmentHistoryApi;
+    }
+
+    public static ApiHospital hospitalApi(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        hospitalApi = retrofit.create( ApiHospital.class );
+        return  hospitalApi;
     }
 
 }

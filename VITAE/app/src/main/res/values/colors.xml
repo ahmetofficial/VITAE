@@ -20,7 +20,6 @@
 
     <!-- Timeline colors-->
     <color name="white">#ffffff</color>
-    <color name="timeline_background">#d3d6db</color>
     <color name="post_background">#ffffff</color>
     <color name="post_border">#c2c3c8</color>
     <color name="link">#0a80d1</color>

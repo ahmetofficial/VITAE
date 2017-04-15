@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-    >
+                                                 android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="47dp"/>
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_below="@+id/main_search_bar"
+        app:layout_scrollFlags="scroll|snap"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.TabLayout
@@ -18,26 +28,21 @@
             app:tabMode="fixed"/>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/menu_FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginBottom="60dp"
         android:layout_marginLeft="290dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="0dp"
+        android:layout_gravity="bottom"
         android:src="@drawable/menu_post"
         app:borderWidth="0dp"
         app:fabSize="normal"
-        app:rippleColor="@color/colorPrimary"/>
+        app:rippleColor="@color/colorPrimary"
+        tools:ignore="RtlHardcoded"/>
 
     <com.github.fabtransitionactivity.SheetLayout
         android:id="@+id/menu_post_sheet"
@@ -46,7 +51,25 @@
         android:layout_gravity="bottom"
         android:elevation="2dp"
         app:ft_color="@color/colorPrimary"
-        app:ft_container_gravity="center"/>
+        app:ft_container_gravity="center"
+        tools:targetApi="lollipop"/>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"/>
+
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
