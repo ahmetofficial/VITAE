@@ -6,6 +6,7 @@ package com.project.usermodule;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
@@ -17,57 +18,61 @@ public class User {
         this.userId = userId;
     }
 
-    @SerializedName("hospitalName")
+    @SerializedName("user_id")
     @Expose
-    protected String userId;
+    private String userId;
 
     @SerializedName("user_name")
     @Expose
-    protected String userName;
+    private String userName;
 
     @SerializedName("user_type_id")
     @Expose
-    protected int userTypeId;
+    private int userTypeId;
 
     @SerializedName("mail")
     @Expose
-    protected String mail;
+    private String mail;
 
     @SerializedName("password")
     @Expose
-    protected String password;
+    private String password;
 
     @SerializedName("mail_activation")
     @Expose
-    protected boolean mailActivation;
+    private boolean mailActivation;
 
     @SerializedName("phone_number")
     @Expose
-    protected String phoneNumber;
+    private String phoneNumber;
 
     @SerializedName("about_me")
     @Expose
-    protected String aboutMe;
+    private String aboutMe;
 
     @SerializedName("friend_count")
     @Expose
-    protected int friendCount;
+    private int friendCount;
 
     @SerializedName("is_official_user")
     @Expose
-    protected int isOfficialUser;
+    private int isOfficialUser;
 
     @SerializedName("profile_picture_id")
     @Expose
-    protected String profilePictureId;
+    private String profilePictureId;
 
     @SerializedName("created_at")
     @Expose
-    protected Date createdAt;
+    private Date createdAt;
 
     @SerializedName("updated_at")
     @Expose
-    protected Date updatedAt;
+    private Date updatedAt;
+
+    @SerializedName("users")
+    @Expose
+    private ArrayList<User> users;
 
     public String getUserId() {
         return userId;
@@ -172,4 +177,9 @@ public class User {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+    
 }

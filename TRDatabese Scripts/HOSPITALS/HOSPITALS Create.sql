@@ -1,7 +1,7 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-04-13 23:09:12.767
--- tables
--- Table: HOSPITALS
+-- Developer: Ahmet Kaymak
+-- Date: 14.04.2017
+-- Description: HOSPITALS tablosu oluşturuldu.
+
 CREATE TABLE HOSPITALS (
    hospital_id int NOT NULL,
    hospital_user_id varchar(200) NULL,

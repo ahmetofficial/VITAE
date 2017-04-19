@@ -29,6 +29,7 @@
         <activity android:name="com.project.uimodule.signup.SignUpActivity"/>
         <activity android:name="com.project.uimodule.main.PostActivity"/>
         <activity android:name="com.project.uimodule.main.seach.SearchActivity"/>
+        <activity android:name="com.project.uimodule.hospitalpage.HospitalProfileActivity"/>
         <meta-data android:name="android.app.default_searchable" android:value="com.project.uimodule.main.MenuActivity" />
     </application>
 

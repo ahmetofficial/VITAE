@@ -72,6 +72,10 @@ public class Hospital {
     @Expose
     ArrayList<Hospital> hospitals;
 
+    @SerializedName("hospital")
+    @Expose
+    Hospital hospital;
+
     public int getHospitalId() {
         return hospitalId;
     }
@@ -190,5 +194,9 @@ public class Hospital {
 
     public void setHospitals(ArrayList<Hospital> hospitals) {
         this.hospitals = hospitals;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
     }
 }

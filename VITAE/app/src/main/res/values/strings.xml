@@ -104,4 +104,8 @@
     <string name="private_hospital">Özel Hastane</string>
     <string name="state_hospital">Devlet Hastanesi</string>
 
+    <!--Hospital Activity-->
+    <string name="total_rating_count">Toplam Değerlendirme:</string>
+    <string name="overall_score">Ortalama:</string>
+
 </resources>

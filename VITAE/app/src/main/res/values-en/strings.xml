@@ -102,4 +102,8 @@
     <string name="private_hospital">Private Hospital</string>
     <string name="state_hospital">State Hospital</string>
 
+    <!--Hospital Activity-->
+    <string name="total_rating_count">Total Count:</string>
+    <string name="overall_score">Overall Score:</string>
+
 </resources>

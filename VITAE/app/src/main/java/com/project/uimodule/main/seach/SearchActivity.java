@@ -65,5 +65,4 @@ public class SearchActivity extends AppCompatActivity {
             Log.e( "UserTimeline", e.getMessage() );
         }
     }
-
 }

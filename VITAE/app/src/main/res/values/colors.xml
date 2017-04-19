@@ -36,5 +36,7 @@
     <color name="disease_color">#D50000</color>
     <color name="treatment_color">#1B5E20</color>
 
+    <!--Hospital-->
+    <color name="hospital_page_background">#E3F2FD</color>
 
 </resources>
