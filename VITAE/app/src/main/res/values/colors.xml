@@ -33,6 +33,7 @@
 
     <!--Health Tree Profile -->
     <color name="drug_color">#FFD600</color>
+    <color name="drug_color_light">#F4FF81</color>
     <color name="disease_color">#D50000</color>
     <color name="disease_color_light">#FFCDD2</color>
     <color name="treatment_color">#1B5E20</color>

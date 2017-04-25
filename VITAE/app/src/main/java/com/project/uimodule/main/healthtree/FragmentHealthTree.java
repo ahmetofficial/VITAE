@@ -22,6 +22,7 @@ import com.project.generalhealthmodule.UserDrugUsageHistory;
 import com.project.generalhealthmodule.UserTreatmentHistory;
 import com.project.restservice.ApiClient;
 import com.project.uimodule.main.healthtree.diseaseAdd.DiseaseAddActivity;
+import com.project.uimodule.main.healthtree.drugAdd.DrugAddActivity;
 import com.project.uimodule.main.healthtree.treatmentAdd.TreatmentAddActivity;
 import com.ramotion.foldingcell.FoldingCell;
 
@@ -70,6 +71,7 @@ public class FragmentHealthTree extends Fragment {
     private TextView drugCellAssociatedTreatment;
     private TextView drugCellDrugUsageStartDate;
     private TextView drugCellDrugUsageFinishDate;
+    private Button drugCellAddDrugButton;
 
     public FragmentHealthTree(String userId) {
         this.userId = userId;
@@ -117,6 +119,7 @@ public class FragmentHealthTree extends Fragment {
         drugCellAssociatedTreatment = (TextView) healthTreeView.findViewById( R.id.drug_cell_associated_treatment_text );
         drugCellDrugUsageStartDate = (TextView) healthTreeView.findViewById( R.id.drug_cell_drug_usage_start_date );
         drugCellDrugUsageFinishDate = (TextView) healthTreeView.findViewById( R.id.drug_cell_drug_usage_finish_date );
+        drugCellAddDrugButton = (Button) healthTreeView.findViewById( R.id.drug_cell_add_drug_button );
 
         try {
 
@@ -163,6 +166,14 @@ public class FragmentHealthTree extends Fragment {
                 public void onClick(View v) {
                     TreatmentAddActivity.userId = userId;
                     startActivity( new Intent( getContext(), TreatmentAddActivity.class ) );
+                }
+            } );
+
+            drugCellAddDrugButton.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DrugAddActivity.userId = userId;
+                    startActivity( new Intent( getContext(), DrugAddActivity.class ) );
                 }
             } );
 

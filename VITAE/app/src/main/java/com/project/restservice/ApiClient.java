@@ -4,6 +4,7 @@
 package com.project.restservice;
 
 import com.project.restservice.diseasemodule.ApiDisease;
+import com.project.restservice.drugmodule.ApiDrug;
 import com.project.restservice.generalhealthmodule.ApiBlood;
 import com.project.restservice.generalhealthmodule.ApiUserDiseaseHistory;
 import com.project.restservice.generalhealthmodule.ApiUserDrugUsageHistory;
@@ -28,6 +29,7 @@ public class ApiClient {
     public static ApiTreatment treatmentApi;
     public static ApiHospital hospitalApi;
     public static ApiDisease diseaseApi;
+    public static ApiDrug drugApi;
 
     public static ApiUser userApi() {
         retrofit = new Retrofit.Builder()
@@ -108,6 +110,15 @@ public class ApiClient {
                 .build();
         treatmentApi = retrofit.create( ApiTreatment.class );
         return  treatmentApi;
+    }
+
+    public static ApiDrug drugApi(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        drugApi = retrofit.create( ApiDrug.class );
+        return  drugApi;
     }
 
 }

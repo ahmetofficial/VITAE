@@ -19,4 +19,7 @@ public interface ApiUserTreatmentHistory {
 
     @POST("generalHealthModule/userTreatmentHistory/create")
     Call<ServerResponse> createUserTreatmentHistory(@Body UserTreatmentHistory userTreatmentHistory);
+
+    @POST("generalHealthModule/userTreatmentHistory/updateDrugCount")
+    Call<ServerResponse> updateUserTreatmentHistoryDrugCount(@Body UserTreatmentHistory userTreatmentHistory);
 }

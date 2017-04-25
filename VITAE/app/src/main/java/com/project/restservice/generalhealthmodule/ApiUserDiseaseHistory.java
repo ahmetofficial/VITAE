@@ -23,4 +23,7 @@ public interface ApiUserDiseaseHistory {
     @POST("generalHealthModule/userDiseaseHistory/updateTreatmentCount")
     Call<ServerResponse> updateUserDiseaseHistoryTreatmentCount(@Body UserDiseaseHistory userDiseaseHistory);
 
+    @POST("generalHealthModule/userDiseaseHistory/updateDrugCount")
+    Call<ServerResponse> updateUserDiseaseHistoryDrugCount(@Body UserDiseaseHistory userDiseaseHistory);
+
 }

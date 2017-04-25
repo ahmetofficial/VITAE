@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/activity_drug_add_container_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/drug_color"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:id="@+id/activity_drug_add_disease_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/icon_drug_white"
+                tools:ignore="ContentDescription"/>
+
+            <FrameLayout
+                android:id="@+id/activity_drug_add_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_drug_add_disease_icon">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/activity_drug_add_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/drug_color"/>
+
+                <com.miguelcatalan.materialsearchview.MaterialSearchView
+                    android:id="@+id/activity_drug_add_search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_drug_add_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="392dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/drug_color"
+        android:layout_height="20dp">
+
+        <io.github.kshitij_jain.indicatorview.IndicatorView
+            android:id="@+id/activity_drug_add_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:background="@color/drug_color"
+            android:foregroundGravity="center"
+            tools:ignore="ObsoleteLayoutParam"/>
+    </RelativeLayout>
+
+</LinearLayout>
