@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">vitae</string>
 
+    <!--Add Something To Health Tree-->
+    <string name="save">Kaydet</string>
+    <string name="disease_succesfull_saved">Hastalık sağlık ağacınıza eklendi.</string>
+    <string name="treatment_succesfull_saved">Tedavi sağlık ağacınıza eklendi.</string>
+    <string name="drug_succesfull_saved">İlaç sağlık ağacınıza eklendi.</string>
+    <string name="something_went_wrong">Birşeyler ters gitti lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="please_select_disease">Lütfen bir hastalık seçiniz</string>
+    <string name="please_select_treatment">Lütfen bir tedavi seçiniz</string>
+    <string name="please_select_drug">Lütfen bir ilaç seçiniz</string>
+    <string name="disease_start_date">Hastalık Başlangıç Tarihi</string>
+    <string name="treatment_start_date">Tedavi Başlangıç Tarihi</string>
+    <string name="drug_start_date">İlaç Başlangıç Tarihi</string>
+
     <!--SigIn-->
     <string name="sign_in">Giriş Yap</string>
     <string name="login_succesfull">Kullanıcı giriş işlemi başarılı</string>

@@ -34,7 +34,9 @@
     <!--Health Tree Profile -->
     <color name="drug_color">#FFD600</color>
     <color name="disease_color">#D50000</color>
+    <color name="disease_color_light">#FFCDD2</color>
     <color name="treatment_color">#1B5E20</color>
+    <color name="treatment_color_light">#66BB6A</color>
 
     <!--Hospital-->
     <color name="hospital_page_background">#E3F2FD</color>

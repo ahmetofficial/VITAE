@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
     package="com.lavie.users">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -28,8 +29,10 @@
         <activity android:name="com.project.uimodule.main.MenuActivity"/>
         <activity android:name="com.project.uimodule.signup.SignUpActivity"/>
         <activity android:name="com.project.uimodule.main.PostActivity"/>
-        <activity android:name="com.project.uimodule.main.seach.SearchActivity"/>
+        <activity android:name="com.project.uimodule.seach.SearchActivity"/>
         <activity android:name="com.project.uimodule.hospitalpage.HospitalProfileActivity"/>
+        <activity android:name="com.project.uimodule.main.healthtree.diseaseAdd.DiseaseAddActivity"/>
+        <activity android:name="com.project.uimodule.main.healthtree.treatmentAdd.TreatmentAddActivity"/>
         <meta-data android:name="android.app.default_searchable" android:value="com.project.uimodule.main.MenuActivity" />
     </application>
 

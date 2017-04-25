@@ -7,6 +7,7 @@ import com.project.generalhealthmodule.UserDiseaseHistory;
 import com.project.restservice.ServerResponse;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -17,6 +18,9 @@ public interface ApiUserDiseaseHistory {
     Call<UserDiseaseHistory> getUserDiseaseHistory(@Path("hospitalName") String userId);
 
     @POST("generalHealthModule/userDiseaseHistory/create")
-    Call<ServerResponse> createUserDiseaseHistory(UserDiseaseHistory userDiseaseHistory);
+    Call<ServerResponse> createUserDiseaseHistory(@Body UserDiseaseHistory userDiseaseHistory);
+
+    @POST("generalHealthModule/userDiseaseHistory/updateTreatmentCount")
+    Call<ServerResponse> updateUserDiseaseHistoryTreatmentCount(@Body UserDiseaseHistory userDiseaseHistory);
 
 }

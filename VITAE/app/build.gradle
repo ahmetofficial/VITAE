@@ -75,4 +75,7 @@ dependencies {
     //Rating Library
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
 
+    //Material Dialog
+    compile 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+
 }

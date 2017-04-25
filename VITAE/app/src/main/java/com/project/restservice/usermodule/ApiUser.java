@@ -26,6 +26,6 @@ public interface ApiUser {
     @GET("userModule/patients/getPatientProfile/{userId}")
     Call<Patient> getPatientProfileInformation(@Path("userId") String userId);
 
-    @POST("userModule/users/registerPatient")
+    @POST("userModule/users/searchByUserInfo")
     Call<User> searchUser(@Body FullTextSearchRequest request);
 }

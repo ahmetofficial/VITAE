@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class UserDrugUsageHistory {
 
-    @SerializedName("hospitalName")
+    @SerializedName("user_id")
     @Expose
     private String userId;
 

@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 14.03.2017
 
-package com.project.uimodule.main.seach.adapter;
+package com.project.uimodule.seach.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +47,7 @@ public class HospitalSearchAdapter extends RecyclerView.Adapter<HospitalSearchAd
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from( parent.getContext() )
-                .inflate( R.layout.search_hospital_item, parent, false );
+                .inflate( R.layout.item_search_hospital, parent, false );
 
         return new MyViewHolder( itemView );
     }

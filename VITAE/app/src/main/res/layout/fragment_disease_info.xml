@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/activity_disease_add_container_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/activity_disease_add_container_top">
+
+            <RelativeLayout
+                android:id="@+id/activity_disease_add_relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_disease_round">
+
+                <TextView
+                    android:id="@+id/activity_disease_add_name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:textColor="@color/primaryDarkText"
+                    android:textSize="20dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/activity_disease_add_text_top"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@id/activity_disease_add_relative_layout"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/level_of_disease"
+                android:textColor="@color/primaryDarkText"
+                android:textSize="13dp"/>
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/activity_disease_add_level_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignTop="@+id/activity_disease_add_text_top"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toRightOf="@id/activity_disease_add_text_top"/>
+
+            <TextView
+                android:id="@+id/activity_disease_add_text_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@+id/activity_disease_add_level_spinner"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+                android:text="@string/state_of_disease"
+                android:textColor="@color/primaryDarkText"
+                android:textSize="13dp"/>
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/activity_disease_add_state_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/activity_disease_add_level_spinner"
+                android:layout_alignRight="@+id/activity_disease_add_level_spinner"
+                android:layout_alignTop="@+id/activity_disease_add_text_middle"
+                android:layout_marginBottom="10dp"
+                android:layout_toRightOf="@id/activity_disease_add_text_middle"/>
+
+            <LinearLayout
+                android:id="@+id/activity_disease_add_linear_layout_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_disease_add_state_spinner"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/signup_roundwhite"
+                android:orientation="horizontal">>
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/icon_start_date_red"/>
+
+                <EditText
+                    android:id="@+id/activity_disease_start_date_text"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:hint="@string/disease_start_date"
+                    android:onClick="onClick"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/primaryDarkText"
+                    android:textColorHint="@color/primaryDarkText"
+                    android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/activity_disease_add_save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_disease_add_linear_layout_date"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:background="@drawable/button_red_round"
+                android:padding="10dp"
+                android:text="@string/save"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

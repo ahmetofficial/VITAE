@@ -209,6 +209,7 @@
                 android:clickable="true"
                 tools:ignore="ContentDescription,RtlHardcoded"/>
 
+
             <TextView
                 android:id="@+id/treatment_cell_number_of_drugs"
                 android:layout_width="wrap_content"
@@ -221,9 +222,8 @@
                 android:textSize="25sp"
                 tools:ignore="RtlHardcoded"/>
 
-
             <Button
-                android:id="@+id/treatment_cell_edit_disease_button"
+                android:id="@+id/treatment_cell_edit_treatment_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/treatment_cell_time_icon"
@@ -235,10 +235,10 @@
                 />
 
             <Button
-                android:id="@+id/treatment_cell_add_disease_button"
+                android:id="@+id/treatment_cell_add_treatment_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/treatment_cell_edit_disease_button"
+                android:layout_below="@+id/treatment_cell_edit_treatment_button"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_green_round"
                 android:padding="10dp"

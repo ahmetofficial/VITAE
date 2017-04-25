@@ -6,6 +6,8 @@ package com.project.drugmodule;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Drug {
 
     public Drug(){};
@@ -46,6 +48,10 @@ public class Drug {
     @SerializedName("general_descriptions")
     @Expose
     private String generalDescription;
+
+    @SerializedName("drug_list")
+    @Expose
+    private ArrayList<Drug> drugList;
 
     public int getDrugId() {
         return drugId;
@@ -109,5 +115,9 @@ public class Drug {
 
     public void setGeneralDescription(String generalDescription) {
         this.generalDescription = generalDescription;
+    }
+
+    public ArrayList<Drug> getDrugList() {
+        return drugList;
     }
 }

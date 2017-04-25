@@ -1,8 +1,9 @@
 // Developer: Ahmet Kaymak
-// Date: 27.02.2016
+// Date: 27.02.2017
 
 package com.project.uimodule.main.healthtree;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,8 @@ import com.project.generalhealthmodule.UserDiseaseHistory;
 import com.project.generalhealthmodule.UserDrugUsageHistory;
 import com.project.generalhealthmodule.UserTreatmentHistory;
 import com.project.restservice.ApiClient;
+import com.project.uimodule.main.healthtree.diseaseAdd.DiseaseAddActivity;
+import com.project.uimodule.main.healthtree.treatmentAdd.TreatmentAddActivity;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -44,6 +48,7 @@ public class FragmentHealthTree extends Fragment {
     private TextView diseaseCellCountOfDrugs;
     private TextView diseaseCellCountOfTreatments;
     private MaterialSpinner diseaseSpinner;
+    private Button diseaseCellAddDiseaseButton;
 
     //Treatment cell fields
     private ArrayList<UserTreatmentHistory> userTreatmentHistoryList;
@@ -54,6 +59,7 @@ public class FragmentHealthTree extends Fragment {
     private TextView treatmentCellTreatmentStartDate;
     private TextView treatmentCellTreatmentFinishDate;
     private TextView treatmentCellCountOfDrugs;
+    private Button treatmentCellAddTreatmentButton;
 
     //Drug cell fields
     private ArrayList<UserDrugUsageHistory> userDrugUsageHistoryList;
@@ -75,43 +81,46 @@ public class FragmentHealthTree extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View health_tree_view = inflater.inflate( R.layout.fragment_health_tree, container, false );
+        View healthTreeView = inflater.inflate( R.layout.fragment_health_tree, container, false );
 
         //Disease Cell
-        diseaseSpinner = (MaterialSpinner) health_tree_view.findViewById( R.id.disease_spinner );
-        diseaseCellDiseaseName = (TextView) health_tree_view.findViewById( R.id.disease_cell_disease_name_text );
-        diseaseCellUserDiseaseCount = (TextView) health_tree_view.findViewById( R.id.disease_cell_total_disease_number );
-        diseaseCellDiseaseLevel = (TextView) health_tree_view.findViewById( R.id.disease_cell_level_of_disease_text );
-        diseaseCellDiseaseState = (TextView) health_tree_view.findViewById( R.id.disease_cell_state_of_disease_text );
-        diseaseCellDiseaseStartDate = (TextView) health_tree_view.findViewById( R.id.disease_cell_content_start_date );
-        diseaseCellDiseaseFinishDate = (TextView) health_tree_view.findViewById( R.id.disease_cell_content_finish_date );
-        diseaseCellCountOfDrugs = (TextView) health_tree_view.findViewById( R.id.disease_cell_number_of_drugs );
-        diseaseCellCountOfTreatments = (TextView) health_tree_view.findViewById( R.id.disease_cell_number_of_treatments );
+        diseaseSpinner = (MaterialSpinner) healthTreeView.findViewById( R.id.disease_spinner );
+        diseaseCellDiseaseName = (TextView) healthTreeView.findViewById( R.id.disease_cell_disease_name_text );
+        diseaseCellUserDiseaseCount = (TextView) healthTreeView.findViewById( R.id.disease_cell_total_disease_number );
+        diseaseCellDiseaseLevel = (TextView) healthTreeView.findViewById( R.id.disease_cell_level_of_disease_text );
+        diseaseCellDiseaseState = (TextView) healthTreeView.findViewById( R.id.disease_cell_state_of_disease_text );
+        diseaseCellDiseaseStartDate = (TextView) healthTreeView.findViewById( R.id.disease_cell_content_start_date );
+        diseaseCellDiseaseFinishDate = (TextView) healthTreeView.findViewById( R.id.disease_cell_content_finish_date );
+        diseaseCellCountOfDrugs = (TextView) healthTreeView.findViewById( R.id.disease_cell_number_of_drugs );
+        diseaseCellCountOfTreatments = (TextView) healthTreeView.findViewById( R.id.disease_cell_number_of_treatments );
+        diseaseCellAddDiseaseButton = (Button) healthTreeView.findViewById( R.id.disease_cell_add_disease_button );
+
 
         //Treatment
-        treatmentSpinner = (MaterialSpinner) health_tree_view.findViewById( R.id.treatment_spinner );
-        treatmentCellTreatmentName = (TextView) health_tree_view.findViewById( R.id.treatment_cell_treatment_name_text );
-        treatmentCellUserTreatmentCount = (TextView) health_tree_view.findViewById( R.id.treatment_cell_total_treatment_number );
-        treatmentCellAssociatedDisease = (TextView) health_tree_view.findViewById( R.id.treatment_cell_associated_disease_text );
-        treatmentCellTreatmentStartDate = (TextView) health_tree_view.findViewById( R.id.treatment_cell_treatment_start_date );
-        treatmentCellTreatmentFinishDate = (TextView) health_tree_view.findViewById( R.id.treatment_cell_treatment_finish_date );
-        treatmentCellCountOfDrugs = (TextView) health_tree_view.findViewById( R.id.treatment_cell_number_of_drugs );
+        treatmentSpinner = (MaterialSpinner) healthTreeView.findViewById( R.id.treatment_spinner );
+        treatmentCellTreatmentName = (TextView) healthTreeView.findViewById( R.id.treatment_cell_treatment_name_text );
+        treatmentCellUserTreatmentCount = (TextView) healthTreeView.findViewById( R.id.treatment_cell_total_treatment_number );
+        treatmentCellAssociatedDisease = (TextView) healthTreeView.findViewById( R.id.treatment_cell_associated_disease_text );
+        treatmentCellTreatmentStartDate = (TextView) healthTreeView.findViewById( R.id.treatment_cell_treatment_start_date );
+        treatmentCellTreatmentFinishDate = (TextView) healthTreeView.findViewById( R.id.treatment_cell_treatment_finish_date );
+        treatmentCellCountOfDrugs = (TextView) healthTreeView.findViewById( R.id.treatment_cell_number_of_drugs );
+        treatmentCellAddTreatmentButton = (Button) healthTreeView.findViewById( R.id.treatment_cell_add_treatment_button );
 
         //Drugs
-        drugSpinner = (MaterialSpinner) health_tree_view.findViewById( R.id.drug_spinner );
-        drugCellUseraDrugUsageCount = (TextView) health_tree_view.findViewById( R.id.drug_cell_total_drug_number );
-        drugCellDrugName = (TextView) health_tree_view.findViewById( R.id.drug_cell_drug_name_text );
-        drugCellAssociatedDisease = (TextView) health_tree_view.findViewById( R.id.drug_cell_associated_disease_text );
-        drugCellAssociatedTreatment = (TextView) health_tree_view.findViewById( R.id.drug_cell_associated_treatment_text );
-        drugCellDrugUsageStartDate = (TextView) health_tree_view.findViewById( R.id.drug_cell_drug_usage_start_date );
-        drugCellDrugUsageFinishDate = (TextView) health_tree_view.findViewById( R.id.drug_cell_drug_usage_finish_date );
+        drugSpinner = (MaterialSpinner) healthTreeView.findViewById( R.id.drug_spinner );
+        drugCellUseraDrugUsageCount = (TextView) healthTreeView.findViewById( R.id.drug_cell_total_drug_number );
+        drugCellDrugName = (TextView) healthTreeView.findViewById( R.id.drug_cell_drug_name_text );
+        drugCellAssociatedDisease = (TextView) healthTreeView.findViewById( R.id.drug_cell_associated_disease_text );
+        drugCellAssociatedTreatment = (TextView) healthTreeView.findViewById( R.id.drug_cell_associated_treatment_text );
+        drugCellDrugUsageStartDate = (TextView) healthTreeView.findViewById( R.id.drug_cell_drug_usage_start_date );
+        drugCellDrugUsageFinishDate = (TextView) healthTreeView.findViewById( R.id.drug_cell_drug_usage_finish_date );
 
         try {
 
-            final FoldingCell diseaseFoldingCell = (FoldingCell) health_tree_view.findViewById( R.id.disease_folding_cell );
+            final FoldingCell diseaseFoldingCell = (FoldingCell) healthTreeView.findViewById( R.id.disease_folding_cell );
 
             diseaseFoldingCell.setOnClickListener( new View.OnClickListener() {
                 @Override
@@ -120,7 +129,7 @@ public class FragmentHealthTree extends Fragment {
                 }
             } );
 
-            final FoldingCell treatmentFoldingCell = (FoldingCell) health_tree_view.findViewById( R.id.treatment_folding_cell );
+            final FoldingCell treatmentFoldingCell = (FoldingCell) healthTreeView.findViewById( R.id.treatment_folding_cell );
 
             treatmentFoldingCell.setOnClickListener( new View.OnClickListener() {
                 @Override
@@ -129,7 +138,7 @@ public class FragmentHealthTree extends Fragment {
                 }
             } );
 
-            final FoldingCell drugFoldingCell = (FoldingCell) health_tree_view.findViewById( R.id.drug_folding_cell );
+            final FoldingCell drugFoldingCell = (FoldingCell) healthTreeView.findViewById( R.id.drug_folding_cell );
             drugFoldingCell.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -141,14 +150,29 @@ public class FragmentHealthTree extends Fragment {
             getUserTreatmentHistory( userId );
             getUserDrugUsageHistory( userId );
 
+            diseaseCellAddDiseaseButton.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DiseaseAddActivity.userId = userId;
+                    startActivity( new Intent( getContext(), DiseaseAddActivity.class ) );
+                }
+            } );
+
+            treatmentCellAddTreatmentButton.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TreatmentAddActivity.userId = userId;
+                    startActivity( new Intent( getContext(), TreatmentAddActivity.class ) );
+                }
+            } );
+
         } catch (Exception e) {
             Log.e( "UserHealthTree", e.getMessage() );
             Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
         }
 
-        return health_tree_view;
+        return healthTreeView;
     }
-
 
     private void getUserDiseaseHistory(String userId) {
         try {
@@ -176,14 +200,13 @@ public class FragmentHealthTree extends Fragment {
     private void fillDiseaseCell(final ArrayList<UserDiseaseHistory> userDiseaseHistoryList) {
         final String[] diseaseLevel = getResources().getStringArray( R.array.disease_level_array );
         final String[] diseaseState = getResources().getStringArray( R.array.disease_state_array );
-        diseaseCellUserDiseaseCount.setText( String.valueOf( userDiseaseHistoryList.size() ) );
-        final List<String> userDiseases = new ArrayList<String>();
-        for (int i = 0; i < userDiseaseHistoryList.size(); i++) {
-            userDiseases.add( userDiseaseHistoryList.get( i ).getDisease().getDiseaseName() );
-        }
-        diseaseSpinner.setItems( userDiseases );
-
         if (userDiseaseHistoryList.size() != 0) {
+            diseaseCellUserDiseaseCount.setText( String.valueOf( userDiseaseHistoryList.size() ) );
+            final List<String> userDiseases = new ArrayList<String>();
+            for (int i = 0; i < userDiseaseHistoryList.size(); i++) {
+                userDiseases.add( userDiseaseHistoryList.get( i ).getDisease().getDiseaseName() );
+            }
+            diseaseSpinner.setItems( userDiseases );
             diseaseCellDiseaseName.setText( userDiseaseHistoryList.get( 0 ).getDisease().getDiseaseName() );
             diseaseCellDiseaseLevel.setText( diseaseLevel[userDiseaseHistoryList.get( 0 ).getDiseaseLevelId()] );
             diseaseCellDiseaseState.setText( diseaseState[userDiseaseHistoryList.get( 0 ).getDiseaseStateId()] );
@@ -205,6 +228,14 @@ public class FragmentHealthTree extends Fragment {
 
             diseaseCellCountOfTreatments.setText( String.valueOf( userDiseaseHistoryList.get( 0 ).getCountOfTreatments() ) );
             diseaseCellCountOfDrugs.setText( String.valueOf( userDiseaseHistoryList.get( 0 ).getCountOfDrugs() ) );
+        }else {
+            drugCellDrugName.setText( R.string.drug_cell_welcome );
+            diseaseCellUserDiseaseCount.setText( "0" );
+            diseaseCellDiseaseName.setText( "-" );
+            diseaseCellDiseaseStartDate.setText( "-" );
+            diseaseCellDiseaseFinishDate.setText( "-" );
+            diseaseCellDiseaseLevel.setText( "-" );
+            diseaseCellDiseaseState.setText( "-" );
         }
 
         diseaseSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -260,14 +291,13 @@ public class FragmentHealthTree extends Fragment {
     }
 
     private void fillTreatmentCell(final ArrayList<UserTreatmentHistory> userTreatmentHistoryList) {
-        treatmentCellUserTreatmentCount.setText( String.valueOf( userTreatmentHistoryList.size() ) );
-        final List<String> userTreatments = new ArrayList();
-        for (int i = 0; i < userTreatmentHistoryList.size(); i++) {
-            userTreatments.add( this.userTreatmentHistoryList.get( i ).getTreatment().getTreatmentName() );
-        }
-        treatmentSpinner.setItems( userTreatments );
-
         if (userTreatmentHistoryList.size() != 0) {
+            treatmentCellUserTreatmentCount.setText( String.valueOf( userTreatmentHistoryList.size() ) );
+            final List<String> userTreatments = new ArrayList();
+            for (int i = 0; i < userTreatmentHistoryList.size(); i++) {
+                userTreatments.add( this.userTreatmentHistoryList.get( i ).getTreatment().getTreatmentName() );
+            }
+            treatmentSpinner.setItems( userTreatments );
             treatmentCellTreatmentName.setText( userTreatmentHistoryList.get( 0 ).getTreatment().getTreatmentName() );
             treatmentCellAssociatedDisease.setText( userTreatmentHistoryList.get( 0 ).getDisease().getDiseaseName() );
             Date dateStart = userTreatmentHistoryList.get( 0 ).getTreatmentStartDate();
@@ -285,6 +315,9 @@ public class FragmentHealthTree extends Fragment {
             } else {
                 treatmentCellTreatmentFinishDate.setText( "∞" );
             }
+            treatmentCellCountOfDrugs.setText( String.valueOf( userTreatmentHistoryList.get( 0 ).getCountOfDrugs() ) );
+        } else {
+            treatmentCellUserTreatmentCount.setText( String.valueOf( 0 ) );
         }
 
         treatmentSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -308,6 +341,7 @@ public class FragmentHealthTree extends Fragment {
                 } else {
                     treatmentCellTreatmentFinishDate.setText( "∞" );
                 }
+                treatmentCellCountOfDrugs.setText( String.valueOf( userTreatmentHistoryList.get( position ).getCountOfDrugs() ) );
             }
         } );
     }
@@ -336,7 +370,7 @@ public class FragmentHealthTree extends Fragment {
     }
 
     private void fillDrugCell(final ArrayList<UserDrugUsageHistory> userDrugUsageHistoryList) {
-        if (userDrugUsageHistoryList != null) {
+        if (userDrugUsageHistoryList.size()!= 0) {
             drugCellUseraDrugUsageCount.setText( String.valueOf( userDrugUsageHistoryList.size() ) );
             final List<String> userDrugs = new ArrayList<String>();
             for (int i = 0; i < userDrugUsageHistoryList.size(); i++) {
@@ -389,9 +423,8 @@ public class FragmentHealthTree extends Fragment {
                     }
                 }
             } );
-        }
-        else{
-            drugCellDrugName.setText(R.string.drug_cell_welcome);
+        } else {
+            drugCellDrugName.setText( R.string.drug_cell_welcome );
             drugCellUseraDrugUsageCount.setText( "0" );
             drugCellDrugUsageStartDate.setText( "-" );
             drugCellDrugUsageFinishDate.setText( "-" );
@@ -399,4 +432,5 @@ public class FragmentHealthTree extends Fragment {
             drugCellAssociatedTreatment.setText( "-" );
         }
     }
+
 }

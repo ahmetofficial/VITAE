@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class UserTreatmentHistory {
 
-    @SerializedName("hospitalName")
+    @SerializedName("user_id")
     @Expose
     private String userId;
 
@@ -36,6 +36,10 @@ public class UserTreatmentHistory {
     @SerializedName("treatment_effect_on_disease")
     @Expose
     private int treatmentEffectOnDisease;
+
+    @SerializedName("count_of_drugs")
+    @Expose
+    private int countOfDrugs;
 
     @SerializedName("created_at")
     @Expose
@@ -155,5 +159,9 @@ public class UserTreatmentHistory {
 
     public void setUserTreatmentHistory(ArrayList<UserTreatmentHistory> userTreatmentHistory) {
         this.userTreatmentHistory = userTreatmentHistory;
+    }
+
+    public int getCountOfDrugs() {
+        return countOfDrugs;
     }
 }

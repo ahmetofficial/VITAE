@@ -1,19 +1,22 @@
 // Developer: Ahmet Kaymak
-// Date: 16.04.2017
+// Date: 19.04.2017
 
-package com.project.uimodule.main.seach;
+package com.project.uimodule.seach;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.lavie.users.R;
 import com.project.hospitalmodule.Hospital;
 import com.project.restservice.ApiClient;
-import com.project.uimodule.main.seach.adapter.HospitalSearchAdapter;
+import com.project.uimodule.seach.adapter.HospitalSearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +25,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity extends AppCompatActivity {
+public class FragmentHospitalSearch extends Fragment {
 
-    public static String query;
     private List<Hospital> hospitalSearchList = new ArrayList<>();
     private RecyclerView recyclerView;
     private HospitalSearchAdapter mAdapter;
+    private View fragmentHospitalSearchView;
+    private String query;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_search );
-        listSearchResult(query);
+    public FragmentHospitalSearch() {
     }
 
-    private void listSearchResult(String query) {
+    public FragmentHospitalSearch(String query) {
+        this.query = query;
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate( savedInstanceState );
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        fragmentHospitalSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
+        listSearchResult( query );
+        return fragmentHospitalSearchView;
+    }
+
+    public void listSearchResult(String query) {
         try {
             Hospital h = new Hospital();
             h.setHospitalName( query );
@@ -45,10 +61,10 @@ public class SearchActivity extends AppCompatActivity {
                 public void onResponse(Call<Hospital> call, Response<Hospital> response) {
                     if (response.isSuccessful()) {
                         hospitalSearchList = response.body().getHospitals();
-                        recyclerView = (RecyclerView) findViewById( R.id.hospital_search_recycler_view );
-                        mAdapter = new HospitalSearchAdapter( hospitalSearchList,getBaseContext() );
+                        recyclerView = (RecyclerView) fragmentHospitalSearchView.findViewById( R.id.recycler_view );
+                        mAdapter = new HospitalSearchAdapter( hospitalSearchList, fragmentHospitalSearchView.getContext() );
                         recyclerView.setHasFixedSize( true );
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentHospitalSearchView.getContext() );
                         recyclerView.setLayoutManager( mLayoutManager );
                         recyclerView.setItemAnimator( new DefaultItemAnimator() );
                         recyclerView.setAdapter( mAdapter );
@@ -58,11 +74,11 @@ public class SearchActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Hospital> call, Throwable t) {
-                    Log.e( "UserTimeline", t.getMessage() );
+                    Toast.makeText( getContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
                 }
             } );
         } catch (Exception e) {
-            Log.e( "UserTimeline", e.getMessage() );
+            Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
         }
     }
 }

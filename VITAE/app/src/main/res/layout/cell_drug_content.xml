@@ -95,7 +95,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/health_tree_drug_icon"
                 android:textColor="@color/darkText"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded"/>
 

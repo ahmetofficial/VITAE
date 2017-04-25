@@ -1,11 +1,12 @@
 // Developer: Ahmet Kaymak
 // Date: 25.12.2016
 
-
 package com.project.diseasemodule;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 public class Disease {
 
@@ -59,6 +60,11 @@ public class Disease {
     @SerializedName("organ_id")
     @Expose
     private int organId;
+
+    @SerializedName("disease_list")
+    @Expose
+    private ArrayList<Disease> diseases;
+
 
     public String getDiseaseId() {
         return diseaseId;
@@ -130,5 +136,9 @@ public class Disease {
 
     public void setOrganId(int organId) {
         this.organId = organId;
+    }
+
+    public ArrayList<Disease> getDiseases() {
+        return diseases;
     }
 }

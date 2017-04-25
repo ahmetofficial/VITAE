@@ -21,10 +21,6 @@ public class SignUpActivity extends BaseActivity{
 
     private ViewPager viewPager;
     private IndicatorView mIndicatorView;
-    private String userId;
-    private String userName;
-    private String mail;
-    private String password;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );

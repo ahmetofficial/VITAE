@@ -28,7 +28,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.project.uimodule.ViewPagerAdapter;
 import com.project.uimodule.main.healthtree.FragmentHealthTree;
 import com.project.uimodule.main.profile.FragmentProfile;
-import com.project.uimodule.main.seach.SearchActivity;
+import com.project.uimodule.seach.SearchActivity;
 import com.project.uimodule.main.timeline.FragmentTimeline;
 
 import java.util.ArrayList;
@@ -77,6 +77,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         mSheetLayout.setFab( mFab );
         mSheetLayout.setFabAnimationEndListener( this );
 
+        //Search Bar Fields
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
         setSupportActionBar( toolbar );
         searchView = (MaterialSearchView) findViewById( R.id.search_view );
@@ -180,9 +181,9 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
 
     private void setupTabIcons() {
         int[] tabIcons = {
-                R.drawable.menu_timeline,
-                R.drawable.menu_message,
-                R.drawable.menu_profile
+                R.drawable.icon_timeline_white,
+                R.drawable.icon_dna_white,
+                R.drawable.icon_user_white
         };
 
         tabLayout.getTabAt( 0 ).setIcon( tabIcons[0] );

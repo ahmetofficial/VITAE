@@ -6,6 +6,8 @@ package com.project.treatmentmodule;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Treatment {
 
     @SerializedName("treatment_id")
@@ -31,6 +33,10 @@ public class Treatment {
     @SerializedName("average_succes_rate")
     @Expose
     private double averageSuccesRate;
+
+    @SerializedName("treatment_list")
+    @Expose
+    private ArrayList<Treatment> treatments;
 
     public int getTreatmentId() {
         return treatmentId;
@@ -78,5 +84,9 @@ public class Treatment {
 
     public void setAverageSuccesRate(double averageSuccesRate) {
         this.averageSuccesRate = averageSuccesRate;
+    }
+
+    public ArrayList<Treatment> getTreatments() {
+        return treatments;
     }
 }

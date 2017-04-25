@@ -1,5 +1,18 @@
 <resources>
 
+    <!--Add Something To Health Tree-->
+    <string name="save">Save</string>
+    <string name="disease_succesfull_saved">Disease has succesfully added your health tree.</string>
+    <string name="treatment_succesfull_saved">Treatment has succesfully added your health tree.</string>
+    <string name="drug_succesfull_saved">Drug has succesfully added your health tree.</string>
+    <string name="something_went_wrong">Something went wrong, please try again.</string>
+    <string name="please_select_disease">Please select a disease</string>
+    <string name="please_select_treatment">Please select a treatment</string>
+    <string name="please_select_drug">Please select a drug</string>
+    <string name="disease_start_date">Disease Start Date</string>
+    <string name="treatment_start_date">Treatment Start Date</string>
+    <string name="drug_start_date">Drug Start Date</string>
+
     <!--SigIn-->
     <string name="sign_in">Sign In</string>
     <string name="login_succesfull">User login is succesfull</string>
