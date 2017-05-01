@@ -3,13 +3,27 @@
 
 package com.project.uimodule.userhealthtree;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.lavie.users.R;
 import com.project.generalhealthmodule.UserDiseaseHistory;
+import com.project.restservice.ApiClient;
 import com.project.uimodule.BaseActivity;
+import com.project.uimodule.userhealthtree.adapter.TimelineDiseaseAdapter;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserHealthTreeActivity extends BaseActivity {
 
@@ -17,17 +31,13 @@ public class UserHealthTreeActivity extends BaseActivity {
     private ArrayList<UserDiseaseHistory> userDiseaseHistoryList;
 
     //Timeline Rows List
-    //private ArrayList<TimelineRow> TimelineRowsList = new ArrayList<>();
-    //private ArrayAdapter<TimelineRow> myAdapter;
-
-    public UserHealthTreeActivity() {
-    }
+    private ArrayList<TimelineDiseaseRow> timelineDiseaseRowsList = new ArrayList<>();
+    private ArrayAdapter<TimelineDiseaseRow> myAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_health_tree );
 
-        /*
         try {
             ApiClient.userDiseaseHistoryApi().getUserDiseaseHistory( userId ).enqueue( new Callback<UserDiseaseHistory>() {
                 @Override
@@ -37,9 +47,9 @@ public class UserHealthTreeActivity extends BaseActivity {
                         final String[] diseaseLevel = getResources().getStringArray( R.array.disease_level_array );
                         final String[] diseaseState = getResources().getStringArray( R.array.disease_state_array );
                         for (int i = 0; i < userDiseaseHistoryList.size(); i++) {
-                            TimelineRowsList.add(
-                                    new TimelineRow(
-                                            i
+                            timelineDiseaseRowsList.add(
+                                    new TimelineDiseaseRow(
+                                            userDiseaseHistoryList.get( i ).getDiseaseId()
                                             ,userDiseaseHistoryList.get( i ).getDiseaseStartDate()
                                             ,userDiseaseHistoryList.get( i ).getDisease().getDiseaseName()
                                             ,diseaseState[userDiseaseHistoryList.get( i ).getDiseaseStateId()]
@@ -52,7 +62,7 @@ public class UserHealthTreeActivity extends BaseActivity {
                                     )
                             );
 
-                            fillTimelineWithDisease(TimelineRowsList);
+                            fillTimelineWithDisease( timelineDiseaseRowsList );
                         }
                     }
                 }
@@ -68,14 +78,11 @@ public class UserHealthTreeActivity extends BaseActivity {
             Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
         }
 
-        */
-
     }
 
-    /*
-    private void fillTimelineWithDisease(final ArrayList<TimelineRow> TimelineRowsList) {
+    private void fillTimelineWithDisease(final ArrayList<TimelineDiseaseRow> timelineDiseaseRowsList) {
 
-        myAdapter = new TimelineViewAdapter( this, 0, TimelineRowsList, true );
+        myAdapter = new TimelineDiseaseAdapter( this, 0, timelineDiseaseRowsList, true );
         ListView myListView = (ListView) findViewById( R.id.activity_health_tree_timeline_list_view );
         myListView.setAdapter( myAdapter );
 
@@ -110,10 +117,9 @@ public class UserHealthTreeActivity extends BaseActivity {
         AdapterView.OnItemClickListener adapterListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TimelineRow row = TimelineRowsList.get( position );
+                TimelineDiseaseRow row = timelineDiseaseRowsList.get( position );
             }
         };
         myListView.setOnItemClickListener( adapterListener );
     }
-    */
 }

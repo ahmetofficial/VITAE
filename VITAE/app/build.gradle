@@ -78,4 +78,6 @@ dependencies {
     //Material Dialog
     compile 'com.github.javiersantos:MaterialStyledDialogs:2.1'
 
+    //Expandable View
+    compile 'net.cachapa.expandablelayout:expandablelayout:2.8'
 }
