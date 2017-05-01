@@ -46,7 +46,7 @@
     <string name="lysis_phase">Gerileme</string>
     <string name="recurrence_phase">Tekrarlama</string>
     <string name="healing_phase">İyileşme</string>
-    
+
     <string name="at_beginning">Başlangıç</string>
     <string name="preliminary">Hafif</string>
     <string name="moderate">Orta</string>
@@ -120,5 +120,9 @@
     <!--Hospital Activity-->
     <string name="total_rating_count">Toplam Değerlendirme:</string>
     <string name="overall_score">Ortalama:</string>
+
+    <!--Drawer-->
+    <string name="drawer_open">open drawer</string>
+    <string name="drawer_close">close drawer</string>
 
 </resources>
