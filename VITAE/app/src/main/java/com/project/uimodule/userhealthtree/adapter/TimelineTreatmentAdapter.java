@@ -27,36 +27,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ayalma.ir.expandablerecyclerview.ExpandableRecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDiseaseAdapter.MyViewHolder> {
+public class TimelineTreatmentAdapter extends RecyclerView.Adapter<TimelineTreatmentAdapter.MyViewHolder> {
 
     private Context context;
     private Resources res;
-    private List<TimelineRow> diseaseList;
+    private List<TimelineRow> treatmentList;
     private ArrayList<UserTreatmentHistory> userTreatmentHistoryList;
     private ArrayList<TimelineRow> timelineTreatmentRowsList = new ArrayList<>();
     private String userId;
     private String and;
     private float scale;
 
-    public TimelineDiseaseAdapter(Context context, Resources res, List<TimelineRow> rowDataList, String userId, boolean orderTheList) {
+    public TimelineTreatmentAdapter(Context context, Resources res, List<TimelineRow> rowDataList, String userId, boolean orderTheList) {
         this.context = context;
         this.res = res;
-        diseaseList = rowDataList;
+        treatmentList = rowDataList;
         this.userId=userId;
         and = res.getString( R.string.and );
         scale = context.getResources().getDisplayMetrics().density;
         if (orderTheList)
-            this.diseaseList = rearrangeByDate( (ArrayList<TimelineRow>) rowDataList );
+            this.treatmentList = rearrangeByDate( (ArrayList<TimelineRow>) rowDataList );
         else
-            this.diseaseList = rowDataList;
+            this.treatmentList = rowDataList;
     }
 
-    public class MyViewHolder extends ExpandableRecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView rowDate;
         private TextView rowTitle;
         private TextView rowDescription;
@@ -80,17 +79,17 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
     }
 
     @Override
-    public TimelineDiseaseAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TimelineTreatmentAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from( parent.getContext() )
                 .inflate( R.layout.item_timeline_disease_row, parent, false );
-        return new TimelineDiseaseAdapter.MyViewHolder( itemView );
+        return new TimelineTreatmentAdapter.MyViewHolder( itemView );
     }
 
     @Override
-    public void onBindViewHolder(final TimelineDiseaseAdapter.MyViewHolder holder, final int position) {
-        TimelineRow row = diseaseList.get( position );
+    public void onBindViewHolder(final TimelineTreatmentAdapter.MyViewHolder holder, final int position) {
+        TimelineRow row = treatmentList.get( position );
 
-        if (position == 0 && position == diseaseList.size() - 1) {
+        if (position == 0 && position == treatmentList.size() - 1) {
             holder.rowUpperLine.setVisibility( View.INVISIBLE );
             holder.rowLowerLine.setVisibility( View.INVISIBLE );
         } else if (position == 0) {
@@ -99,18 +98,18 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
             holder.rowUpperLine.setVisibility( View.INVISIBLE );
             holder.rowLowerLine.setBackgroundColor( row.getBellowLineColor() );
             holder.rowLowerLine.getLayoutParams().width = pixels;
-        } else if (position == diseaseList.size() - 1) {
-            int pixels = (int) (diseaseList.get( position - 1 ).getBellowLineSize() * scale + 0.5f);
+        } else if (position == treatmentList.size() - 1) {
+            int pixels = (int) (treatmentList.get( position - 1 ).getBellowLineSize() * scale + 0.5f);
 
             holder.rowLowerLine.setVisibility( View.INVISIBLE );
-            holder.rowUpperLine.setBackgroundColor( diseaseList.get( position - 1 ).getBellowLineColor() );
+            holder.rowUpperLine.setBackgroundColor( treatmentList.get( position - 1 ).getBellowLineColor() );
             holder.rowUpperLine.getLayoutParams().width = pixels;
         } else {
             int pixels = (int) (row.getBellowLineSize() * scale + 0.5f);
-            int pixels2 = (int) (diseaseList.get( position - 1 ).getBellowLineSize() * scale + 0.5f);
+            int pixels2 = (int) (treatmentList.get( position - 1 ).getBellowLineSize() * scale + 0.5f);
 
             holder.rowLowerLine.setBackgroundColor( row.getBellowLineColor() );
-            holder.rowUpperLine.setBackgroundColor( diseaseList.get( position - 1 ).getBellowLineColor() );
+            holder.rowUpperLine.setBackgroundColor( treatmentList.get( position - 1 ).getBellowLineColor() );
             holder.rowLowerLine.getLayoutParams().width = pixels;
             holder.rowUpperLine.getLayoutParams().width = pixels2;
         }
@@ -162,7 +161,7 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
             @Override
             public void onClick(View v) {
                 try {
-                    String diseaseId = diseaseList.get( position ).getId();
+                    String diseaseId = treatmentList.get( position ).getId();
                     getTreatments(diseaseId);
                 } catch (Exception e) {
                     Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
@@ -173,7 +172,7 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
 
     @Override
     public int getItemCount() {
-        return diseaseList.size();
+        return treatmentList.size();
     }
 
     private ArrayList<TimelineRow> rearrangeByDate(ArrayList<TimelineRow> objects) {

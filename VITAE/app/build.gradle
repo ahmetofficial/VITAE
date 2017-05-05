@@ -79,5 +79,5 @@ dependencies {
     compile 'com.github.javiersantos:MaterialStyledDialogs:2.1'
 
     //Expandable View
-    compile 'net.cachapa.expandablelayout:expandablelayout:2.8'
+    compile 'com.github.ayalma:ExpandableRecyclerView:0.2.0'
 }

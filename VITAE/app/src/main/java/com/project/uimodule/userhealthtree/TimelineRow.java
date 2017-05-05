@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import java.util.Date;
 
 
-public class TimelineDiseaseRow {
+public class TimelineRow {
 
     private String id;
     private Date date;
@@ -19,19 +19,19 @@ public class TimelineDiseaseRow {
     private int backgroundColor;
     private int backgroundSize;
     
-    public TimelineDiseaseRow(String id, Date date) {
+    public TimelineRow(String id, Date date) {
         this(id, date, /*title*/null, /*desc*/null);
     }
 
-    public TimelineDiseaseRow(String id, Date date, String title, String description) {
+    public TimelineRow(String id, Date date, String title, String description) {
         this(id, date, title, description,null,0xFFFFFFFF,25,25);
     }
 
-    public TimelineDiseaseRow(String id, Date date, String title, String description, Bitmap image, int bellowLineColor, int bellowLineSize, int imageSize) {
+    public TimelineRow(String id, Date date, String title, String description, Bitmap image, int bellowLineColor, int bellowLineSize, int imageSize) {
         this(id, date, title, description, image, bellowLineColor, bellowLineSize, imageSize, -1, -1);
     }
 
-    public TimelineDiseaseRow(String id, Date date, String title, String description, Bitmap image, int bellowLineColor, int bellowLineSize, int imageSize, int backgroundColor, int backgroundSize) {
+    public TimelineRow(String id, Date date, String title, String description, Bitmap image, int bellowLineColor, int bellowLineSize, int imageSize, int backgroundColor, int backgroundSize) {
         this.id = id;
         this.date = date;
         this.title = title;
