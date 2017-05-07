@@ -79,5 +79,5 @@ dependencies {
     compile 'com.github.javiersantos:MaterialStyledDialogs:2.1'
 
     //Expandable View
-    compile 'com.github.ayalma:ExpandableRecyclerView:0.2.0'
+    compile 'com.github.aakira:expandable-layout:1.6.0@aar'
 }

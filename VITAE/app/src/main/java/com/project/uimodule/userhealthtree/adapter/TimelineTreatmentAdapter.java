@@ -5,54 +5,37 @@ package com.project.uimodule.userhealthtree.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lavie.users.R;
-import com.project.generalhealthmodule.UserTreatmentHistory;
-import com.project.restservice.ApiClient;
 import com.project.uimodule.userhealthtree.TimelineRow;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class TimelineTreatmentAdapter extends RecyclerView.Adapter<TimelineTreatmentAdapter.MyViewHolder> {
 
     private Context context;
     private Resources res;
     private List<TimelineRow> treatmentList;
-    private ArrayList<UserTreatmentHistory> userTreatmentHistoryList;
-    private ArrayList<TimelineRow> timelineTreatmentRowsList = new ArrayList<>();
-    private String userId;
     private String and;
     private float scale;
 
-    public TimelineTreatmentAdapter(Context context, Resources res, List<TimelineRow> rowDataList, String userId, boolean orderTheList) {
+    public TimelineTreatmentAdapter(Context context, Resources res, List<TimelineRow> treatmentList, boolean orderTheList) {
         this.context = context;
         this.res = res;
-        treatmentList = rowDataList;
-        this.userId=userId;
+        this.treatmentList = treatmentList;
         and = res.getString( R.string.and );
         scale = context.getResources().getDisplayMetrics().density;
-        if (orderTheList)
-            this.treatmentList = rearrangeByDate( (ArrayList<TimelineRow>) rowDataList );
-        else
-            this.treatmentList = rowDataList;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -156,18 +139,6 @@ public class TimelineTreatmentAdapter extends RecyclerView.Adapter<TimelineTreat
         }
         ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.rowImage.getLayoutParams();
         marginParams.setMargins( 0, (int) (pixels / 2) * -1, 0, (pixels / 2) * -1 );
-
-        holder.diseaseButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String diseaseId = treatmentList.get( position ).getId();
-                    getTreatments(diseaseId);
-                } catch (Exception e) {
-                    Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
-                }
-            }
-        } );
     }
 
     @Override
@@ -185,37 +156,6 @@ public class TimelineTreatmentAdapter extends RecyclerView.Adapter<TimelineTreat
             }
         }
         return objects;
-    }
-
-    private void getTreatments(String diseaseId){
-        try {
-            ApiClient.userTreatmentHistoryApi().getDiseaseTreatmentHistory( userId ,diseaseId).enqueue( new Callback<UserTreatmentHistory>() {
-                @Override
-                public void onResponse(Call<UserTreatmentHistory> call, Response<UserTreatmentHistory> response) {
-                    if (response.isSuccessful()) {
-                        userTreatmentHistoryList = response.body().getUserTreatmentHistory();
-                        for (int i = 0; i < userTreatmentHistoryList.size(); i++) {
-                            timelineTreatmentRowsList.add( new TimelineRow(
-                                    String.valueOf(userTreatmentHistoryList.get( i ).getTreatmentId())
-                                    ,userTreatmentHistoryList.get( i ).getTreatmentStartDate()
-                                    ,userTreatmentHistoryList.get( i ).getTreatment().getTreatmentName()
-                                    ,null
-                                    , BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_treatment_green)
-                                    , context.getResources().getColor( R.color.treatment_color_light ), 10, 50, -1, 50 ) );
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserTreatmentHistory> call, Throwable t) {
-                    Log.e( "UserHealthTree", t.getMessage() );
-                    Toast.makeText( context, t.getMessage(), Toast.LENGTH_LONG ).show();
-                }
-            } );
-        } catch (Exception e) {
-            Log.e( "UserHealthTree", e.getMessage() );
-            Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
-        }
     }
 }
 

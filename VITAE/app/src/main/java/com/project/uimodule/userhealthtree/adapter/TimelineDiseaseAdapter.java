@@ -5,58 +5,55 @@ package com.project.uimodule.userhealthtree.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.aakira.expandablelayout.ExpandableLayout;
+import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
+import com.github.aakira.expandablelayout.ExpandableLinearLayout;
+import com.github.aakira.expandablelayout.Utils;
 import com.lavie.users.R;
-import com.project.generalhealthmodule.UserTreatmentHistory;
-import com.project.restservice.ApiClient;
 import com.project.uimodule.userhealthtree.TimelineRow;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ayalma.ir.expandablerecyclerview.ExpandableRecyclerView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDiseaseAdapter.MyViewHolder> {
 
     private Context context;
     private Resources res;
     private List<TimelineRow> diseaseList;
-    private ArrayList<UserTreatmentHistory> userTreatmentHistoryList;
-    private ArrayList<TimelineRow> timelineTreatmentRowsList = new ArrayList<>();
-    private String userId;
+    private SparseBooleanArray expandState = new SparseBooleanArray();
     private String and;
     private float scale;
 
-    public TimelineDiseaseAdapter(Context context, Resources res, List<TimelineRow> rowDataList, String userId, boolean orderTheList) {
+    public TimelineDiseaseAdapter(Context context, Resources res, List<TimelineRow> diseaseList, boolean orderTheList) {
         this.context = context;
         this.res = res;
-        diseaseList = rowDataList;
-        this.userId=userId;
+        this.diseaseList = diseaseList;
         and = res.getString( R.string.and );
         scale = context.getResources().getDisplayMetrics().density;
         if (orderTheList)
-            this.diseaseList = rearrangeByDate( (ArrayList<TimelineRow>) rowDataList );
+            this.diseaseList = rearrangeByDate( (ArrayList<TimelineRow>) diseaseList );
         else
-            this.diseaseList = rowDataList;
+            this.diseaseList = diseaseList;
+
+        for (int i = 0; i < diseaseList.size(); i++) {
+            expandState.append( i, false );
+        }
     }
 
-    public class MyViewHolder extends ExpandableRecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView rowDate;
         private TextView rowTitle;
         private TextView rowDescription;
@@ -64,7 +61,8 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
         private View rowUpperLine;
         private View rowLowerLine;
         private View backgroundView;
-        private RelativeLayout diseaseButton;
+        private LinearLayout diseaseButton;
+        private ExpandableLinearLayout expandableLayout;
 
         public MyViewHolder(final View view) {
             super( view );
@@ -75,7 +73,8 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
             rowUpperLine = (View) view.findViewById( R.id.timeline_disease_row_upperLine );
             rowLowerLine = (View) view.findViewById( R.id.timeline_disease_row_lowerLine );
             backgroundView = (View) view.findViewById( R.id.timeline_disease_row_background );
-            diseaseButton = (RelativeLayout) view.findViewById( R.id.timeline_disease_row_disease_info );
+            diseaseButton = (LinearLayout) view.findViewById( R.id.timeline_disease_row_button );
+            expandableLayout = (ExpandableLinearLayout) view.findViewById( R.id.timeline_disease_expandableLayout );
         }
     }
 
@@ -88,7 +87,7 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
 
     @Override
     public void onBindViewHolder(final TimelineDiseaseAdapter.MyViewHolder holder, final int position) {
-        TimelineRow row = diseaseList.get( position );
+        final TimelineRow row = diseaseList.get( position );
 
         if (position == 0 && position == diseaseList.size() - 1) {
             holder.rowUpperLine.setVisibility( View.INVISIBLE );
@@ -114,7 +113,6 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
             holder.rowLowerLine.getLayoutParams().width = pixels;
             holder.rowUpperLine.getLayoutParams().width = pixels2;
         }
-
 
         CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
                 row.getDate().getTime(),
@@ -155,20 +153,37 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
                 background.setColor( row.getBackgroundColor() );
             }
         }
+
         ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.rowImage.getLayoutParams();
         marginParams.setMargins( 0, (int) (pixels / 2) * -1, 0, (pixels / 2) * -1 );
 
-        holder.diseaseButton.setOnClickListener( new View.OnClickListener() {
+        //Expandable View
+        holder.setIsRecyclable( false );
+        holder.expandableLayout.setInRecyclerView( true );
+        holder.expandableLayout.setBackgroundColor( ContextCompat.getColor( context, R.color.white ) );
+        holder.expandableLayout.setInterpolator( Utils.createInterpolator( Utils.LINEAR_OUT_SLOW_IN_INTERPOLATOR ) );
+        holder.expandableLayout.setExpanded( expandState.get( position ) );
+        holder.expandableLayout.initLayout();
+
+        holder.expandableLayout.setListener( new ExpandableLayoutListenerAdapter() {
             @Override
-            public void onClick(View v) {
-                try {
-                    String diseaseId = diseaseList.get( position ).getId();
-                    getTreatments(diseaseId);
-                } catch (Exception e) {
-                    Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
-                }
+            public void onPreOpen() {
+                expandState.put( position, true );
+            }
+
+            @Override
+            public void onPreClose() {
+                expandState.put( position, false );
             }
         } );
+
+        holder.diseaseButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                onClickButton( holder.expandableLayout );
+            }
+        } );
+
     }
 
     @Override
@@ -188,35 +203,8 @@ public class TimelineDiseaseAdapter extends RecyclerView.Adapter<TimelineDisease
         return objects;
     }
 
-    private void getTreatments(String diseaseId){
-        try {
-            ApiClient.userTreatmentHistoryApi().getDiseaseTreatmentHistory( userId ,diseaseId).enqueue( new Callback<UserTreatmentHistory>() {
-                @Override
-                public void onResponse(Call<UserTreatmentHistory> call, Response<UserTreatmentHistory> response) {
-                    if (response.isSuccessful()) {
-                        userTreatmentHistoryList = response.body().getUserTreatmentHistory();
-                        for (int i = 0; i < userTreatmentHistoryList.size(); i++) {
-                            timelineTreatmentRowsList.add( new TimelineRow(
-                                    String.valueOf(userTreatmentHistoryList.get( i ).getTreatmentId())
-                                    ,userTreatmentHistoryList.get( i ).getTreatmentStartDate()
-                                    ,userTreatmentHistoryList.get( i ).getTreatment().getTreatmentName()
-                                    ,null
-                                    , BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_treatment_green)
-                                    , context.getResources().getColor( R.color.treatment_color_light ), 10, 50, -1, 50 ) );
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<UserTreatmentHistory> call, Throwable t) {
-                    Log.e( "UserHealthTree", t.getMessage() );
-                    Toast.makeText( context, t.getMessage(), Toast.LENGTH_LONG ).show();
-                }
-            } );
-        } catch (Exception e) {
-            Log.e( "UserHealthTree", e.getMessage() );
-            Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
-        }
+    private void onClickButton(final ExpandableLayout expandableLayout) {
+        expandableLayout.toggle();
     }
 }
 

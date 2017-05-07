@@ -41,6 +41,8 @@ public class UserHealthTreeActivity extends BaseActivity {
         setContentView( R.layout.activity_health_tree );
 
         diseaseRecyclerView = (RecyclerView) findViewById( R.id.activity_health_tree_timeline_recycler_view );
+        //diseaseRecyclerView.addItemDecoration(new DividerItemDecoration(this));
+
         try {
             ApiClient.userDiseaseHistoryApi().getUserDiseaseHistory( userId ).enqueue( new Callback<UserDiseaseHistory>() {
                 @Override
@@ -60,7 +62,7 @@ public class UserHealthTreeActivity extends BaseActivity {
 
                         }
 
-                        mAdapter = new TimelineDiseaseAdapter( getBaseContext(), getResources(),timelineDiseaseRowsList, userId,true);
+                        mAdapter = new TimelineDiseaseAdapter( getBaseContext(), getResources(),timelineDiseaseRowsList,true);
                         diseaseRecyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getBaseContext());
                         diseaseRecyclerView.setLayoutManager(mLayoutManager);

@@ -1,84 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <RelativeLayout
-        android:id="@+id/timeline_disease_row_disease_tab"
-        android:layout_width="72dp"
-        android:layout_height="match_parent">
-
-        <View
-            android:id="@+id/timeline_disease_row_upperLine"
-            android:layout_width="25dp"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/timeline_disease_row_image"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:background="@android:color/darker_gray"/>
-
-        <View
-            android:id="@+id/timeline_disease_row_lowerLine"
-            android:layout_width="25dp"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/timeline_disease_row_image"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:background="@android:color/darker_gray"/>
-
-        <View
-            android:id="@+id/timeline_disease_row_background"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/circle_shape"/>
-
-        <ImageView
-            android:id="@+id/timeline_disease_row_image"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="-12.5dp"
-            android:layout_marginTop="-12.5dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/timeline_disease_row_disease_info"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/timeline_disease_row_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/timeline_disease_row_date"
+        <RelativeLayout
+            android:id="@+id/timeline_disease_row_disease_tab"
+            android:layout_width="72dp"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/timeline_disease_row_upperLine"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/timeline_disease_row_image"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray"/>
+
+            <View
+                android:id="@+id/timeline_disease_row_lowerLine"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/timeline_disease_row_image"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/darker_gray"/>
+
+            <View
+                android:id="@+id/timeline_disease_row_background"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_shape"/>
+
+            <ImageView
+                android:id="@+id/timeline_disease_row_image"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="-12.5dp"
+                android:layout_marginTop="-12.5dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/timeline_disease_row_disease_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/timeline_disease_row_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:id="@+id/timeline_disease_row_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timeline_disease_row_date"
+                android:layout_centerVertical="true"
+                android:text="Title"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/timeline_disease_row_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timeline_disease_row_title"
+                android:layout_centerVertical="true"
+                android:text="Description"
+                android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableLinearLayout
+        android:id="@+id/timeline_disease_expandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/timeline_disease_row_button"
+        android:orientation="vertical"
+        app:ael_duration="400"
+        app:ael_expanded="false">
 
         <TextView
-            android:id="@+id/timeline_disease_row_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/timeline_disease_row_date"
-            android:layout_centerVertical="true"
-            android:text="Title"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textStyle="bold"/>
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="anaa oldu"
+            android:textColor="@color/darkText"
+            android:textSize="16sp"/>
+    </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 
-        <TextView
-            android:id="@+id/timeline_disease_row_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/timeline_disease_row_title"
-            android:layout_centerVertical="true"
-            android:text="Description"
-            android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"/>
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
