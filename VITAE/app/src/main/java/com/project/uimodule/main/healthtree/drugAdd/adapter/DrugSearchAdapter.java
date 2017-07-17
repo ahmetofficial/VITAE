@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.drugmodule.Drug;
 import com.project.uimodule.main.healthtree.drugAdd.DrugAddActivity;
 import com.project.uimodule.main.healthtree.drugAdd.FragmentDrugAddFour;

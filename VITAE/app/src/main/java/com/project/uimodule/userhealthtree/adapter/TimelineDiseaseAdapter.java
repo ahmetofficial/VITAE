@@ -21,7 +21,7 @@ import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.Utils;
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.uimodule.userhealthtree.TimelineRow;
 
 import java.util.ArrayList;

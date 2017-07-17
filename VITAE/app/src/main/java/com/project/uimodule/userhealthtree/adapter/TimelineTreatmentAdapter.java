@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.uimodule.userhealthtree.TimelineRow;
 
 import java.util.ArrayList;

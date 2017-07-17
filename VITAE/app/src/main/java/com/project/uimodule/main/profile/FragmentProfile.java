@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.postmodule.UserPost;
 import com.project.uimodule.main.timeline.adapter.UserPostAdapter;
 import com.project.restservice.ApiClient;

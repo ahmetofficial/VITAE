@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
 import com.project.uimodule.login.LoginActivity;

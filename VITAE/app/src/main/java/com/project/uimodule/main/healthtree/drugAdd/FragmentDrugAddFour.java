@@ -21,14 +21,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.generalhealthmodule.UserDiseaseHistory;
 import com.project.generalhealthmodule.UserDrugUsageHistory;
 import com.project.generalhealthmodule.UserTreatmentHistory;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
 import com.project.uimodule.main.MenuActivity;
-import com.project.uimodule.main.healthtree.diseaseAdd.FragmentDiseaseAddTwo;
 
 import java.util.Date;
 

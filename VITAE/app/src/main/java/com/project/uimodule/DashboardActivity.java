@@ -2,7 +2,7 @@ package com.project.uimodule;
 
 import android.os.Bundle;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 
 public class DashboardActivity extends BaseActivity {
 

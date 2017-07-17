@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.generalhealthmodule.UserDiseaseHistory;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;

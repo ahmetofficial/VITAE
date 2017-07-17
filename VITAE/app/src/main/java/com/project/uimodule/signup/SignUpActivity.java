@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.uimodule.BaseActivity;
 
 import java.util.ArrayList;

@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-    package="com.lavie.users">
+          package="com.ahmetkaymak.vitae">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <uses-sdk tools:overrideLibrary="org.qap.ctimelineview"/>
 
-    <!-- uygulamaya internet bağlantısı izni verildi -->
+    <!-- Google Play Services permisssions-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <permission
+        android:name="com.ahmetkaymak.vitae.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.ahmetkaymak.vitae.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permissions.READ_GSERVICES"/>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/menu_post"
@@ -21,9 +38,9 @@
             android:name="com.project.uimodule.login.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name="com.project.uimodule.DashboardActivity"/>
@@ -36,7 +53,13 @@
         <activity android:name="com.project.uimodule.main.healthtree.treatmentAdd.TreatmentAddActivity"/>
         <activity android:name="com.project.uimodule.main.healthtree.drugAdd.DrugAddActivity"/>
         <activity android:name="com.project.uimodule.userhealthtree.UserHealthTreeActivity"/>
-        <meta-data android:name="android.app.default_searchable" android:value="com.project.uimodule.main.MenuActivity" />
+
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="com.project.uimodule.main.MenuActivity"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAThILUgY1kIz1LVHWmDa9dGJxGaQ2ATlI"/>
     </application>
 
 </manifest>

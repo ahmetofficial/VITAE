@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.postmodule.UserPost;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;

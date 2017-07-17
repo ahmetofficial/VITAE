@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.generalhealthmodule.UserDiseaseHistory;
 import com.project.generalhealthmodule.UserDrugUsageHistory;
 import com.project.restservice.ApiClient;

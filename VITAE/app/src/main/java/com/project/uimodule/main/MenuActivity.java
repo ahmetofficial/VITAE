@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.fabtransitionactivity.SheetLayout;
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.project.uimodule.ViewPagerAdapter;
 import com.project.uimodule.main.healthtree.FragmentHealthTree;

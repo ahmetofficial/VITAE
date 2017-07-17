@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
 import com.project.restservice.FullTextSearchRequest;
 import com.project.treatmentmodule.Treatment;

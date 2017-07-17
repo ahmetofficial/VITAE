@@ -3,6 +3,7 @@
 
 package com.project.uimodule.hospitalpage;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -17,7 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.project.hospitalmodule.Hospital;
 import com.project.restservice.ApiClient;
 
@@ -26,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HospitalProfileActivity extends AppCompatActivity{
+public class HospitalProfileActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private ImageView profilePicture;
     private Bitmap bitmap;
@@ -34,6 +41,10 @@ public class HospitalProfileActivity extends AppCompatActivity{
     private TextView hospitalTotalCountLabel, hospitalOverallRateLabel;
     private MaterialRatingBar hospitalRatingBar;
     public static int hospitalId;
+
+    static final LatLng HAMBURG = new LatLng(53.558, 9.927);
+
+    private GoogleMap mGoogleMap;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -106,5 +117,30 @@ public class HospitalProfileActivity extends AppCompatActivity{
             Log.e( "UserHealthTree", e.getMessage() );
             Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
         }
+    }
+
+
+    private void initMap() {
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.hospital_location_map_fragment);
+        mapFragment.getMapAsync(this);
+    }
+
+    public boolean googleServicesAvailable() {
+        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+        int isAvailable = api.isGooglePlayServicesAvailable(this);
+        if (isAvailable == ConnectionResult.SUCCESS) {
+            return true;
+        } else if (api.isUserResolvableError(isAvailable)) {
+            Dialog dialog = api.getErrorDialog(this, isAvailable, 0);
+            dialog.show();
+        } else {
+            Toast.makeText(this, "Cant connect to play services", Toast.LENGTH_LONG).show();
+        }
+        return false;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mGoogleMap = googleMap;
     }
 }

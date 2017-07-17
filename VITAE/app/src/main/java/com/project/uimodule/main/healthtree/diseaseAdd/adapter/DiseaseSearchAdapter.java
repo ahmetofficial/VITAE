@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lavie.users.R;
+import com.ahmetkaymak.vitae.R;
 import com.project.diseasemodule.Disease;
 import com.project.uimodule.main.healthtree.diseaseAdd.DiseaseAddActivity;
 import com.project.uimodule.main.healthtree.diseaseAdd.FragmentDiseaseAddTwo;
