@@ -8,16 +8,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:background="@color/hospital_page_background">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="175dp">
 
             <fragment
                 android:id="@+id/hospital_location_map_fragment"
-                android:name="com.google.android.gms.maps.MapFragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

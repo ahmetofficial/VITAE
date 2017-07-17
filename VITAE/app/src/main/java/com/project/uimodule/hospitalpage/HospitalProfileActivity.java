@@ -3,7 +3,7 @@
 
 package com.project.uimodule.hospitalpage;
 
-import android.app.Dialog;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -19,12 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.project.hospitalmodule.Hospital;
 import com.project.restservice.ApiClient;
 
@@ -42,9 +43,7 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
     private MaterialRatingBar hospitalRatingBar;
     public static int hospitalId;
 
-    static final LatLng HAMBURG = new LatLng(53.558, 9.927);
-
-    private GoogleMap mGoogleMap;
+    private GoogleMap mMap;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -80,6 +79,9 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
             Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
         }
         fillHospitalAreas( hospitalId );
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById( R.id.hospital_location_map_fragment );
+        mapFragment.getMapAsync( this );
     }
 
     private void fillHospitalAreas(int hospitalId){
@@ -119,28 +121,25 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
         }
     }
 
-
-    private void initMap() {
-        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.hospital_location_map_fragment);
-        mapFragment.getMapAsync(this);
-    }
-
-    public boolean googleServicesAvailable() {
-        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
-        int isAvailable = api.isGooglePlayServicesAvailable(this);
-        if (isAvailable == ConnectionResult.SUCCESS) {
-            return true;
-        } else if (api.isUserResolvableError(isAvailable)) {
-            Dialog dialog = api.getErrorDialog(this, isAvailable, 0);
-            dialog.show();
-        } else {
-            Toast.makeText(this, "Cant connect to play services", Toast.LENGTH_LONG).show();
-        }
-        return false;
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mGoogleMap = googleMap;
+        mMap = googleMap;
+
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.map_style));
+
+            if (!success) {
+            }
+        } catch (Resources.NotFoundException e) {
+        }
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng( -34, 151 );
+        mMap.addMarker( new MarkerOptions().position( sydney ).title( "Marker in Sydney" ) );
+        mMap.moveCamera( CameraUpdateFactory.newLatLng( sydney ) );
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
 }

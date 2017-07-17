@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">vitae</string>
+    <string name="google_maps_key">AIzaSyA31rWRypoS_VsV0sKC1yD6_EnE71H8vyA</string>
 
     <!--Add Something To Health Tree-->
     <string name="save">Kaydet</string>
@@ -126,5 +127,6 @@
     <string name="drawer_open">open drawer</string>
     <string name="drawer_close">close drawer</string>
     <string name="and">ve</string>
+    <string name="title_activity_hospital_map">Map</string>
 
 </resources>
