@@ -8,8 +8,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@color/hospital_page_background">
+        android:layout_height="wrap_content"
+        android:background="#023e58">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,16 +22,85 @@
                 android:layout_height="match_parent"/>
 
         </LinearLayout>
+
         <!-- Profile picture -->
-        <com.alexzh.circleimageview.CircleImageView
-            android:id="@+id/hospital_activity_profile_image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            app:view_borderColor="#cccccc"
-            app:view_borderWidth="2dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="5dp">
+
+            <com.alexzh.circleimageview.CircleImageView
+                android:id="@+id/hospital_activity_profile_image_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:view_borderColor="@color/colorPrimary"
+                app:view_borderWidth="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="124dp"/>
+
+            <TextView
+                android:id="@+id/hospital_activity_hospital_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hospital_activity_profile_image_view"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textColor="@color/brightText"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:id="@+id/hospital_activity_type_container"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/hospital_activity_hospital_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/signup_roundwhite"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/hospital_activity_hospital_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:textColor="@color/brightText"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/hospital_activity_phone_float_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/hospital_activity_hospital_name"
+                android:layout_alignRight="@+id/hospital_activity_hospital_name"
+                android:layout_alignTop="@+id/hospital_activity_profile_image_view"
+                android:clickable="true"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/icon_phone_white"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/hospital_activity_mail_float_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/hospital_activity_hospital_name"
+                android:layout_alignEnd="@+id/hospital_activity_phone_float_button"
+                android:layout_alignRight="@+id/hospital_activity_phone_float_button"
+                android:clickable="true"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/icon_email_white"/>
+        </RelativeLayout>
 
     </FrameLayout>
 
@@ -40,128 +109,6 @@
         android:layout_height="wrap_content"
         android:background="@color/hospital_page_background"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/hospital_activity_name_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/signup_roundwhite"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:src="@drawable/icon_hospital_turquoiz"/>
-
-            <TextView
-                android:id="@+id/hospital_activity_hospital_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:textSize="15dp"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/hospital_activity_type_container"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signup_roundwhite"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/hospital_activity_hospital_type"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="45dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:textSize="15dp"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/hospital_activity_phone_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signup_roundwhite"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:src="@drawable/icon_phone_turquoiz"/>
-
-            <TextView
-                android:id="@+id/hospital_activity_hospital_phone"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:textSize="15dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/hospital_activity_phone_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signup_roundwhite"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:src="@drawable/icon_mail_turquoiz"/>
-
-            <TextView
-                android:id="@+id/hospital_activity_hospital_mail"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:textSize="15dp"/>
-
-        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/hospital_activity_phone_container"

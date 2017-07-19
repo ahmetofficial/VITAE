@@ -60,6 +60,18 @@ public class Hospital {
     @Expose
     String mail;
 
+    @SerializedName("adress")
+    @Expose
+    String adress;
+
+    @SerializedName("latitude")
+    @Expose
+    String latitude;
+
+    @SerializedName("longitude")
+    @Expose
+    String longitude;
+
     @SerializedName("created_at")
     @Expose
     Date createdAt;
@@ -170,6 +182,30 @@ public class Hospital {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public Date getCreatedAt() {
