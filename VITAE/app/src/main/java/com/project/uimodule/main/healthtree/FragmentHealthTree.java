@@ -6,24 +6,28 @@ package com.project.uimodule.main.healthtree;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.ahmetkaymak.vitae.R;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.project.generalhealthmodule.UserDiseaseHistory;
 import com.project.generalhealthmodule.UserDrugUsageHistory;
 import com.project.generalhealthmodule.UserTreatmentHistory;
 import com.project.restservice.ApiClient;
-import com.project.uimodule.main.healthtree.diseaseAdd.DiseaseAddActivity;
-import com.project.uimodule.main.healthtree.drugAdd.DrugAddActivity;
-import com.project.uimodule.main.healthtree.treatmentAdd.TreatmentAddActivity;
+import com.project.uimodule.main.healthtree.disease.DiseaseAddActivity;
+import com.project.uimodule.main.healthtree.disease.DiseaseDrugFragment;
+import com.project.uimodule.main.healthtree.disease.DiseaseTreatmentFragment;
+import com.project.uimodule.main.healthtree.drug.DrugAddActivity;
+import com.project.uimodule.main.healthtree.treatment.TreatmentAddActivity;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -37,11 +41,15 @@ import retrofit2.Response;
 public class FragmentHealthTree extends Fragment {
 
     private String userId;
+    private DiseaseTreatmentFragment dialogDiseaseTreatmentFragment;
+    private DiseaseDrugFragment dialogDiseaseDrugFragment;
+    private DiseaseTreatmentFragment dialogTreatmentDrugFragment;
 
     //Disease cell fields
     private ArrayList<UserDiseaseHistory> userDiseaseHistoryList;
     private TextView diseaseCellUserDiseaseCount;
     private TextView diseaseCellDiseaseName;
+    private TextView diseaseCellDiseaseId;
     private TextView diseaseCellDiseaseLevel;
     private TextView diseaseCellDiseaseState;
     private TextView diseaseCellDiseaseStartDate;
@@ -50,6 +58,8 @@ public class FragmentHealthTree extends Fragment {
     private TextView diseaseCellCountOfTreatments;
     private MaterialSpinner diseaseSpinner;
     private Button diseaseCellAddDiseaseButton;
+    private ImageView diseaseCellDrugIcon;
+    private ImageView diseaseCellTreatmentIcon;
 
     //Treatment cell fields
     private ArrayList<UserTreatmentHistory> userTreatmentHistoryList;
@@ -60,7 +70,10 @@ public class FragmentHealthTree extends Fragment {
     private TextView treatmentCellTreatmentStartDate;
     private TextView treatmentCellTreatmentFinishDate;
     private TextView treatmentCellCountOfDrugs;
+    private TextView treatmentCellTreatmentId;
+    private TextView treatmentCellDiseaseId;
     private Button treatmentCellAddTreatmentButton;
+    private ImageView treatmentCellDrugIcon;
 
     //Drug cell fields
     private ArrayList<UserDrugUsageHistory> userDrugUsageHistoryList;
@@ -86,11 +99,12 @@ public class FragmentHealthTree extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View healthTreeView = inflater.inflate( R.layout.fragment_health_tree, container, false );
+        final View healthTreeView = inflater.inflate( R.layout.fragment_health_tree, container, false );
 
         //Disease Cell
         diseaseSpinner = (MaterialSpinner) healthTreeView.findViewById( R.id.disease_spinner );
         diseaseCellDiseaseName = (TextView) healthTreeView.findViewById( R.id.disease_cell_disease_name_text );
+        diseaseCellDiseaseId = (TextView) healthTreeView.findViewById( R.id.disease_cell_disease_id );
         diseaseCellUserDiseaseCount = (TextView) healthTreeView.findViewById( R.id.disease_cell_total_disease_number );
         diseaseCellDiseaseLevel = (TextView) healthTreeView.findViewById( R.id.disease_cell_level_of_disease_text );
         diseaseCellDiseaseState = (TextView) healthTreeView.findViewById( R.id.disease_cell_state_of_disease_text );
@@ -99,6 +113,67 @@ public class FragmentHealthTree extends Fragment {
         diseaseCellCountOfDrugs = (TextView) healthTreeView.findViewById( R.id.disease_cell_number_of_drugs );
         diseaseCellCountOfTreatments = (TextView) healthTreeView.findViewById( R.id.disease_cell_number_of_treatments );
         diseaseCellAddDiseaseButton = (Button) healthTreeView.findViewById( R.id.disease_cell_add_disease_button );
+        diseaseCellDrugIcon = (ImageView) healthTreeView.findViewById( R.id.disease_cell_drug_icon );
+        diseaseCellTreatmentIcon = (ImageView) healthTreeView.findViewById( R.id.disease_cell_treatment_icon );
+
+        diseaseCellDrugIcon.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                final FragmentManager fm = getFragmentManager();
+                try {
+                    ApiClient.userDrugUsageHistoryApi().getUserDrugUsageHistory( userId ).enqueue( new Callback<UserDrugUsageHistory>() {
+                        @Override
+                        public void onResponse(Call<UserDrugUsageHistory> call, Response<UserDrugUsageHistory> response) {
+                            if (response.isSuccessful()) {
+                                userDrugUsageHistoryList = response.body().getUserDrugUsageHistory();
+                                ArrayList<UserDrugUsageHistory> diseaseDrugs=new ArrayList<UserDrugUsageHistory>();
+                                for (int i=0; i<userDrugUsageHistoryList.size();i++){
+                                    if(userDrugUsageHistoryList.get( i ).getDiseaseId().equals( diseaseCellDiseaseId.getText().toString() )){
+                                        diseaseDrugs.add(userDrugUsageHistoryList.get( i ));
+                                    }
+                                }
+                                dialogDiseaseDrugFragment= new DiseaseDrugFragment(diseaseDrugs);
+                                dialogDiseaseDrugFragment.show( fm, "Disease Treatments" );
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserDrugUsageHistory> call, Throwable t) {
+                            Log.e( "UserHealthTree", t.getMessage() );
+                            Toast.makeText( getActivity(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                        }
+                    } );
+                } catch (Exception e) {
+                    Log.e( "UserHealthTree", e.getMessage() );
+                    Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                }
+            }
+        } );
+
+        diseaseCellTreatmentIcon.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                final FragmentManager fm = getFragmentManager();
+                try {
+                    ApiClient.userTreatmentHistoryApi().getDiseaseTreatmentHistory( userId, diseaseCellDiseaseId.getText().toString() ).enqueue( new Callback<UserTreatmentHistory>() {
+                        @Override
+                        public void onResponse(Call<UserTreatmentHistory> call, Response<UserTreatmentHistory> response) {
+                            if (response.isSuccessful()) {
+                                dialogDiseaseTreatmentFragment= new DiseaseTreatmentFragment(response.body().getUserTreatmentHistory());
+                                dialogDiseaseTreatmentFragment.show( fm, "Disease Treatments" );
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserTreatmentHistory> call, Throwable t) {
+                            Log.e( "UserHealthTree", t.getMessage() );
+                            Toast.makeText( getActivity(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                        }
+                    } );
+                } catch (Exception e) {
+                    Log.e( "UserHealthTree", e.getMessage() );
+                    Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                }
+            }
+        } );
 
 
         //Treatment
@@ -110,6 +185,36 @@ public class FragmentHealthTree extends Fragment {
         treatmentCellTreatmentFinishDate = (TextView) healthTreeView.findViewById( R.id.treatment_cell_treatment_finish_date );
         treatmentCellCountOfDrugs = (TextView) healthTreeView.findViewById( R.id.treatment_cell_number_of_drugs );
         treatmentCellAddTreatmentButton = (Button) healthTreeView.findViewById( R.id.treatment_cell_add_treatment_button );
+        treatmentCellDrugIcon = (ImageView) healthTreeView.findViewById( R.id.treatment_cell_drug_icon );
+        treatmentCellTreatmentId = (TextView) healthTreeView.findViewById( R.id.treatment_cell_treatment_id );
+        treatmentCellDiseaseId = (TextView) healthTreeView.findViewById( R.id.treatment_cell_disease_id );
+
+        treatmentCellDrugIcon.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                final FragmentManager fm = getFragmentManager();
+                try {
+                    ApiClient.userDrugUsageHistoryApi().getTreatmentDrugUsageHistory( userId, treatmentCellDiseaseId.getText().toString() ,
+                            Integer.valueOf(treatmentCellTreatmentId.getText().toString())).enqueue( new Callback<UserDrugUsageHistory>() {
+                        @Override
+                        public void onResponse(Call<UserDrugUsageHistory> call, Response<UserDrugUsageHistory> response) {
+                            if (response.isSuccessful()) {
+                                dialogDiseaseDrugFragment= new DiseaseDrugFragment(response.body().getUserDrugUsageHistory());
+                                dialogDiseaseDrugFragment.show( fm, "Disease Treatments" );
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserDrugUsageHistory> call, Throwable t) {
+                            Log.e( "UserHealthTree", t.getMessage() );
+                            Toast.makeText( getActivity(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                        }
+                    } );
+                } catch (Exception e) {
+                    Log.e( "UserHealthTree", e.getMessage() );
+                    Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                }
+            }
+        } );
 
         //Drugs
         drugSpinner = (MaterialSpinner) healthTreeView.findViewById( R.id.drug_spinner );
@@ -239,7 +344,7 @@ public class FragmentHealthTree extends Fragment {
 
             diseaseCellCountOfTreatments.setText( String.valueOf( userDiseaseHistoryList.get( 0 ).getCountOfTreatments() ) );
             diseaseCellCountOfDrugs.setText( String.valueOf( userDiseaseHistoryList.get( 0 ).getCountOfDrugs() ) );
-        }else {
+        } else {
             drugCellDrugName.setText( R.string.drug_cell_welcome );
             diseaseCellUserDiseaseCount.setText( "0" );
             diseaseCellDiseaseName.setText( "-" );
@@ -254,6 +359,7 @@ public class FragmentHealthTree extends Fragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 diseaseCellDiseaseName.setText( userDiseaseHistoryList.get( position ).getDisease().getDiseaseName() );
+                diseaseCellDiseaseId.setText( userDiseaseHistoryList.get( position ).getDisease().getDiseaseId() );
                 diseaseCellDiseaseLevel.setText( diseaseLevel[userDiseaseHistoryList.get( position ).getDiseaseLevelId()] );
                 diseaseCellDiseaseState.setText( diseaseState[userDiseaseHistoryList.get( position ).getDiseaseStateId()] );
                 Date dateStart = userDiseaseHistoryList.get( position ).getDiseaseStartDate();
@@ -337,6 +443,8 @@ public class FragmentHealthTree extends Fragment {
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 treatmentCellTreatmentName.setText( userTreatmentHistoryList.get( position ).getTreatment().getTreatmentName() );
                 treatmentCellAssociatedDisease.setText( userTreatmentHistoryList.get( position ).getDisease().getDiseaseName() );
+                treatmentCellTreatmentId.setText( String.valueOf(userTreatmentHistoryList.get( position ).getTreatmentId()));
+                treatmentCellDiseaseId.setText( userTreatmentHistoryList.get( position ).getDiseaseId());
                 Date dateStart = userTreatmentHistoryList.get( position ).getTreatmentStartDate();
                 CharSequence timeAgoStart = DateUtils.getRelativeTimeSpanString(
                         dateStart.getTime(),
@@ -381,7 +489,7 @@ public class FragmentHealthTree extends Fragment {
     }
 
     private void fillDrugCell(final ArrayList<UserDrugUsageHistory> userDrugUsageHistoryList) {
-        if (userDrugUsageHistoryList.size()!= 0) {
+        if (userDrugUsageHistoryList.size() != 0) {
             drugCellUseraDrugUsageCount.setText( String.valueOf( userDrugUsageHistoryList.size() ) );
             final List<String> userDrugs = new ArrayList<String>();
             for (int i = 0; i < userDrugUsageHistoryList.size(); i++) {

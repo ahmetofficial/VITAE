@@ -123,6 +123,24 @@
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded"/>
 
+            <TextView
+                android:id="@+id/treatment_cell_treatment_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/treatment_cell_treatment_name_text"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/treatment_cell_disease_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/treatment_cell_treatment_name_text"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"/>
+
 
         </RelativeLayout>
 
@@ -205,8 +223,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/divider2"
-                android:src="@drawable/icon_drug_yellow"
                 android:clickable="true"
+                android:src="@drawable/icon_drug_yellow"
                 tools:ignore="ContentDescription,RtlHardcoded"/>
 
 

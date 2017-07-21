@@ -27,62 +27,63 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //Google Play Services
-    
-
-    // retrofit, gson dependencies for HTTP rest-api requests
-    
-    // recycleview for post item
-    
-    // indicator for signUp
-    
-    //Search spinner
-    
-    //date selection
-    
-    //circle image view of profile
-    
-    //menu floating point
-    
-    //butter knife for binding from layouts
-    
-    //android process button
-    
-    //Material text field
-    
-    //FoldingView for Health Tree
-    
-    //Search Bar
-    
-    //Rating Library
-    
-    //Material Dialog
-    
-    //Expandable View
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:cardview-v7:23.3.0'
     compile 'com.google.android.gms:play-services:11.0.2'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.google.android.gms:play-services-maps:11.0.2'
+
+    // retrofit, gson dependencies for HTTP rest-api requests
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+
+    // recycleview for post item
     compile 'com.android.support:recyclerview-v7:24.1.1'
+
+    // indicator for signUp
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'com.github.Kshitij-Jain:IndicatorView:1.25'
+    
+    //Search spinner
     compile 'com.jaredrummler:material-spinner:1.1.0'
+
+    //date selection
     compile 'com.github.florent37:singledateandtimepicker:1.0.8'
+
+    //circle image view of profile
     compile 'com.alexzh:circleimageview:1.1.2@aar'
     compile 'com.mikhaellopez:circularimageview:2.0.1'
-    compile 'com.squareup.picasso:picasso:2.3.2'
+
+    //menu floating point
     compile 'com.github.coyarzun89:fabtransitionactivity:0.2.0'
+
+    //butter knife for binding from layouts
     compile 'com.jakewharton:butterknife:8.5.1'
+
+    //android process button
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
-    compile 'com.github.florent37:materialtextfield:1.0.7'
-    compile 'com.ramotion.foldingcell:folding-cell:1.1.0'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    //Material text field
+    compile 'com.github.florent37:materialtextfield:1.0.7'
+
+    //FoldingView for Health Tree
+    compile 'com.ramotion.foldingcell:folding-cell:1.1.0'
+
+    //Search Bar
+    
+    //Rating Library
     compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
+
+    //Material Dialog
     compile 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    
+    //Expandable View
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
-    compile 'com.google.android.gms:play-services-maps:11.0.2'
+    compile 'com.diegodobelo.expandingview:expanding-view:0.9.4'
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

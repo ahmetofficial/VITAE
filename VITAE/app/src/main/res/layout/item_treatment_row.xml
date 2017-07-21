@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp">
+                android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/icon"
@@ -15,17 +13,16 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:src="@drawable/health_tree_cell_menu_icon"/>
+        android:src="@drawable/icon_treatment_white"/>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/icon"
         android:layout_alignTop="@+id/icon"
         android:layout_toEndOf="@+id/icon"
         android:layout_toRightOf="@+id/icon"
-        android:gravity="center"
         android:textColor="@color/brightText"
         android:textSize="15sp"/>
+
 </RelativeLayout>

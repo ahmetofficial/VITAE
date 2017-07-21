@@ -14,9 +14,12 @@ import retrofit2.http.Path;
 
 public interface ApiUserDrugUsageHistory {
 
-    @GET("generalHealthModule/userDrugUsageHistory/getHistory/{hospitalName}")
-    Call<UserDrugUsageHistory> getUserDrugUsageHistory(@Path("hospitalName") String userId);
+    @GET("generalHealthModule/userDrugUsageHistory/getHistory/{user_id}")
+    Call<UserDrugUsageHistory> getUserDrugUsageHistory(@Path("user_id") String userId);
 
     @POST("generalHealthModule/userDrugUsageHistory/create")
     Call<ServerResponse> createUserDrugUsageHistory(@Body UserDrugUsageHistory userDrugUsageHistory);
+
+    @GET("generalHealthModule/userDrugUsageHistory/getTreatmentDrugUsageHistory/{user_id}/{disease_id}/{treatment_id}")
+    Call<UserDrugUsageHistory> getTreatmentDrugUsageHistory(@Path("user_id") String userId, @Path("disease_id") String diseaseId, @Path("treatment_id") int treatmentId);
 }

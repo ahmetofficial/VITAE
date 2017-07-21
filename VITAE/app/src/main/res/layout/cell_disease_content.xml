@@ -146,6 +146,15 @@
                 android:textSize="14sp"
                 tools:ignore="RtlHardcoded"/>
 
+            <TextView
+                android:id="@+id/disease_cell_disease_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/disease_cell_level_of_disease_text"
+                android:layout_toEndOf="@+id/disease_cell_header_right"
+                android:layout_toRightOf="@+id/disease_cell_header_right"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
         <!-- Divider 2 -->

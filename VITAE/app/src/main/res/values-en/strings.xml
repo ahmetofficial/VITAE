@@ -12,6 +12,8 @@
     <string name="disease_start_date">Disease Start Date</string>
     <string name="treatment_start_date">Treatment Start Date</string>
     <string name="drug_start_date">Drug Start Date</string>
+    <string name="treatments">Treatments</string>
+    <string name="drugs">Medicines</string>
 
     <!--SigIn-->
     <string name="sign_in">Sign In</string>

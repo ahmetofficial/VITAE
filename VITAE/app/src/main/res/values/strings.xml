@@ -14,6 +14,8 @@
     <string name="disease_start_date">Hastalık Başlangıç Tarihi</string>
     <string name="treatment_start_date">Tedavi Başlangıç Tarihi</string>
     <string name="drug_start_date">İlaç Başlangıç Tarihi</string>
+    <string name="treatments">Tedaviler</string>
+    <string name="drugs">İlaçlar</string>
 
     <!--SigIn-->
     <string name="sign_in">Giriş Yap</string>

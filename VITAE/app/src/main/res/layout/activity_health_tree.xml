@@ -7,11 +7,9 @@
                 android:paddingRight="@dimen/activity_vertical_margin"
                 tools:context="com.project.uimodule.userhealthtree.UserHealthTreeActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_health_tree_timeline_recycler_view"
+    <com.diegodobelo.expandingview.ExpandingList
+        android:id="@+id/health_tree_expanding_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"/>
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
