@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
-import com.project.uimodule.main.profile.FragmentProfile;
+import com.project.uimodule.patient.PatientActivity;
 import com.project.usermodule.User;
 
 import java.util.ArrayList;
@@ -25,23 +25,26 @@ import java.util.List;
 public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.MyViewHolder> {
     private List<User> users = new ArrayList<>();
     private static Context context;
+    private String visitorUserId;
 
-    public UserSearchAdapter(List<User> users, Context context) {
+    public UserSearchAdapter(List<User> users, Context context, String visitorUserId) {
         this.users = users;
         this.context = context;
+        this.visitorUserId = visitorUserId;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView userName, userId;
+        public TextView userName, userId, similarityPercent;
         public ImageView userPhoto;
         private CardView userCardView;
 
         public MyViewHolder(final View view) {
             super( view );
             userName = (TextView) view.findViewById( R.id.search_item_user_name_text );
-            userId = (TextView) view.findViewById( R.id.search_item_user_id_text);
-            userPhoto = (ImageView) view.findViewById( R.id.search_item_user_profile_picture);
-            userCardView= (CardView) view.findViewById(R.id.user_search_item);
+            userId = (TextView) view.findViewById( R.id.search_item_user_id_text );
+            similarityPercent = (TextView) view.findViewById( R.id.search_item_user_similarity_percent );
+            userPhoto = (ImageView) view.findViewById( R.id.search_item_user_profile_picture );
+            userCardView = (CardView) view.findViewById( R.id.user_search_item );
         }
 
     }
@@ -55,7 +58,7 @@ public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(UserSearchAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final UserSearchAdapter.MyViewHolder holder, final int position) {
         try {
             User user = users.get( position );
             holder.userName.setText( user.getUserName() );
@@ -65,19 +68,20 @@ public class UserSearchAdapter extends RecyclerView.Adapter<UserSearchAdapter.My
             Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
         }
 
-        holder.userCardView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+        holder.userCardView.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 try {
-                    String userId = users.get( position ).getUserId();
-                    FragmentProfile userProfile=new FragmentProfile( String.valueOf(userId) );
-                    Intent intent=new Intent( context, userProfile.getClass());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }catch (Exception e) {
+                    String visitedUserId = holder.userId.getText().toString();
+                    Intent intent = new Intent( context, PatientActivity.class );
+                    intent.putExtra( "visitorId", visitorUserId );
+                    intent.putExtra( "visitedId", visitedUserId );
+                    context.startActivity( intent );
+                } catch (Exception e) {
                     Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
                 }
             }
-        });
+        } );
     }
 
     @Override

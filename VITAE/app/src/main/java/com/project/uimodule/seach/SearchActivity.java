@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity {
 
     public static String query;
+    public static String userId;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private MaterialSearchView searchView;
@@ -141,7 +142,7 @@ public class SearchActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentHospitalSearch = new FragmentHospitalSearch( query );
-        fragmentUserSearch = new FragmentUserSearch( query );
+        fragmentUserSearch = new FragmentUserSearch( query, userId );
         adapter.addFrag( fragmentHospitalSearch, "Hospital Search" );
         adapter.addFrag( fragmentUserSearch, "User Search" );
         viewPager.setAdapter( adapter );

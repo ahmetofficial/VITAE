@@ -48,7 +48,7 @@ public class FragmentTimeline extends Fragment {
 
         final View timelineView = inflater.inflate(R.layout.fragment_timeline, container, false);
         try {
-            ApiClient.postApi().getUserPosts(userId).enqueue(new Callback<UserPost>() {
+            ApiClient.postApi().getUserTimeline(userId).enqueue(new Callback<UserPost>() {
                 @Override
                 public void onResponse(Call<UserPost> call, Response<UserPost> response) {
                     if (response.isSuccessful()) {

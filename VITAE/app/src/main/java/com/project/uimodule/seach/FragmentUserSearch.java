@@ -27,11 +27,16 @@ import retrofit2.Response;
 
 public class FragmentUserSearch extends Fragment {
 
-    public FragmentUserSearch(String query) {
+    public FragmentUserSearch(String query, String visitorUserId) {
         this.query = query;
+        this.visitorUserId = visitorUserId;
+    }
+
+    public FragmentUserSearch() {
     }
 
     private String query;
+    private String visitorUserId;
     private View fragmentUserSearchView;
     private ArrayList<User> userSearchList;
     private UserSearchAdapter mAdapter;
@@ -59,7 +64,7 @@ public class FragmentUserSearch extends Fragment {
                     if (response.isSuccessful()) {
                         userSearchList = response.body().getUsers();
                         recyclerView = (RecyclerView) fragmentUserSearchView.findViewById( R.id.recycler_view );
-                        mAdapter = new UserSearchAdapter( userSearchList,getContext() );
+                        mAdapter = new UserSearchAdapter( userSearchList, getContext(), visitorUserId );
                         recyclerView.setHasFixedSize( true );
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentUserSearchView.getContext() );
                         recyclerView.setLayoutManager( mLayoutManager );

@@ -324,6 +324,7 @@ public class FragmentHealthTree extends Fragment {
             }
             diseaseSpinner.setItems( userDiseases );
             diseaseCellDiseaseName.setText( userDiseaseHistoryList.get( 0 ).getDisease().getDiseaseName() );
+            diseaseCellDiseaseId.setText( userDiseaseHistoryList.get( 0 ).getDisease().getDiseaseId() );
             diseaseCellDiseaseLevel.setText( diseaseLevel[userDiseaseHistoryList.get( 0 ).getDiseaseLevelId()] );
             diseaseCellDiseaseState.setText( diseaseState[userDiseaseHistoryList.get( 0 ).getDiseaseStateId()] );
             Date dateStart = userDiseaseHistoryList.get( 0 ).getDiseaseStartDate();
@@ -417,6 +418,8 @@ public class FragmentHealthTree extends Fragment {
             treatmentSpinner.setItems( userTreatments );
             treatmentCellTreatmentName.setText( userTreatmentHistoryList.get( 0 ).getTreatment().getTreatmentName() );
             treatmentCellAssociatedDisease.setText( userTreatmentHistoryList.get( 0 ).getDisease().getDiseaseName() );
+            treatmentCellTreatmentId.setText( String.valueOf(userTreatmentHistoryList.get( 0 ).getTreatmentId()));
+            treatmentCellDiseaseId.setText( userTreatmentHistoryList.get( 0 ).getDiseaseId());
             Date dateStart = userTreatmentHistoryList.get( 0 ).getTreatmentStartDate();
             CharSequence timeAgoStart = DateUtils.getRelativeTimeSpanString(
                     dateStart.getTime(),

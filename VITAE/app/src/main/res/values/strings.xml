@@ -116,6 +116,10 @@
 
     <!-- Profile-->
     <string name="edit_profile">Profili Düzenle</string>
+    <string name="follow">Takip Et</string>
+    <string name="unfollow">Takibi Bırak</string>
+    <string name="followIsNotSuccesfull">Kullanıcı takibi bırakılamadı. Lütfen daha sonra tekrar deneyiniz</string>
+    <string name="unfollowIsNotSuccesfull">Kullanıcı takip edilemedi. Lütfen daha sonra tekrar deneyiniz</string>
 
     <!--Search Activity-->
     <string name="private_hospital">Özel Hastane</string>

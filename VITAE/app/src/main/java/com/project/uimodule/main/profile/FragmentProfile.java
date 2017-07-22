@@ -45,7 +45,6 @@ public class FragmentProfile extends Fragment {
     private TextView userName;
     private TextView userId;
     private TextView aboutMe;
-    private TextView editProfile;
     private ImageView profile_picture;
     private Bitmap bitmap;
     private String userID;
@@ -64,13 +63,10 @@ public class FragmentProfile extends Fragment {
                              Bundle savedInstanceState) {
 
         profileView = inflater.inflate( R.layout.fragment_profile, container, false );
-
         userName = (TextView) profileView.findViewById( R.id.fragment_profile_txtUserName );
         userId = (TextView) profileView.findViewById( R.id.fragment_profile_txtUserId );
         aboutMe = (TextView) profileView.findViewById( R.id.fragment_profile_txtAboutMe );
-        editProfile = (TextView) profileView.findViewById( R.id.fragment_profile_txtEditProfile );
         profile_picture = (ImageView) profileView.findViewById( R.id.fragment_profile_circle_image );
-        editProfile.setText( getString( R.string.edit_profile ) );
 
         getPatientProfileInformations();
         getUserProfilePost();

@@ -129,6 +129,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             @Override
             public boolean onQueryTextSubmit(String query) {
                 SearchActivity.query=query;
+                SearchActivity.userId=userId;
                 startActivity( new Intent( MenuActivity.this, SearchActivity.class) );
                 return false;
             }

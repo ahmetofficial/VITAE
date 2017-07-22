@@ -112,6 +112,10 @@
 
     <!-- Profile-->
     <string name="edit_profile">Edit Profile</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="followIsNotSuccesfull">User cannot be unfollowed now, please try again later.</string>
+    <string name="unfollowIsNotSuccesfull">User cannot be followed now, please try again later</string>
 
     <!--Search Activity-->
     <string name="private_hospital">Private Hospital</string>

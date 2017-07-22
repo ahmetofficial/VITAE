@@ -49,6 +49,7 @@
         <activity android:name="com.project.uimodule.main.healthtree.treatment.TreatmentAddActivity"/>
         <activity android:name="com.project.uimodule.main.healthtree.drug.DrugAddActivity"/>
         <activity android:name="com.project.uimodule.userhealthtree.UserHealthTreeActivity"/>
+        <activity android:name="com.project.uimodule.patient.PatientActivity"/>
 
         <meta-data
             android:name="android.app.default_searchable"
