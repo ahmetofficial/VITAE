@@ -26,6 +26,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public static String query;
     public static String userId;
+    public static int totalHealthItem;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private MaterialSearchView searchView;
@@ -33,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private FragmentHospitalSearch fragmentHospitalSearch;
     private FragmentUserSearch fragmentUserSearch;
+    private FragmentSimilarPatientSearch fragmentSimilarPatientSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,18 +135,22 @@ public class SearchActivity extends AppCompatActivity {
     private void setupTabIcons() {
         int[] tabIcons = {
                 R.drawable.icon_hospital_white,
-                R.drawable.icon_user_white
+                R.drawable.icon_user_white,
+                R.drawable.icon_similar_user
         };
         tabLayout.getTabAt( 0 ).setIcon( tabIcons[0] );
         tabLayout.getTabAt( 1 ).setIcon( tabIcons[1] );
+        tabLayout.getTabAt( 2 ).setIcon( tabIcons[2] );
     }
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentHospitalSearch = new FragmentHospitalSearch( query );
         fragmentUserSearch = new FragmentUserSearch( query, userId );
+        fragmentSimilarPatientSearch = new FragmentSimilarPatientSearch( query, userId, totalHealthItem );
         adapter.addFrag( fragmentHospitalSearch, "Hospital Search" );
         adapter.addFrag( fragmentUserSearch, "User Search" );
+        adapter.addFrag( fragmentSimilarPatientSearch, "Similar User Search" );
         viewPager.setAdapter( adapter );
     }
 }

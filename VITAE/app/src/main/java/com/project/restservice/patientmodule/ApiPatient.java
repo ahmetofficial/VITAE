@@ -13,5 +13,5 @@ import retrofit2.http.POST;
 public interface ApiPatient {
 
     @POST("userModule/patients/searchSimilarPatient")
-    Call<PatientSimularityResponse> areUsersConnected(@Body PatientSimilarityRequest patientSimilarityRequest);
+    Call<PatientSimularityResponse> searchSimilarUsers(@Body PatientSimilarityRequest patientSimilarityRequest);
 }

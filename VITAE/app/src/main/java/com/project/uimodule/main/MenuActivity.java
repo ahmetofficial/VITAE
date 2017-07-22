@@ -31,8 +31,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.fabtransitionactivity.SheetLayout;
 import com.ahmetkaymak.vitae.R;
+import com.github.fabtransitionactivity.SheetLayout;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.project.uimodule.ViewPagerAdapter;
 import com.project.uimodule.main.healthtree.FragmentHealthTree;
@@ -53,6 +53,10 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private ViewPager viewPager;
     public static String userId;
     private MaterialSearchView searchView;
+
+    private FragmentTimeline fragmentTimeline;
+    private FragmentHealthTree fragmentHealthTree;
+    private FragmentProfile fragmentProfile;
 
     @BindView(R.id.menu_post_sheet)
     SheetLayout mSheetLayout;
@@ -96,28 +100,28 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         mSheetLayout.setFabAnimationEndListener( this );
 
         //Drawer
-        mNavItems.add(new NavigationItem(getString( R.string.my_health_tree ), R.drawable.icon_health_tree));
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mNavItems.add( new NavigationItem( getString( R.string.my_health_tree ), R.drawable.icon_health_tree ) );
+        mDrawerLayout = (DrawerLayout) findViewById( R.id.drawerLayout );
 
         // Populate the Navigation Drawer with options
-        mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
-        mDrawerList = (ListView) findViewById(R.id.navList);
-        DrawerListAdapter adapter = new DrawerListAdapter(this, mNavItems);
-        mDrawerList.setAdapter(adapter);
+        mDrawerPane = (RelativeLayout) findViewById( R.id.drawerPane );
+        mDrawerList = (ListView) findViewById( R.id.navList );
+        DrawerListAdapter adapter = new DrawerListAdapter( this, mNavItems );
+        mDrawerList.setAdapter( adapter );
 
         // Drawer Item click listeners
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mDrawerList.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Birşeyler
             }
-        });
+        } );
 
         //Search Bar Fields
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
         setSupportActionBar( toolbar );
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        getSupportActionBar().setTitle( "" );
 
         searchView = (MaterialSearchView) findViewById( R.id.search_view );
         searchView.setVoiceSearch( false );
@@ -128,9 +132,10 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         searchView.setOnQueryTextListener( new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                SearchActivity.query=query;
-                SearchActivity.userId=userId;
-                startActivity( new Intent( MenuActivity.this, SearchActivity.class) );
+                SearchActivity.query = query;
+                SearchActivity.userId = userId;
+                SearchActivity.totalHealthItem = fragmentHealthTree.getTotalHealthItemCount();
+                startActivity( new Intent( MenuActivity.this, SearchActivity.class ) );
                 return false;
             }
 
@@ -153,29 +158,29 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             }
         } );
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+        mDrawerToggle = new ActionBarDrawerToggle( this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close ) {
             @Override
             public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
+                super.onDrawerOpened( drawerView );
                 invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
+                super.onDrawerClosed( drawerView );
                 invalidateOptionsMenu();
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerListener( mDrawerToggle );
 
 
         // Drawer Item click listeners
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mDrawerList.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItemFromDrawer(position);
+                selectItemFromDrawer( position );
             }
-        });
+        } );
     }
 
     @Override
@@ -257,9 +262,12 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
-        adapter.addFrag( new FragmentTimeline( userId ), "Timeline" );
-        adapter.addFrag( new FragmentHealthTree( userId ), "Health Tree" );
-        adapter.addFrag( new FragmentProfile( userId ), "Profile" );
+        fragmentTimeline = new FragmentTimeline( userId );
+        fragmentHealthTree = new FragmentHealthTree( userId );
+        fragmentProfile = new FragmentProfile( userId );
+        adapter.addFrag( fragmentTimeline, "Timeline" );
+        adapter.addFrag( fragmentHealthTree, "Health Tree" );
+        adapter.addFrag(fragmentProfile , "Profile" );
         viewPager.setAdapter( adapter );
     }
 
@@ -291,7 +299,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
 
         @Override
         public Object getItem(int position) {
-            return mNavItems.get(position);
+            return mNavItems.get( position );
         }
 
         @Override
@@ -304,18 +312,17 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             View view;
 
             if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = inflater.inflate(R.layout.item_drawer, null);
-            }
-            else {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+                view = inflater.inflate( R.layout.item_drawer, null );
+            } else {
                 view = convertView;
             }
 
-            TextView titleView = (TextView) view.findViewById(R.id.title);
-            ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+            TextView titleView = (TextView) view.findViewById( R.id.title );
+            ImageView iconView = (ImageView) view.findViewById( R.id.icon );
 
-            titleView.setText( mNavItems.get(position).mTitle );
-            iconView.setImageResource(mNavItems.get(position).mIcon);
+            titleView.setText( mNavItems.get( position ).mTitle );
+            iconView.setImageResource( mNavItems.get( position ).mIcon );
 
             return view;
         }
@@ -323,24 +330,24 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.onOptionsItemSelected( item )) {
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected( item );
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+        super.onPostCreate( savedInstanceState );
         mDrawerToggle.syncState();
     }
 
     private void selectItemFromDrawer(int position) {
-        if(position==0){
-            UserHealthTreeActivity.userId=userId;
+        if (position == 0) {
+            UserHealthTreeActivity.userId = userId;
             startActivity( new Intent( MenuActivity.this, UserHealthTreeActivity.class ) );
         }
-        mDrawerLayout.closeDrawer(mDrawerPane);
+        mDrawerLayout.closeDrawer( mDrawerPane );
     }
 
 }

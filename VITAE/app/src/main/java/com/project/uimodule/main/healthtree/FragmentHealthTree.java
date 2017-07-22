@@ -125,13 +125,13 @@ public class FragmentHealthTree extends Fragment {
                         public void onResponse(Call<UserDrugUsageHistory> call, Response<UserDrugUsageHistory> response) {
                             if (response.isSuccessful()) {
                                 userDrugUsageHistoryList = response.body().getUserDrugUsageHistory();
-                                ArrayList<UserDrugUsageHistory> diseaseDrugs=new ArrayList<UserDrugUsageHistory>();
-                                for (int i=0; i<userDrugUsageHistoryList.size();i++){
-                                    if(userDrugUsageHistoryList.get( i ).getDiseaseId().equals( diseaseCellDiseaseId.getText().toString() )){
-                                        diseaseDrugs.add(userDrugUsageHistoryList.get( i ));
+                                ArrayList<UserDrugUsageHistory> diseaseDrugs = new ArrayList<UserDrugUsageHistory>();
+                                for (int i = 0; i < userDrugUsageHistoryList.size(); i++) {
+                                    if (userDrugUsageHistoryList.get( i ).getDiseaseId().equals( diseaseCellDiseaseId.getText().toString() )) {
+                                        diseaseDrugs.add( userDrugUsageHistoryList.get( i ) );
                                     }
                                 }
-                                dialogDiseaseDrugFragment= new DiseaseDrugFragment(diseaseDrugs);
+                                dialogDiseaseDrugFragment = new DiseaseDrugFragment( diseaseDrugs );
                                 dialogDiseaseDrugFragment.show( fm, "Disease Treatments" );
                             }
                         }
@@ -157,7 +157,7 @@ public class FragmentHealthTree extends Fragment {
                         @Override
                         public void onResponse(Call<UserTreatmentHistory> call, Response<UserTreatmentHistory> response) {
                             if (response.isSuccessful()) {
-                                dialogDiseaseTreatmentFragment= new DiseaseTreatmentFragment(response.body().getUserTreatmentHistory());
+                                dialogDiseaseTreatmentFragment = new DiseaseTreatmentFragment( response.body().getUserTreatmentHistory() );
                                 dialogDiseaseTreatmentFragment.show( fm, "Disease Treatments" );
                             }
                         }
@@ -193,12 +193,12 @@ public class FragmentHealthTree extends Fragment {
             public void onClick(View v) {
                 final FragmentManager fm = getFragmentManager();
                 try {
-                    ApiClient.userDrugUsageHistoryApi().getTreatmentDrugUsageHistory( userId, treatmentCellDiseaseId.getText().toString() ,
-                            Integer.valueOf(treatmentCellTreatmentId.getText().toString())).enqueue( new Callback<UserDrugUsageHistory>() {
+                    ApiClient.userDrugUsageHistoryApi().getTreatmentDrugUsageHistory( userId, treatmentCellDiseaseId.getText().toString(),
+                            Integer.valueOf( treatmentCellTreatmentId.getText().toString() ) ).enqueue( new Callback<UserDrugUsageHistory>() {
                         @Override
                         public void onResponse(Call<UserDrugUsageHistory> call, Response<UserDrugUsageHistory> response) {
                             if (response.isSuccessful()) {
-                                dialogDiseaseDrugFragment= new DiseaseDrugFragment(response.body().getUserDrugUsageHistory());
+                                dialogDiseaseDrugFragment = new DiseaseDrugFragment( response.body().getUserDrugUsageHistory() );
                                 dialogDiseaseDrugFragment.show( fm, "Disease Treatments" );
                             }
                         }
@@ -418,8 +418,8 @@ public class FragmentHealthTree extends Fragment {
             treatmentSpinner.setItems( userTreatments );
             treatmentCellTreatmentName.setText( userTreatmentHistoryList.get( 0 ).getTreatment().getTreatmentName() );
             treatmentCellAssociatedDisease.setText( userTreatmentHistoryList.get( 0 ).getDisease().getDiseaseName() );
-            treatmentCellTreatmentId.setText( String.valueOf(userTreatmentHistoryList.get( 0 ).getTreatmentId()));
-            treatmentCellDiseaseId.setText( userTreatmentHistoryList.get( 0 ).getDiseaseId());
+            treatmentCellTreatmentId.setText( String.valueOf( userTreatmentHistoryList.get( 0 ).getTreatmentId() ) );
+            treatmentCellDiseaseId.setText( userTreatmentHistoryList.get( 0 ).getDiseaseId() );
             Date dateStart = userTreatmentHistoryList.get( 0 ).getTreatmentStartDate();
             CharSequence timeAgoStart = DateUtils.getRelativeTimeSpanString(
                     dateStart.getTime(),
@@ -446,8 +446,8 @@ public class FragmentHealthTree extends Fragment {
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 treatmentCellTreatmentName.setText( userTreatmentHistoryList.get( position ).getTreatment().getTreatmentName() );
                 treatmentCellAssociatedDisease.setText( userTreatmentHistoryList.get( position ).getDisease().getDiseaseName() );
-                treatmentCellTreatmentId.setText( String.valueOf(userTreatmentHistoryList.get( position ).getTreatmentId()));
-                treatmentCellDiseaseId.setText( userTreatmentHistoryList.get( position ).getDiseaseId());
+                treatmentCellTreatmentId.setText( String.valueOf( userTreatmentHistoryList.get( position ).getTreatmentId() ) );
+                treatmentCellDiseaseId.setText( userTreatmentHistoryList.get( position ).getDiseaseId() );
                 Date dateStart = userTreatmentHistoryList.get( position ).getTreatmentStartDate();
                 CharSequence timeAgoStart = DateUtils.getRelativeTimeSpanString(
                         dateStart.getTime(),
@@ -553,6 +553,12 @@ public class FragmentHealthTree extends Fragment {
             drugCellAssociatedDisease.setText( "-" );
             drugCellAssociatedTreatment.setText( "-" );
         }
+    }
+
+    public int getTotalHealthItemCount() {
+        return Integer.valueOf( diseaseCellUserDiseaseCount.getText().toString() ) +
+                Integer.valueOf( treatmentCellUserTreatmentCount.getText().toString() ) +
+                Integer.valueOf( drugCellUseraDrugUsageCount.getText().toString() );
     }
 
 }
