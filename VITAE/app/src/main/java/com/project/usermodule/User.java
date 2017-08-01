@@ -40,7 +40,7 @@ public class User {
 
     @SerializedName("mail_activation")
     @Expose
-    private boolean mailActivation;
+    private int mailActivation;
 
     @SerializedName("phone_number")
     @Expose
@@ -114,11 +114,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isMailActivation() {
+    public int isMailActivation() {
         return mailActivation;
     }
 
-    public void setMailActivation(boolean mailActivation) {
+    public void setMailActivation(int mailActivation) {
         this.mailActivation = mailActivation;
     }
 

@@ -17,6 +17,7 @@ import com.project.generalhealthmodule.UserDiseaseHistory;
 import com.project.restservice.ApiClient;
 import com.project.uimodule.BaseActivity;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -42,7 +43,9 @@ public class UserHealthTreeActivity extends BaseActivity {
                 @Override
                 public void onResponse(Call<UserDiseaseHistory> call, Response<UserDiseaseHistory> response) {
                     if (response.isSuccessful()) {
-                        for (int i=0;i<response.body().getUserDiseaseHistories().size();i++){
+                        ArrayList<UserDiseaseHistory> diseaseHistory=response.body().getUserDiseaseHistories();
+                        orderDiseases( diseaseHistory );
+                        for (int i=0;i<diseaseHistory.size();i++){
                             addItem(response.body().getUserDiseaseHistories().get( i ).getDisease().getDiseaseName(),
                                     response.body().getUserDiseaseHistories().get( i ).getDiseaseStartDate(),
                                     diseaseStateArray[response.body().getUserDiseaseHistories().get( i ).getDiseaseStateId()],
@@ -92,4 +95,20 @@ public class UserHealthTreeActivity extends BaseActivity {
         ((TextView) view.findViewById( R.id.sub_title )).setText( subTitle );
     }
 
+    public void orderDiseases(ArrayList<UserDiseaseHistory> diseaseHistory)
+    {
+        UserDiseaseHistory temp;   // Yer değiştirmede kullanılacak geçici değişken
+        for (int i=1; i<diseaseHistory.size(); i++)
+        {
+            for(int j=0; j<diseaseHistory.size()-i; j++)
+            {
+                if (diseaseHistory.get(j).getDiseaseStartDate().getTime() > diseaseHistory.get(j+1).getDiseaseStartDate().getTime())
+                {
+                    temp = diseaseHistory.get(j);
+                    diseaseHistory.set(j,diseaseHistory.get(j+1));
+                    diseaseHistory.set(j+1,temp);
+                }//Önce gelen elaman bir sonrakinden büyükse ikisi yer değiştiriyor
+            }// Dizinin ardışık elamanlarını karşılaştırmak için kullandığımız döngü
+        }// Her karşılaştırmadan sonra yeniden kaldığımız yerden devam etmemizi sağlayan döngü
+    }
 }

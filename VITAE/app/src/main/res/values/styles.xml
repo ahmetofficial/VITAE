@@ -10,38 +10,49 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="HealthTreeHeaderText" parent="AppTheme">
         <item name="android:textColor">@color/darkText</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="HealthTreeText" parent="AppTheme">
         <item name="android:textColor">@color/secondaryDarkText</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="NumberOfCellItem" parent="AppTheme">
         <item name="android:textColor">@color/secondaryDarkText</item>
-        <item name="android:textSize">80dp</item>
+        <item name="android:textSize">80sp</item>
     </style>
 
     <style name="ContentImageBadgeText" parent="AppTheme">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="ContentMainBadgeTitle" parent="AppTheme">
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="ContentImageBadgeTitle" parent="AppTheme">
         <item name="android:alpha">0.5</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="FragmentDialogUpperText" parent="AppTheme">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="FragmentDialogLowerText" parent="AppTheme">
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

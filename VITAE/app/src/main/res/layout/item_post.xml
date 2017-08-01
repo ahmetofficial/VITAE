@@ -20,14 +20,14 @@
             android:paddingLeft="@dimen/feed_item_padding_left_right"
             android:paddingRight="@dimen/feed_item_padding_left_right">
 
-            <ImageView
+            <com.alexzh.circleimageview.CircleImageView
                 android:id="@+id/postProfilePicture"
                 android:layout_width="@dimen/feed_item_profile_pic"
                 android:layout_height="@dimen/feed_item_profile_pic"
                 android:contentDescription=""
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription">
-            </ImageView>
+            </com.alexzh.circleimageview.CircleImageView>
 
             <LinearLayout
                 android:layout_width="fill_parent"

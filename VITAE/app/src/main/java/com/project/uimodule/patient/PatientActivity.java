@@ -84,14 +84,13 @@ public class PatientActivity extends AppCompatActivity {
 
     private void getPatientProfileInformations(String visitedUserId) {
         try {
-            ApiClient.userApi().getPatientProfileInformation( visitedUserId ).enqueue( new Callback<Patient>() {
+            ApiClient.patientApi().getPatientProfileInformation( visitedUserId ).enqueue( new Callback<Patient>() {
                 @Override
                 public void onResponse(Call<Patient> call, Response<Patient> response) {
                     if (response.isSuccessful()) {
                         userName.setText( response.body().getUserName() );
                         userId.setText( response.body().getUserId() );
                         aboutMe.setText( response.body().getAboutMe() );
-
                         bitmap = BitmapFactory.decodeResource( getResources(), R.drawable.my_picture );
                         Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
                         BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );

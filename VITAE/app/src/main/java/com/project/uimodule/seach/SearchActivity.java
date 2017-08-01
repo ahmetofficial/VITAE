@@ -51,6 +51,7 @@ public class SearchActivity extends AppCompatActivity {
             //Search Bar Fields
             Toolbar toolbar = (Toolbar) findViewById( R.id.search_activity_toolbar );
             setSupportActionBar( toolbar );
+            getSupportActionBar().setTitle( " " );
             searchView = (MaterialSearchView) findViewById( R.id.search_activity_search_view );
             searchView.setVoiceSearch( false );
             searchView.setCursorDrawable( R.drawable.custom_cursor );

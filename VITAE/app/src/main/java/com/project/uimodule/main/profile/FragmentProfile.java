@@ -76,7 +76,7 @@ public class FragmentProfile extends Fragment {
 
     private void getPatientProfileInformations() {
         try {
-            ApiClient.userApi().getPatientProfileInformation(userID).enqueue( new Callback<Patient>() {
+            ApiClient.patientApi().getPatientProfileInformation(userID).enqueue( new Callback<Patient>() {
                 @Override
                 public void onResponse(Call<Patient> call, Response<Patient> response) {
                     if (response.isSuccessful()) {

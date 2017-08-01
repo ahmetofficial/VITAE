@@ -5,6 +5,7 @@ package com.project.uimodule.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
@@ -38,6 +39,7 @@ import com.project.uimodule.ViewPagerAdapter;
 import com.project.uimodule.main.healthtree.FragmentHealthTree;
 import com.project.uimodule.main.profile.FragmentProfile;
 import com.project.uimodule.main.timeline.FragmentTimeline;
+import com.project.uimodule.patient.PatientSettingsActivity;
 import com.project.uimodule.seach.SearchActivity;
 import com.project.uimodule.userhealthtree.UserHealthTreeActivity;
 
@@ -101,6 +103,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
 
         //Drawer
         mNavItems.add( new NavigationItem( getString( R.string.my_health_tree ), R.drawable.icon_health_tree ) );
+        mNavItems.add( new NavigationItem( getString( R.string.settings ), R.drawable.icon_settings_white ) );
+        mNavItems.add( new NavigationItem( getString( R.string.log_out ), R.drawable.ic_logout_white_24dp) );
         mDrawerLayout = (DrawerLayout) findViewById( R.id.drawerLayout );
 
         // Populate the Navigation Drawer with options
@@ -346,6 +350,17 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         if (position == 0) {
             UserHealthTreeActivity.userId = userId;
             startActivity( new Intent( MenuActivity.this, UserHealthTreeActivity.class ) );
+        }else if (position == 1) {
+            Intent intent = new Intent( getBaseContext(), PatientSettingsActivity.class );
+            intent.putExtra( "userId", userId );
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getBaseContext().startActivity( intent );
+        } else if (position == 2) {
+            SharedPreferences preferences =getSharedPreferences("VitaeUserSession",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            finish();
         }
         mDrawerLayout.closeDrawer( mDrawerPane );
     }

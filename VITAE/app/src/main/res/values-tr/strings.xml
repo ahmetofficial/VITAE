@@ -116,6 +116,24 @@
     <string name="unfollow">Takibi Bırak</string>
     <string name="followIsNotSuccesfull">Kullanıcı takibi bırakılamadı. Lütfen daha sonra tekrar deneyiniz</string>
     <string name="unfollowIsNotSuccesfull">Kullanıcı takip edilemedi. Lütfen daha sonra tekrar deneyiniz</string>
+    <string name="profile_picture">profil resmi</string>
+    <string name="photo_upload_succesfull">Fotoğraf başarıyla yüklendi</string>
+    <string name="photo_download_unsuccesfull">Fotoğraf başaroyla indirildi</string>
+    <string name="profile_photo_upload_succesfull">Profil resminiz başarıyla yüklendi</string>
+    <string name="profile_photo_upload_unsuccesfull">Profil resminiz değiştirilemedi</string>
+    <string name="content_uploading">İçerik yükleniyor</string>
+    <string name="content_downloading">İndiriliyor</string>
+    <string name="upload">Yükleme</string>
+    <string name="download">İndirme</string>
+    <string name="old_pasword">Eski Şifre</string>
+    <string name="new_pasword">Yeni Şifre</string>
+    <string name="new_pasword_again">Yeni Şifre(Tekrar)</string>
+    <string name="password_change_succesfull">Şifreniz başarıyla değiştirildi</string>
+    <string name="password_change_unsuccesfull">Şifreniz değiştirilemedi! Lütfen tekrar deneyin</string>
+    <string name="enter_old_password_correctly">Lütfen eski şifrenizi doğru girin</string>
+    <string name="new_passwords_arent_same">Yeni şifreler aynı değil, lütfen kontrol edin</string>
+    <string name="new_password_cannot_null">Yeni şifre boş bırakılamaz</string>
+    <string name="new_password_same_with_old">Yeni şifre eski şifrenizin aynısı, lütfen değiştirin</string>
 
     <!--Search Activity-->
     <string name="private_hospital">Özel Hastane</string>
@@ -124,5 +142,13 @@
     <!--Hospital Activity-->
     <string name="total_rating_count">Toplam Değerlendirme:</string>
     <string name="overall_score">Ortalama:</string>
+
+    <!--Drawer-->
+    <string name="drawer_open">open drawer</string>
+    <string name="drawer_close">close drawer</string>
+    <string name="and">ve</string>
+    <string name="title_activity_hospital_map">Map</string>
+    <string name="settings">Ayarlar</string>
+    <string name="log_out">Hesaptan Çık</string>
 
 </resources>
