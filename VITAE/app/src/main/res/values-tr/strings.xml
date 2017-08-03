@@ -125,6 +125,8 @@
     <string name="content_downloading">İndiriliyor</string>
     <string name="upload">Yükleme</string>
     <string name="download">İndirme</string>
+
+    <!--Profile Settings-->
     <string name="old_pasword">Eski Şifre</string>
     <string name="new_pasword">Yeni Şifre</string>
     <string name="new_pasword_again">Yeni Şifre(Tekrar)</string>
@@ -134,6 +136,24 @@
     <string name="new_passwords_arent_same">Yeni şifreler aynı değil, lütfen kontrol edin</string>
     <string name="new_password_cannot_null">Yeni şifre boş bırakılamaz</string>
     <string name="new_password_same_with_old">Yeni şifre eski şifrenizin aynısı, lütfen değiştirin</string>
+    <string name="change_user_name">Kullanıcı Adı</string>
+    <string name="change_user_id">Kullanıcı Id</string>
+    <string name="change_mail">Mail</string>
+    <string name="change_about_me">Hakkında</string>
+    <string name="change">Değiştir</string>
+    <string name="user_name_cannot_be_null">Lütfen kullanıcı adı olarak birşey girin.</string>
+    <string name="user_id_cannot_be_null">Lütfen kullanıcı id olarak birşey girin.</string>
+    <string name="user_id_exist">Girilen kullanıcı adı alınmış. Lütfen başka birşey deneyin.</string>
+    <string name="mail_exist">Girilen mail başka bir kullanıcı tarafından kullnılıyor. Lütfen başka bir mail adresi deneyin.</string>
+    <string name="mail_cannot_be_null">Lütfen mail olarak birşey girin.</string>
+    <string name="user_name_change_succesfull">Kullanıcı adı başarıyla değiştirildi</string>
+    <string name="user_name_change_unsuccesfull">Kullanıcı adı değiştirilemedi! Lütfen tekrar deneyin</string>
+    <string name="mail_change_succesfull">Mailiniz başarıyla değiştirildi</string>
+    <string name="mail_change_unsuccesfull">Mailiniz değiştirilemedi! Lütfen tekrar deneyin</string>
+    <string name="user_id_change_succesfull">Kullanıcı id başarıyla değiştirildi</string>
+    <string name="user_id_change_unsuccesfull">Kullanıcı id değiştirilemedi! Lütfen tekrar deneyin</string>
+    <string name="about_me_change_succesfull">Hakkında kısmı başarıyla değiştirildi</string>
+    <string name="about_me_change_unsuccesfull">Hakkında kısmı değiştirilemedi! Lütfen tekrar deneyin</string>
 
     <!--Search Activity-->
     <string name="private_hospital">Özel Hastane</string>

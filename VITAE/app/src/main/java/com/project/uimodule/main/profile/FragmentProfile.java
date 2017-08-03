@@ -9,6 +9,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -62,10 +63,15 @@ public class FragmentProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Typeface typeLight = Typeface.createFromAsset( getActivity().getAssets(), "fonts/Roboto-Light.ttf" );
+
         profileView = inflater.inflate( R.layout.fragment_profile, container, false );
         userName = (TextView) profileView.findViewById( R.id.fragment_profile_txtUserName );
+        userName.setTypeface( typeLight );
         userId = (TextView) profileView.findViewById( R.id.fragment_profile_txtUserId );
+        userId.setTypeface( typeLight );
         aboutMe = (TextView) profileView.findViewById( R.id.fragment_profile_txtAboutMe );
+        aboutMe.setTypeface( typeLight );
         profile_picture = (ImageView) profileView.findViewById( R.id.fragment_profile_circle_image );
 
         getPatientProfileInformations();

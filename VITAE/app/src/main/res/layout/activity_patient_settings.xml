@@ -112,7 +112,7 @@
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:textColor="#fff"
+                android:textColor="@color/brightText"
                 android:textColorHint="#fff"
                 android:textSize="14sp"/>
         </LinearLayout>

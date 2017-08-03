@@ -19,6 +19,7 @@ import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
 import com.project.usermodule.User;
+import com.project.utilitiesmodule.ProgressBarAction;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +58,7 @@ public class ChangePasswordFragment extends DialogFragment {
                 if (oldPassword.getText().toString().trim().equals( oldPass )
                         && newPassword.getText().toString().trim().equals( newPasswordAgain.getText().toString().trim() )
                         && !newPassword.getText().toString().trim().equals( "" )) {
-                    rootView.findViewById( R.id.change_password_progress_bar ).setVisibility( View.VISIBLE );
+                    new ProgressBarAction(progressBar).execute(10);
                     try {
                         user = new User();
                         user.setPassword( newPasswordAgain.getText().toString().trim() );
@@ -86,7 +87,6 @@ public class ChangePasswordFragment extends DialogFragment {
                     } catch (Exception e) {
                         Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
                     }
-                    rootView.findViewById( R.id.change_password_progress_bar ).setVisibility( View.GONE );
                 } else if (!oldPassword.getText().toString().trim().equals( oldPass )) {
                     Toast.makeText( getActivity(), getString( R.string.enter_old_password_correctly ), Toast.LENGTH_LONG ).show();
                     oldPassword.setText( "" );

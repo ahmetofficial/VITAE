@@ -29,7 +29,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +37,16 @@ import com.alexzh.circleimageview.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.project.photomodule.Photo;
 import com.project.restservice.ApiClient;
+import com.project.uimodule.user.ChangeAboutMeFragment;
+import com.project.uimodule.user.ChangeMailFragment;
 import com.project.uimodule.user.ChangePasswordFragment;
+import com.project.uimodule.user.ChangeUserNameFragment;
 import com.project.usermodule.User;
 import com.project.utilitiesmodule.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -51,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PatientSettingsActivity extends AppCompatActivity {
+public class PatientSettingsActivity extends AppCompatActivity{
 
     private int PICK_IMAGE_REQUEST = 1;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
@@ -69,9 +72,11 @@ public class PatientSettingsActivity extends AppCompatActivity {
     private TextView aboutMe;
     private TextView password;
     private TextView mail;
-    private LinearLayout linearLayoutPassword;
 
     private ChangePasswordFragment changePasswordFragment;
+    private ChangeUserNameFragment changeUserNameFragment;
+    private ChangeAboutMeFragment changeAboutMeFragment;
+    private ChangeMailFragment changeMailFragment;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -86,18 +91,49 @@ public class PatientSettingsActivity extends AppCompatActivity {
         mail = (TextView) findViewById( R.id.activity_patient_settings_mail );
         profilePicture = (CircleImageView) findViewById( R.id.activity_patient_settings_profile_picture );
 
-        linearLayoutPassword  = (LinearLayout) findViewById( R.id.linear_layout_password );
-        linearLayoutPassword.setOnClickListener( new View.OnClickListener() {
+        password.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
-                if(!password.getText().toString().equals("")) {
+                if (!password.getText().toString().equals( "" )) {
                     FragmentManager fm = getSupportFragmentManager();
                     changePasswordFragment = new ChangePasswordFragment( userId, password.getText().toString() );
-                    changePasswordFragment.show( fm, "Disease Treatments" );
+                    changePasswordFragment.show( fm, "Change Password" );
                 }
 
             }
         } );
 
+        userName.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!userName.getText().toString().equals( "" )) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    changeUserNameFragment = new ChangeUserNameFragment( userId, userName.getText().toString() );
+                    changeUserNameFragment.show( fm, "Change User Name" );
+                }
+
+            }
+        } );
+
+        aboutMe.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!userName.getText().toString().equals( "" )) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    changeAboutMeFragment = new ChangeAboutMeFragment( userId, aboutMe.getText().toString() );
+                    changeAboutMeFragment.show( fm, "Change About Me" );
+                }
+
+            }
+        } );
+
+        mail.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                if (!userName.getText().toString().equals( "" )) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    changeMailFragment = new ChangeMailFragment( userId, mail.getText().toString() );
+                    changeMailFragment.show( fm, "Change Mail" );
+                }
+
+            }
+        } );
 
         Typeface typeLight = Typeface.createFromAsset( getAssets(), "fonts/Roboto-Light.ttf" );
         userName.setTypeface( typeLight );
@@ -232,12 +268,14 @@ public class PatientSettingsActivity extends AppCompatActivity {
                         aboutMe.setText( response.body().getAboutMe() );
                         mail.setText( response.body().getMail() );
                         String photoId = response.body().getProfilePictureId();
-                        String picturePath = "178.62.223.153:3000/images/"+photoId.charAt(0)+"/"
-                                +photoId.charAt(1)+"/"+photoId.charAt(2)+"/"+photoId.charAt(3)+"/"+photoId.charAt(4)+"/"
-                                +photoId.charAt(5)+"/"+photoId.charAt(6)+"/"+photoId.charAt(7)+"/" +photoId.charAt(9)+"/"
-                                +photoId.charAt(10)+"/"+photoId.charAt(11)+"/"+photoId.charAt(12)+"/"+photoId+".jpg";
+                        String picturePath = "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
+                                + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
+                                + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
+                                + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
 
-                        Glide.with( getBaseContext() ).load( picturePath ).into(profilePicture);
+                        Glide.with( getBaseContext() )
+                                .load( picturePath )
+                                .into( profilePicture );
 
                     }
                 }
@@ -313,6 +351,10 @@ public class PatientSettingsActivity extends AppCompatActivity {
             c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
             profilePicture.setImageBitmap( circleBitmap );
         }
+    }
+
+    public void changeUserName(String userName){
+        this.userName.setText( userName );
     }
 
 }

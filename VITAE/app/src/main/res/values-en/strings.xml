@@ -125,6 +125,8 @@
     <string name="content_downloading">Content downloading</string>
     <string name="upload">Upload</string>
     <string name="download">Download</string>
+
+    <!--Profile Settings-->
     <string name="old_pasword">Old Password</string>
     <string name="new_pasword">New Password</string>
     <string name="new_pasword_again">New Password(Again)</string>
@@ -134,7 +136,24 @@
     <string name="new_passwords_arent_same">New passwords aren\'t same, please check it</string>
     <string name="new_password_cannot_null">New password cannot be null</string>
     <string name="new_password_same_with_old">New password is same with old password, please change it</string>
-
+    <string name="change_user_name">User Name</string>
+    <string name="change_user_id">User Id</string>
+    <string name="change_mail">Mail</string>
+    <string name="change_about_me">About Me</string>
+    <string name="change">Change</string>
+    <string name="user_name_cannot_be_null">Please enter something as user name.</string>
+    <string name="user_id_cannot_be_null">Please enter something as user id.</string>
+    <string name="user_id_exist">User id exists, please try another one.</string>
+    <string name="mail_exist">The mail is used by another user, please enter another mail adress</string>
+    <string name="mail_cannot_be_null">Please enter something as user id</string>
+    <string name="user_name_change_succesfull">User name changed succesfully</string>
+    <string name="user_name_change_unsuccesfull">User name cannot be changed! Please try again later</string>
+    <string name="mail_change_succesfull">Mail changed succesfully</string>
+    <string name="mail_change_unsuccesfull">Mail cannot be changed! Please try again later</string>
+    <string name="user_id_change_succesfull">User id changed succesfully</string>
+    <string name="user_id_change_unsuccesfull">User id cannot be changed! Please try again later</string>
+    <string name="about_me_change_succesfull">About me section changed succesfully</string>
+    <string name="about_me_change_unsuccesfull">About me section cannot be changed! Please try again later</string>
 
     <!--Search Activity-->
     <string name="private_hospital">Private Hospital</string>
