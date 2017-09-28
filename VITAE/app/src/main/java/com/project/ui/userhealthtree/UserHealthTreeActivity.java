@@ -1,0 +1,114 @@
+// Developer: Ahmet Kaymak
+// Date: 30.04.2016
+
+package com.project.ui.userhealthtree;
+
+import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.ahmetkaymak.vitae.R;
+import com.diegodobelo.expandingview.ExpandingItem;
+import com.diegodobelo.expandingview.ExpandingList;
+import com.project.core.generalhealthmodule.UserDiseaseHistory;
+import com.project.restservice.ApiClient;
+import com.project.ui.BaseActivity;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class UserHealthTreeActivity extends BaseActivity {
+
+    public static String userId;
+    private ExpandingList mExpandingList;
+    private String diseaseStateArray[];
+    private String diseaseLevelArray[];
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_health_tree );
+        mExpandingList = (ExpandingList) findViewById( R.id.health_tree_expanding_list );
+        diseaseStateArray=getResources().getStringArray(R.array.disease_state_array);
+        diseaseLevelArray=getResources().getStringArray(R.array.disease_level_array);
+
+        try {
+            ApiClient.userDiseaseHistoryApi().getUserDiseaseHistory( userId ).enqueue( new Callback<UserDiseaseHistory>() {
+                @Override
+                public void onResponse(Call<UserDiseaseHistory> call, Response<UserDiseaseHistory> response) {
+                    if (response.isSuccessful()) {
+                        ArrayList<UserDiseaseHistory> diseaseHistory=response.body().getUserDiseaseHistories();
+                        orderDiseases( diseaseHistory );
+                        for (int i=0;i<diseaseHistory.size();i++){
+                            addItem(response.body().getUserDiseaseHistories().get( i ).getDisease().getDiseaseName(),
+                                    response.body().getUserDiseaseHistories().get( i ).getDiseaseStartDate(),
+                                    diseaseStateArray[response.body().getUserDiseaseHistories().get( i ).getDiseaseStateId()],
+                                    new String[]{},
+                                    R.color.disease_color,
+                                    R.drawable.icon_disease_white
+                                    );
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDiseaseHistory> call, Throwable t) {
+                    Log.e( "UserHealthTree", t.getMessage() );
+                    Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                }
+            } );
+        } catch (Exception e) {
+            Log.e( "UserHealthTree", e.getMessage() );
+            Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+        }
+    }
+
+
+    private void addItem(String name, Date date, String state, String[] subItems, int colorRes, int iconRes) {
+        final ExpandingItem item = mExpandingList.createNewItem( R.layout.expanding_layout );
+
+        if (item != null) {
+            item.setIndicatorColorRes( colorRes );
+            item.setIndicatorIconRes( iconRes );
+            TextView diseaseDate= (TextView) item.findViewById(R.id.timeline_disease_row_date);
+            CharSequence timeAgo = DateUtils.getRelativeTimeSpanString( date.getTime(), System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
+            diseaseDate.setText(timeAgo);
+            TextView diseaseName= (TextView) item.findViewById(R.id.timeline_disease_row_title);
+            diseaseName.setText(name);
+            ((TextView) item.findViewById(R.id.timeline_disease_row_desc)).setText(state);
+
+            item.createSubItems( subItems.length );
+            for (int i = 0; i < item.getSubItemsCount(); i++) {
+                final View view = item.getSubItemView( i );
+                configureSubItem( item, view, subItems[i] );
+            }
+        }
+    }
+
+    private void configureSubItem(final ExpandingItem item, final View view, String subTitle) {
+        ((TextView) view.findViewById( R.id.sub_title )).setText( subTitle );
+    }
+
+    public void orderDiseases(ArrayList<UserDiseaseHistory> diseaseHistory)
+    {
+        UserDiseaseHistory temp;   // Yer değiştirmede kullanılacak geçici değişken
+        for (int i=1; i<diseaseHistory.size(); i++)
+        {
+            for(int j=0; j<diseaseHistory.size()-i; j++)
+            {
+                if (diseaseHistory.get(j).getDiseaseStartDate().getTime() > diseaseHistory.get(j+1).getDiseaseStartDate().getTime())
+                {
+                    temp = diseaseHistory.get(j);
+                    diseaseHistory.set(j,diseaseHistory.get(j+1));
+                    diseaseHistory.set(j+1,temp);
+                }//Önce gelen elaman bir sonrakinden büyükse ikisi yer değiştiriyor
+            }// Dizinin ardışık elamanlarını karşılaştırmak için kullandığımız döngü
+        }// Her karşılaştırmadan sonra yeniden kaldığımız yerden devam etmemizi sağlayan döngü
+    }
+}

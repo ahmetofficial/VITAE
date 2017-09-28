@@ -3,7 +3,7 @@
 
 package com.project.restservice.generalhealthmodule;
 
-import com.project.generalhealthmodule.UserDrugUsageHistory;
+import com.project.core.generalhealthmodule.UserDrugUsageHistory;
 import com.project.restservice.ServerResponse;
 
 import retrofit2.Call;

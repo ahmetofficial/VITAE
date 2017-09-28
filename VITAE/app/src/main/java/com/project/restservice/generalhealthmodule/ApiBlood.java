@@ -3,7 +3,7 @@
 
 package com.project.restservice.generalhealthmodule;
 
-import com.project.generalhealthmodule.BloodType;
+import com.project.core.generalhealthmodule.BloodType;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

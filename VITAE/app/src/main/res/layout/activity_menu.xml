@@ -45,7 +45,7 @@
             android:layout_marginBottom="60dp"
             android:layout_marginLeft="290dp"
             android:layout_marginRight="0dp"
-            android:src="@drawable/menu_post"
+            android:src="@drawable/ic_pencil_white_18dp"
             app:borderWidth="0dp"
             app:fabSize="normal"
             app:rippleColor="@color/colorPrimary"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
+        <io.github.rockerhieu.emojicon.EmojiconTextView
             android:id="@+id/postText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -65,10 +66,9 @@
 
         <TextView
             android:id="@+id/postURL"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:linksClickable="true"
-            android:paddingBottom="10dp"
             android:paddingLeft="@dimen/feed_item_status_pad_left_right"
             android:paddingRight="@dimen/feed_item_status_pad_left_right"
             android:textColorLink="@color/link"/>
@@ -77,11 +77,53 @@
             android:id="@+id/postImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/white"
             android:scaleType="fitXY"
             android:visibility="visible"
             tools:ignore="ContentDescription"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <com.like.LikeButton
+                android:id="@+id/postLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                app:icon_size="20dp"
+                app:anim_scale_factor="3"
+                app:icon_type="heart" />
+
+            <TextView
+                android:id="@+id/postLikeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/postLike"
+                android:gravity="center"/>
+
+            <ImageView
+                android:id="@+id/postComment"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/ic_comment_outline_grey600_24dp"/>
+
+            <TextView
+                android:id="@+id/postCommentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/postComment"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

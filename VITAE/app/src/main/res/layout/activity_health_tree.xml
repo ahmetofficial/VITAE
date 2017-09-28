@@ -5,7 +5,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_vertical_margin"
-                tools:context="com.project.uimodule.userhealthtree.UserHealthTreeActivity">
+                tools:context="com.project.ui.userhealthtree.UserHealthTreeActivity">
 
     <com.diegodobelo.expandingview.ExpandingList
         android:id="@+id/health_tree_expanding_list"

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "446003408962",
+    "firebase_url": "https://vitae-174018.firebaseio.com",
+    "project_id": "vitae-174018",
+    "storage_bucket": "vitae-174018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446003408962:android:3360a5fd8acd9582",
+        "android_client_info": {
+          "package_name": "com.ahmetkaymak.vitae"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446003408962-uslko1p7q7kasp061n231u1alsnq07m4.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "446003408962-54s26r5j2vkr2un80adn7i7irgkgh6is.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahmetkaymak.vitae",
+            "certificate_hash": "395eb969a29b762cf16fc43c1e695a562d138a80"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN2v58z-xWhKGF5SI0gI_4R7Sc-WFrSR0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446003408962-uslko1p7q7kasp061n231u1alsnq07m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

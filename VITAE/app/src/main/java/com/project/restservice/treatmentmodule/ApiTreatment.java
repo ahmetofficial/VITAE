@@ -4,7 +4,7 @@
 package com.project.restservice.treatmentmodule;
 
 import com.project.restservice.FullTextSearchRequest;
-import com.project.treatmentmodule.Treatment;
+import com.project.core.treatmentmodule.Treatment;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

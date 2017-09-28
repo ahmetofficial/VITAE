@@ -3,9 +3,10 @@
 
 package com.project.restservice.patientmodule;
 
-import com.project.usermodule.Patient;
-import com.project.usermodule.PatientSimilarityRequest;
-import com.project.usermodule.PatientSimularityResponse;
+import com.project.core.usermodule.Patient;
+import com.project.core.usermodule.PatientSimilarityRequest;
+import com.project.core.usermodule.PatientSimularityResponse;
+import com.project.core.usermodule.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,4 +21,7 @@ public interface ApiPatient {
 
     @GET("userModule/patients/getPatientProfile/{userId}")
     Call<Patient> getPatientProfileInformation(@Path("userId") String userId);
+
+    @GET("userModule/patients/getFriends/{userId}")
+    Call<User> getFriends(@Path("userId") String userId);
 }

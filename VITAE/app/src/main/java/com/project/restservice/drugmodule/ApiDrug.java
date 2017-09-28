@@ -3,7 +3,7 @@
 
 package com.project.restservice.drugmodule;
 
-import com.project.drugmodule.Drug;
+import com.project.core.drugmodule.Drug;
 import com.project.restservice.FullTextSearchRequest;
 
 import retrofit2.Call;

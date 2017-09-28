@@ -162,6 +162,9 @@
     <!--Hospital Activity-->
     <string name="total_rating_count">Toplam Değerlendirme:</string>
     <string name="overall_score">Ortalama:</string>
+    <string name="hospital_comments_important">Değerlendirmen ile birçok kişiye yardımcı olabilirsin. İlk değerlendirmeyi eklemeye ne dersin? </string>
+    <string name="empty_disease">Lütfen değerlendirmeniz için bir hastalık seçtiğinizden emin olun.</string>
+    <string name="rate_is_succesful">Değerlendirmeniz başarıyla kaydedildi.</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>
@@ -170,5 +173,6 @@
     <string name="title_activity_hospital_map">Map</string>
     <string name="settings">Ayarlar</string>
     <string name="log_out">Hesaptan Çık</string>
+    <string name="friends">Arkadaşlar</string>
 
 </resources>

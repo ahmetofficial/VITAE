@@ -3,7 +3,8 @@
 
 package com.project.restservice.postmodule;
 
-import com.project.postmodule.UserPost;
+import com.project.core.postmodule.UserPost;
+import com.project.core.postmodule.UserPostLike;
 import com.project.restservice.ServerResponse;
 
 import retrofit2.Call;
@@ -18,8 +19,16 @@ public interface ApiPost {
     Call<UserPost> getUserTimeline(@Path("user_id") String userId);
 
     @GET("postModule/posts/getByUserId/{user_id}")
-    Call<UserPost> getUserPostById(@Path("user_id") String userId);
+    Call<UserPost> getUserPostsById(@Path("user_id") String userId);
 
-    @POST("postModule/posts/create/{user_id}")
+    @POST("postModule/posts/createPost/{user_id}")
     Call<ServerResponse> createNewPost(@Path("user_id") String userId, @Body UserPost userLoginPost);
+
+    ////////////////////////////////////POST LIKE///////////////////////////////////////////////////
+
+    @POST("postModule/posts/createPostLike")
+    Call<ServerResponse> like(@Body UserPostLike userPostLike);
+
+    @POST("postModule/posts/deletePostLike")
+    Call<ServerResponse> unlike(@Body UserPostLike userPostLike);
 }

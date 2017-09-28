@@ -5,10 +5,10 @@ package com.project.restservice.usermodule;
 
 import com.project.restservice.FullTextSearchRequest;
 import com.project.restservice.ServerResponse;
-import com.project.uimodule.login.LoginActivity;
-import com.project.usermodule.Patient;
-import com.project.usermodule.User;
-import com.project.usermodule.UserRelationship;
+import com.project.ui.login.LoginActivity;
+import com.project.core.usermodule.Patient;
+import com.project.core.usermodule.User;
+import com.project.core.usermodule.UserRelationship;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

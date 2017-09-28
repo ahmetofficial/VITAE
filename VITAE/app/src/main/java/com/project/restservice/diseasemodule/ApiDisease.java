@@ -3,7 +3,7 @@
 
 package com.project.restservice.diseasemodule;
 
-import com.project.diseasemodule.Disease;
+import com.project.core.diseasemodule.Disease;
 import com.project.restservice.FullTextSearchRequest;
 
 import retrofit2.Call;

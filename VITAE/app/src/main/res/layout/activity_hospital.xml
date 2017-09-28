@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/hospital_page_background"
+              android:background="#023e58"
               android:orientation="vertical">
 
     <FrameLayout
@@ -33,11 +33,11 @@
                 android:id="@+id/hospital_activity_profile_image_view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:view_borderColor="@color/colorPrimary"
-                app:view_borderWidth="0dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="124dp"/>
+                android:layout_marginTop="124dp"
+                app:view_borderColor="@color/colorPrimary"
+                app:view_borderWidth="0dp"/>
 
             <TextView
                 android:id="@+id/hospital_activity_hospital_name"
@@ -57,10 +57,10 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/hospital_activity_hospital_name"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp"
                 android:background="@drawable/signup_roundwhite"
                 android:orientation="horizontal">
 
@@ -78,6 +78,18 @@
                     android:textSize="13sp"/>
 
             </LinearLayout>
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/hospital_activity_rating_bar"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hospital_activity_type_container"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                app:mrb_progressTint="@color/white"
+                app:mrb_secondaryProgressTint="@color/white"
+                android:isIndicator="true"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/hospital_activity_phone_float_button"
@@ -104,73 +116,42 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <ViewFlipper
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/hospital_page_background"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <RelativeLayout
-            android:id="@+id/hospital_activity_phone_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center">
+
+        <ImageView
+            android:id="@+id/hospital_activity_add_first_comment_image"
+            android:src="@drawable/ic_thumbs_up_down_white_48dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/hospital_activity_no_comment_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hospital_activity_add_first_comment_image"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signup_roundwhite"
-            android:orientation="horizontal">
+            android:layout_marginTop="2dp"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textColor="@android:color/white"
+            android:text="@string/hospital_comments_important"/>
 
-            <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                android:id="@+id/hospital_activity_rating_bar"
-                style="@style/Widget.MaterialRatingBar.RatingBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:isIndicator="true"/>
-
-            <TextView
-                android:id="@+id/hospital_activity_total_vote_count_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/hospital_activity_rating_bar"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:textSize="15dp"/>
-
-            <TextView
-                android:id="@+id/hospital_activity_total_vote_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/hospital_activity_total_vote_count_label"
-                android:layout_below="@+id/hospital_activity_rating_bar"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/hospital_activity_total_vote_count_label"
-                android:textSize="15dp"/>
-
-            <TextView
-                android:id="@+id/hospital_activity_overall_rate_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/hospital_activity_total_vote_count_label"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:textSize="15dp"/>
-
-            <TextView
-                android:id="@+id/hospital_activity_overall_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/hospital_activity_overall_rate_label"
-                android:layout_alignTop="@+id/hospital_activity_overall_rate_label"
-                android:layout_below="@+id/hospital_activity_total_vote_count_label"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/hospital_activity_overall_rate_label"
-                android:textSize="15dp"/>
         </RelativeLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
+    </ViewFlipper>
 
 </LinearLayout>
