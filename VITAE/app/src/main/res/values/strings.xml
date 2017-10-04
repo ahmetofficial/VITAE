@@ -21,6 +21,7 @@
     <string name="sign_in">Giriş Yap</string>
     <string name="login_succesfull">Kullanıcı giriş işlemi başarılı</string>
     <string name="login_unsuccesfull">Lütfen girdiğiniz bilgileri kontrol ederek tekrar deneyiniz </string>
+    <string name="login_authenticating">Giriş kimlik doğrulaması yapıyor</string>
 
 
     <!--SignUp-->
@@ -165,11 +166,20 @@
     <string name="state_hospital">Devlet Hastanesi</string>
 
     <!--Hospital Activity-->
-    <string name="total_rating_count">Toplam Değerlendirme:</string>
-    <string name="overall_score">Ortalama:</string>
+    <string name="total_rating_count">Toplam Değerlendirme</string>
+    <string name="overall_score">Ortalama</string>
     <string name="hospital_comments_important">Değerlendirmen ile birçok kişiye yardımcı olabilirsin. İlk değerlendirmeyi eklemeye ne dersin? </string>
     <string name="empty_disease">Lütfen değerlendirmeniz için bir hastalık seçtiğinizden emin olun.</string>
     <string name="rate_is_succesful">Değerlendirmeniz başarıyla kaydedildi.</string>
+    <string name="view_hospital_reviews">Hastane için genel değerlendirme ve hastalık karnelerini görüntüleyebilirsin.</string>
+    <string name="review">Değerlendirme</string>
+    <string name="general_review">Genel Karne</string>
+    <string name="disease_report">Hastalık Karnesi</string>
+    <string name="gps_have_to_be_enabled">Bu özellik için  GPS servisinin açık olması gerekli. Servisi açmak ister misiniz?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+    <string name="hospital_rankings">Hastane Sıralaması</string>
+    <string name="no_review_about_disease_for_hospitals">Hastalıkla ilgili hastane değerlendirmesi bulunamadı.</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>
@@ -179,5 +189,6 @@
     <string name="settings">Ayarlar</string>
     <string name="log_out">Hesaptan Çık</string>
     <string name="friends">Arkadaşlar</string>
+    <string name="hospital_performance_map">Hastane Performans Haritası</string>
 
 </resources>

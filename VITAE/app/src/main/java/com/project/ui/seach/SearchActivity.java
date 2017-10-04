@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.ahmetkaymak.vitae.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.project.ui.ViewPagerAdapter;
-import com.project.utils.SessionUtils;
 
 import java.util.ArrayList;
 
@@ -50,7 +49,6 @@ public class SearchActivity extends AppCompatActivity {
             userId = myIntent.getStringExtra( "userId" );
             query = myIntent.getStringExtra( "query" );
             totalHealthItem = myIntent.getIntExtra( "totalHealthItem", -1 );
-            userId = SessionUtils.getUserId();
 
             tabLayout = (TabLayout) findViewById( R.id.search_activity_tabs );
             tabLayout.setupWithViewPager( viewPager );
@@ -70,8 +68,9 @@ public class SearchActivity extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     if (query != null) {
-                        fragmentHospitalSearch.listSearchResult(userId, query );
-                        fragmentUserSearch.listSearchResult( query );
+                        fragmentHospitalSearch.listSearchResult( userId, query );
+                        fragmentUserSearch.listSearchResult( userId, query );
+                        //fragmentSimilarPatientSearch.listSearchResult( query );
                     }
                     return false;
                 }
@@ -141,8 +140,8 @@ public class SearchActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentHospitalSearch = new FragmentHospitalSearch( userId, query );
-        fragmentUserSearch = new FragmentUserSearch( query, userId );
-        fragmentSimilarPatientSearch = new FragmentSimilarPatientSearch( query, userId, totalHealthItem );
+        fragmentUserSearch = new FragmentUserSearch( userId, query );
+        fragmentSimilarPatientSearch = new FragmentSimilarPatientSearch( userId, query, totalHealthItem );
         adapter.addFrag( fragmentHospitalSearch, "Hospital Search" );
         adapter.addFrag( fragmentUserSearch, "User Search" );
         adapter.addFrag( fragmentSimilarPatientSearch, "Similar User Search" );

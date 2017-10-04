@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/hospital_page_background"
+                android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hospital_page_background">
+
+                <LinearLayout
+                    android:id="@+id/linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <fragment
+                        android:id="@+id/hospital_location_performace_map_fragment"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        tools:context="com.project.ui.location.HospitalDiseasePerformanceMap"/>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fillViewport="true">
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:stretchColumns="1">
+
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <com.jaredrummler.materialspinner.MaterialSpinner
+                                        android:id="@+id/disease_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_margin="15dp"
+                                        android:hint="@string/my_diseases"/>
+
+                                    <ImageView
+                                        android:id="@+id/hospital_marker"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/disease_spinner"
+                                        android:layout_below="@+id/disease_spinner"
+                                        android:src="@drawable/ic_hospital_marker_white_36dp"/>
+
+                                    <TextView
+                                        android:id="@+id/hospital_ranking"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_alignBottom="@id/hospital_marker"
+                                        android:layout_alignRight="@id/disease_spinner"
+                                        android:layout_alignTop="@id/hospital_marker"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_toRightOf="@id/hospital_marker"
+                                        android:gravity="center_vertical"
+                                        android:textColor="@color/white"
+                                        android:textSize="16dp"/>
+
+                                    <ViewFlipper
+                                        android:id="@+id/view_flipper"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_alignLeft="@id/disease_spinner"
+                                        android:layout_alignRight="@id/disease_spinner"
+                                        android:layout_below="@id/hospital_marker"
+                                        android:layout_marginTop="15dp"
+                                        android:gravity="center">
+
+                                        <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/recycler_view"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+                                        </android.support.v7.widget.RecyclerView>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+
+                                            <RelativeLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentLeft="true"
+                                                android:layout_alignParentStart="true"
+                                                android:layout_marginBottom="15dp"
+                                                android:gravity="center">
+
+                                                <ImageView
+                                                    android:id="@+id/image"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:layout_centerVertical="true"
+
+                                                    android:src="@drawable/ic_content_paste_white_48dp"/>
+
+                                                <TextView
+                                                    android:id="@+id/warning_text"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_below="@id/image"
+                                                    android:layout_marginLeft="15dp"
+                                                    android:layout_marginRight="15dp"
+                                                    android:layout_marginTop="30dp"
+                                                    android:text="@string/no_review_about_disease_for_hospitals"
+                                                    android:textAlignment="center"
+                                                    android:textColor="@color/brightText"
+                                                    android:textSize="14sp"/>
+
+                                            </RelativeLayout>
+
+                                        </RelativeLayout>
+
+                                    </ViewFlipper>
+                                </RelativeLayout>
+
+                            </TableLayout>
+
+                        </ScrollView>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </TableLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

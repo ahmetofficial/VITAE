@@ -18,10 +18,18 @@ public interface ApiHospital {
     @POST("hospitalModule/hospitals/searchByHospitalName")
     Call<Hospital> searchByHospitalName(@Body Hospital hospital);
 
+    @GET("hospitalModule/hospitals/getHospitalById/{hospitalId}")
+    Call<Hospital> searchByHospitalId(@Path("hospitalId") int hospitalId);
+
+    //Hospital Rates
+
     @POST("hospitalModule/hospitals/createUserHospitalRates")
     Call<ServerResponse> createUserHospitalRate(@Body UserHospitalRate userHospitalRate);
 
-    @GET("hospitalModule/hospitals/getHospitalById/{hospitalId}")
-    Call<Hospital> searchByHospitalId(@Path("hospitalId") int hospitalId);
+    @GET("hospitalModule/hospitals/getUserHospitalRates/{hospitalId}")
+    Call<UserHospitalRate> getHospitalRates(@Path("hospitalId") int hospitalId);
+
+    @GET("hospitalModule/hospitals/getHospitalRankingByDiseaseId/{diseaseId}")
+    Call<UserHospitalRate> getHospitalRankingByDiseaseId(@Path("diseaseId") String disease_id);
 }
 

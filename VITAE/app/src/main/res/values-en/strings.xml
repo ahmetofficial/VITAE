@@ -19,6 +19,7 @@
     <string name="sign_in">Sign In</string>
     <string name="login_succesfull">User login is succesfull</string>
     <string name="login_unsuccesfull"> Please control your login informations and try again</string>
+    <string name="login_authenticating">Login is authenticating</string>
 
     <!--SignUp-->
     <string name="create_account">Create Profile</string>
@@ -160,11 +161,21 @@
     <string name="state_hospital">State Hospital</string>
 
     <!--Hospital Activity-->
-    <string name="total_rating_count">Total Count:</string>
-    <string name="overall_score">Overall Score:</string>
+    <string name="total_rating_count">Total Count</string>
+    <string name="overall_score">Overall Score</string>
     <string name="hospital_comments_important">Your comments will help so many people. How about adding the first review? </string>
     <string name="empty_disease">Please be sure you select a disease for you review.</string>
     <string name="rate_is_succesful">Your review succesfully saved.</string>
+    <string name="view_hospital_reviews">You can reach user and disease reviews about this hospital.</string>
+    <string name="review">Review</string>
+    <string name="general_review">General Report</string>
+    <string name="disease_report">Diseases Report</string>
+    <string name="gps_have_to_be_enabled">Your GPS service have to be enabled for using that fearture. Dou you want to enable?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hospital_rankings">Hospital Ranking</string>
+    <string name="no_review_about_disease_for_hospitals">There is no hospital review found for that disease.</string>
+
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>
@@ -174,6 +185,8 @@
     <string name="settings">Settings</string>
     <string name="log_out">Logout</string>
     <string name="friends">Friends</string>
+    <string name="hospital_performance_map">Hospital Performance Maps</string>
+
     <string name="app_name" translatable="false"></string>
 
 </resources>

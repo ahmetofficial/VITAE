@@ -27,12 +27,9 @@ import retrofit2.Response;
 
 public class FragmentUserSearch extends Fragment {
 
-    public FragmentUserSearch(String query, String visitorUserId) {
+    public FragmentUserSearch(String visitorUserId,String query) {
         this.query = query;
         this.visitorUserId = visitorUserId;
-    }
-
-    public FragmentUserSearch() {
     }
 
     private String query;
@@ -50,11 +47,11 @@ public class FragmentUserSearch extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentUserSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
-        listSearchResult( query );
+        listSearchResult(visitorUserId, query );
         return fragmentUserSearchView;
     }
 
-    public void listSearchResult(String query) {
+    public void listSearchResult(final String visitorUserId,String query) {
         try {
             FullTextSearchRequest fullTextSearchRequest = new FullTextSearchRequest();
             fullTextSearchRequest.setSearchText( query );

@@ -30,22 +30,30 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
 
-            <com.jaredrummler.materialspinner.MaterialSpinner
-                android:id="@+id/disease_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+            <LinearLayout
+                android:id="@+id/disease_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/rating_picture"
-                android:layout_marginTop="10dp"
                 android:layout_alignRight="@+id/hospital_rating_comment"
-                android:layout_alignLeft="@+id/hospital_rating_comment"
-                android:hint="@string/my_diseases"/>
+                android:layout_alignLeft="@+id/hospital_rating_comment">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/disease_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/my_diseases"/>
+
+            </LinearLayout>
+
 
             <me.zhanghai.android.materialratingbar.MaterialRatingBar
                 android:id="@+id/hospital_rating_bar"
                 style="@style/Widget.MaterialRatingBar.RatingBar.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/disease_spinner"
+                android:layout_below="@+id/disease_layout"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 app:mrb_progressBackgroundTint="@color/colorPrimary"

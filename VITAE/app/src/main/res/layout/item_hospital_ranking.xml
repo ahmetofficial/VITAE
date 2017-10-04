@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hospital_page_background"
+                android:orientation="vertical">
+
+    <View
+        android:id="@+id/hospital_rank_view"
+        android:layout_width="40dp"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/hospital_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hospital_rank_view"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/hospital_rank_view"
+        android:layout_toRightOf="@+id/hospital_rank_view"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/hospital_name"
+        android:background="@android:color/white"/>
+
+</RelativeLayout>

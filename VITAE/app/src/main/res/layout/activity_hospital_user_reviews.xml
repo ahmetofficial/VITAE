@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/hospital_page_background">
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/hospital_page_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="63dp">
+
+        </LinearLayout>
+
+        <!-- Profile picture -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="5dp">
+
+            <com.alexzh.circleimageview.CircleImageView
+                android:id="@+id/hospital_review_profile_image_view"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                app:view_borderColor="@color/colorPrimary"
+                android:background="@color/hospital_page_background"
+                android:src="@drawable/hospital_sign"
+                app:view_borderWidth="0dp"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:id="@+id/hospital_review_hospital_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/hospital_review_profile_image_view"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/primaryText"
+                android:layout_alignTop="@+id/hospital_review_profile_image_view"
+                android:layout_alignBottom="@+id/hospital_review_profile_image_view"
+                android:layout_marginRight="15dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/hospital_review_profile_image_view"
+                android:background="@drawable/border_color_accent_background"
+                android:layout_alignRight="@+id/hospital_review_hospital_name"
+                android:layout_alignEnd="@+id/hospital_review_hospital_name"
+                android:layout_alignLeft="@+id/hospital_review_profile_image_view"
+                android:layout_alignStart="@+id/hospital_review_profile_image_view">
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="15dp"
+        android:layout_below="@+id/frame_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+</RelativeLayout>

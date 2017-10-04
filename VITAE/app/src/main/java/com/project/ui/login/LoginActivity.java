@@ -5,6 +5,7 @@ package com.project.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.project.ui.BaseActivity;
 import com.project.ui.main.MenuActivity;
 import com.project.ui.signup.SignUpActivity;
 import com.project.utils.SessionUtils;
+import com.project.utils.Typefaces;
 
 import java.util.HashMap;
 
@@ -29,6 +31,7 @@ public class LoginActivity extends BaseActivity {
     private Button btn_login, btn_signUp;
     private EditText txt_userId, txt_password;
     private UserSessionManager session;
+    private  LoginAuthenticationFragment loginAuthenticationFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +50,16 @@ public class LoginActivity extends BaseActivity {
             btn_login = (Button) findViewById( R.id.btn_signIn );
             btn_signUp = (Button) findViewById( R.id.btn_signIn_create_account );
             txt_userId = (EditText) findViewById( R.id.txt_signIn_username );
+            txt_userId.setTypeface( Typefaces.getRobotoLight( getBaseContext() ) );
             txt_password = (EditText) findViewById( R.id.txt_signIn_password );
+            txt_password.setTypeface( Typefaces.getRobotoLight( getBaseContext() ) );
 
             btn_login.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    loginAuthenticationFragment=new LoginAuthenticationFragment();
+                    loginAuthenticationFragment.show( fm, "Loading" );
                     loginUser( txt_userId.getText().toString().trim(), txt_password.getText().toString().trim() );
                 }
             } );
@@ -72,13 +80,19 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                             if (response.isSuccessful()) {
-                                if (!response.body().getStatus().equals( null )) {
+                                if (response.body().getStatus().equals( "true" )) {
+                                    loginAuthenticationFragment.dismiss();
                                     Toast.makeText( LoginActivity.this, getString( R.string.login_succesfull ), Toast.LENGTH_SHORT ).show();
                                     if (response.body().getStatus().equals( "true" )) {
                                         MenuActivity.userId = userId;
                                         session.createUserLoginSession( userId, password );
                                         startActivity( new Intent( LoginActivity.this, MenuActivity.class ) );
                                     }
+                                }else{
+                                    loginAuthenticationFragment.dismiss();
+                                    txt_userId.setText( null );
+                                    txt_password.setText( null );
+                                    Toast.makeText( LoginActivity.this, getString( R.string.login_unsuccesfull ), Toast.LENGTH_SHORT ).show();
                                 }
                             }
                         }

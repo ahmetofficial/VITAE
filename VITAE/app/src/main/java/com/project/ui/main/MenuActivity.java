@@ -36,6 +36,7 @@ import com.ahmetkaymak.vitae.R;
 import com.github.fabtransitionactivity.SheetLayout;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.project.ui.ViewPagerAdapter;
+import com.project.ui.location.HospitalDiseasePerformanceMap;
 import com.project.ui.main.healthtree.FragmentHealthTree;
 import com.project.ui.main.message.FragmentConversation;
 import com.project.ui.main.profile.FragmentProfile;
@@ -106,6 +107,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         //Drawer
         mNavItems.add( new NavigationItem( getString( R.string.my_health_tree ), R.drawable.ic_barley_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.friends ), R.drawable.ic_clipboard_account_white_24dp ) );
+        mNavItems.add( new NavigationItem( getString( R.string.hospital_performance_map ), R.drawable.ic_hospital_marker_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.settings ), R.drawable.ic_settings_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.log_out ), R.drawable.ic_logout_white_24dp ) );
         mDrawerLayout = (DrawerLayout) findViewById( R.id.drawerLayout );
@@ -141,8 +143,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             public boolean onQueryTextSubmit(String query) {
                 if (query != null) {
                     Intent intent = new Intent( getBaseContext(), SearchActivity.class );
-                    intent.putExtra( "query", query );
                     intent.putExtra( "userId", userId );
+                    intent.putExtra( "query", query );
                     intent.putExtra( "totalHealthItem", fragmentHealthTree.getTotalHealthItemCount() );
                     intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
                     getBaseContext().startActivity( intent );
@@ -152,20 +154,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //listSearchResult( newText );
                 return false;
-            }
-        } );
-
-        searchView.setOnSearchViewListener( new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
             }
         } );
 
@@ -307,8 +296,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private void setupTabIcons() {
         int[] tabIcons = {
                 R.drawable.icon_timeline_white,
-                R.drawable.ic_message_white_24dp,
                 R.drawable.icon_dna_white,
+                R.drawable.ic_message_white_24dp,
                 R.drawable.ic_account_circle_white_24dp
         };
 
@@ -325,8 +314,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         fragmentConversation = new FragmentConversation( userId );
         fragmentProfile = new FragmentProfile( userId );
         adapter.addFrag( fragmentTimeline, "Timeline" );
-        adapter.addFrag( fragmentConversation, "Message" );
         adapter.addFrag( fragmentHealthTree, "Health Tree" );
+        adapter.addFrag( fragmentConversation, "Message" );
         adapter.addFrag( fragmentProfile, "Profile" );
         viewPager.setAdapter( adapter );
     }
@@ -412,11 +401,16 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 2) {
-            Intent intent = new Intent( getBaseContext(), PatientSettingsActivity.class );
+            Intent intent = new Intent( getBaseContext(), HospitalDiseasePerformanceMap.class );
             intent.putExtra( "userId", userId );
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 3) {
+            Intent intent = new Intent( getBaseContext(), PatientSettingsActivity.class );
+            intent.putExtra( "userId", userId );
+            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+            getBaseContext().startActivity( intent );
+        } else if (position == 4) {
             SharedPreferences preferences = getSharedPreferences( "VitaeUserSession", Context.MODE_PRIVATE );
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();

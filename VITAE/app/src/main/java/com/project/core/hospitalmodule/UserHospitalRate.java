@@ -43,6 +43,14 @@ public class UserHospitalRate {
     @Expose
     private ArrayList<UserHospitalRate> userHospitalRates;
 
+    @SerializedName("hospital_overal_score")
+    @Expose
+    private double hospitalOverallScore;
+
+    @SerializedName("HOSPITAL")
+    @Expose
+    private Hospital hospitalByDiseaseIdRank;
+
     public String getUserId() {
         return userId;
     }
@@ -103,4 +111,11 @@ public class UserHospitalRate {
         return userHospitalRates;
     }
 
+    public double getHospitalOverallScore() {
+        return hospitalOverallScore;
+    }
+
+    public Hospital getHospitaltByDiseaseRank() {
+        return hospitalByDiseaseIdRank;
+    }
 }

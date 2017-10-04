@@ -27,19 +27,16 @@ import retrofit2.Response;
 
 public class FragmentSimilarPatientSearch extends Fragment {
 
-    public FragmentSimilarPatientSearch(String query, String visitorUserId,int totalHealthItem) {
+    public FragmentSimilarPatientSearch(String visitorUserId,String query,int totalHealthItem) {
         this.query = query;
         this.visitorUserId = visitorUserId;
         this.totalHealthItem = totalHealthItem;
     }
 
-    public FragmentSimilarPatientSearch() {
-    }
-
     private int totalHealthItem;
     private String query;
     private String visitorUserId;
-    private View fragmentUserSearchView;
+    private View fragmentSimilarUserSearchView;
     private ArrayList<PatientSimularityResponse> userSearchList;
     private SimilarUserSearchAdapter mAdapter;
     private RecyclerView recyclerView;
@@ -51,9 +48,9 @@ public class FragmentSimilarPatientSearch extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentUserSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
+        fragmentSimilarUserSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
         listSearchResult( query );
-        return fragmentUserSearchView;
+        return fragmentSimilarUserSearchView;
     }
 
     public void listSearchResult(String query) {
@@ -67,10 +64,10 @@ public class FragmentSimilarPatientSearch extends Fragment {
                 public void onResponse(Call<PatientSimularityResponse> call, Response<PatientSimularityResponse> response) {
                     if (response.isSuccessful()) {
                         userSearchList = response.body().getSimilarUsers();
-                        recyclerView = (RecyclerView) fragmentUserSearchView.findViewById( R.id.recycler_view );
+                        recyclerView = (RecyclerView) fragmentSimilarUserSearchView.findViewById( R.id.recycler_view );
                         mAdapter = new SimilarUserSearchAdapter( userSearchList, getContext(), visitorUserId, totalHealthItem );
                         recyclerView.setHasFixedSize( true );
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentUserSearchView.getContext() );
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentSimilarUserSearchView.getContext() );
                         recyclerView.setLayoutManager( mLayoutManager );
                         recyclerView.setItemAnimator( new DefaultItemAnimator() );
                         recyclerView.setAdapter( mAdapter );

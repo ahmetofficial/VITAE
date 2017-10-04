@@ -56,6 +56,8 @@
         <activity android:name="com.project.ui.patient.PatientSettingsActivity"/>
         <activity android:name="com.project.ui.patient.PatientFriendsActivity"/>
         <activity android:name="com.project.ui.main.message.MessageActivity"/>
+        <activity android:name="com.project.ui.hospitalpage.HospitalUserReviewActivity"/>
+        <activity android:name="com.project.ui.location.HospitalDiseasePerformanceMap"/>
 
         <meta-data
             android:name="android.app.default_searchable"
