@@ -48,16 +48,32 @@
 
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/activity_disease_add_viewpager"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="392dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:indeterminate="true"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_disease_add_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="392dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/disease_color"
-        android:layout_height="20dp">
+        android:layout_height="20dp"
+        android:background="@color/disease_color">
 
         <io.github.kshitij_jain.indicatorview.IndicatorView
             android:id="@+id/activity_disease_add_indicator"

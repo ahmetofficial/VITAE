@@ -11,6 +11,7 @@ public class DrugCompany {
     public DrugCompany(int drugCompanyId) {
         this.drugCompanyId = drugCompanyId;
     }
+
     public DrugCompany(int drugCompanyId, String drugCompanyName) {
         this.drugCompanyId = drugCompanyId;
         this.drugCompanyName = drugCompanyName;

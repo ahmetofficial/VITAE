@@ -268,14 +268,16 @@ public class PatientSettingsActivity extends AppCompatActivity{
                         aboutMe.setText( response.body().getAboutMe() );
                         mail.setText( response.body().getMail() );
                         String photoId = response.body().getProfilePictureId();
-                        String picturePath = "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
-                                + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
-                                + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
-                                + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
+                        if(!photoId.equals("")) {
+                            String picturePath = "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
+                                    + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
+                                    + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
+                                    + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
 
-                        Glide.with( getBaseContext() )
-                                .load( picturePath )
-                                .into( profilePicture );
+                            Glide.with( getBaseContext() )
+                                    .load( picturePath )
+                                    .into( profilePicture );
+                        }
 
                     }
                 }
@@ -292,7 +294,7 @@ public class PatientSettingsActivity extends AppCompatActivity{
         }
     }
 
-    private class UploaderNotification extends AsyncTask<Void, Integer, Integer> {
+    public class UploaderNotification extends AsyncTask<Void, Integer, Integer> {
 
         private Uri uri;
 

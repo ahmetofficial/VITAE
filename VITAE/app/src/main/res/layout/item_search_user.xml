@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    android:id="@+id/user_search_item"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:clickable="true"
-                                    android:orientation="vertical">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_search_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/search_item_user_container"
@@ -16,21 +18,23 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
+        <com.alexzh.circleimageview.CircleImageView
             android:id="@+id/search_item_user_profile_picture"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/feed_item_profile_pic"
+            android:layout_height="@dimen/feed_item_profile_pic"
+            android:background="@color/white"
             android:contentDescription=""
-            android:scaleType="fitCenter">
-        </ImageView>
+            android:scaleType="fitCenter"
+            tools:ignore="ContentDescription">
+        </com.alexzh.circleimageview.CircleImageView>
 
         <TextView
             android:id="@+id/search_item_user_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/search_item_user_profile_picture"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/search_item_user_profile_picture"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -40,21 +44,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/search_item_user_name_text"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
-            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/search_item_user_profile_picture"
             android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/search_item_user_similarity_percent"
-            android:layout_width="100dp"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/search_item_user_profile_picture"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_alignBottom="@+id/search_item_user_profile_picture"/>
+            android:gravity="center_vertical"
+            android:textSize="20sp"/>
 
     </RelativeLayout>
 

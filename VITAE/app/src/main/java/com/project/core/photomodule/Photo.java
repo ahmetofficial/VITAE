@@ -8,8 +8,10 @@ import android.widget.Toast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.project.core.postmodule.UserPost;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
+import com.project.restservice.ServerResponseWithPhotoId;
 
 import java.util.Date;
 
@@ -92,12 +94,46 @@ public class Photo {
         this.updatedAt = updatedAt;
     }
 
-    public static void uploadProfilePhoto(String userId, MultipartBody.Part photoPart, final Context context){
-        ApiClient.imageApi().uploadSingleImage( userId, photoPart ).enqueue( new Callback<ServerResponse>() {
+    public static void uploadProfilePhoto(String userId, MultipartBody.Part photoPart, final Context context) {
+        ApiClient.imageApi().uploadUserProfilePicture( userId, photoPart ).enqueue( new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 if (response.isSuccessful()) {
                     //Toast.makeText( context, "başarılı", Toast.LENGTH_LONG ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                //Log.e( "UserTimeline", t.getMessage() );
+                Toast.makeText( context, t.getMessage(), Toast.LENGTH_LONG ).show();
+            }
+        } );
+    }
+
+    public static void uploadPhotoForUserPost(final UserPost userPost, final String userId, MultipartBody.Part photoPart, final Context context) {
+        ApiClient.imageApi().uploadUserPostPhoto( userId, photoPart ).enqueue( new Callback<ServerResponseWithPhotoId>() {
+            @Override
+            public void onResponse(Call<ServerResponseWithPhotoId> call, Response<ServerResponseWithPhotoId> response) {
+                if (response.isSuccessful()) {
+                    addPhotoToUserPost( userId, userPost, response.body().getPhotoId(),context );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponseWithPhotoId> call, Throwable t) {
+                //Log.e( "UserTimeline", t.getMessage() );
+                Toast.makeText( context, t.getMessage(), Toast.LENGTH_LONG ).show();
+            }
+        } );
+    }
+
+    private static void addPhotoToUserPost(String userId, UserPost userPost, String photoId,final Context context) {
+        ApiClient.postApi().createNewPostWithPhoto( userId, photoId, userPost ).enqueue( new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    if(response.body().getStatus().equals( true ));
                 }
             }
 

@@ -24,6 +24,9 @@ public interface ApiPost {
     @POST("postModule/posts/createPost/{user_id}")
     Call<ServerResponse> createNewPost(@Path("user_id") String userId, @Body UserPost userLoginPost);
 
+    @POST("postModule/posts/createPost/{user_id}/{photo_id}")
+    Call<ServerResponse> createNewPostWithPhoto(@Path("user_id") String userId,@Path("photo_id") String photoId, @Body UserPost userLoginPost);
+
     ////////////////////////////////////POST LIKE///////////////////////////////////////////////////
 
     @POST("postModule/posts/createPostLike")

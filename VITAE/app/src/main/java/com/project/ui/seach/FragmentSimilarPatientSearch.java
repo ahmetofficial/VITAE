@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
 import com.project.ui.seach.adapter.SimilarUserSearchAdapter;
-import com.project.core.usermodule.PatientSimilarityRequest;
-import com.project.core.usermodule.PatientSimularityResponse;
+import com.project.restservice.PatientSimilarityRequest;
+import com.project.restservice.PatientSimularityResponse;
 
 import java.util.ArrayList;
 
@@ -48,17 +48,16 @@ public class FragmentSimilarPatientSearch extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentSimilarUserSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
-        listSearchResult( query );
+        fragmentSimilarUserSearchView = inflater.inflate( R.layout.fragment_similar_patient, container, false );
+        listSearchResult( visitorUserId,query, totalHealthItem );
         return fragmentSimilarUserSearchView;
     }
 
-    public void listSearchResult(String query) {
+    public void listSearchResult(final String visitorUserId,String query, final int totalHealthItem) {
         try {
             PatientSimilarityRequest patientSimilarityRequest = new PatientSimilarityRequest();
             patientSimilarityRequest.setSearchText( query );
             patientSimilarityRequest.setUserId( visitorUserId );
-
             ApiClient.patientApi().searchSimilarUsers( patientSimilarityRequest ).enqueue( new Callback<PatientSimularityResponse>() {
                 @Override
                 public void onResponse(Call<PatientSimularityResponse> call, Response<PatientSimularityResponse> response) {

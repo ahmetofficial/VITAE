@@ -117,6 +117,7 @@ public class FragmentAddHospitalReview extends DialogFragment {
 
     private void fillDiseaseSpinner(final ArrayList<UserDiseaseHistory> diseaseHistory) {
         final List<String> userDiseases = new ArrayList();
+        userDiseases.add( getString( R.string.select_disease ) );
         for (int i = 0; i < diseaseHistory.size(); i++) {
             userDiseases.add( diseaseHistory.get( i ).getDisease().getDiseaseName() );
         }
@@ -125,7 +126,9 @@ public class FragmentAddHospitalReview extends DialogFragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                diseaseId = diseaseHistory.get( position ).getDiseaseId();
+                if (position != 0) {
+                    diseaseId = diseaseHistory.get( position-1 ).getDiseaseId();
+                }
             }
         } );
     }

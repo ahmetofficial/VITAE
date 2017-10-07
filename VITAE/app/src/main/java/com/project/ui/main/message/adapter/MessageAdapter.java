@@ -1,3 +1,6 @@
+// Developer: Ahmet Kaymak
+// Date: 22.02.2017
+
 package com.project.ui.main.message.adapter;
 
 import android.content.Context;

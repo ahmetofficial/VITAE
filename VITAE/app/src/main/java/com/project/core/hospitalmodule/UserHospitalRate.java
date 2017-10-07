@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class UserHospitalRate {
 
-    @SerializedName("user_id")
+    @SerializedName("userId")
     @Expose
     private String userId;
 

@@ -1,3 +1,6 @@
+// Developer: Ahmet Kaymak
+// Date: 10.03.2016
+
 package com.project.core.locationmodule;
 
 import java.util.ArrayList;

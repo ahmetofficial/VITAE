@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.project.core.usermodule.User;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
 
@@ -66,6 +67,14 @@ public class UserPost {
     @Expose
     private ArrayList<UserPostLike> postLikes;
 
+    @SerializedName("USER_POST_HAVE_PHOTOs")
+    @Expose
+    private ArrayList<UserPostHavePhotos> userPostHavePhotos;
+
+    @SerializedName("USER")
+    @Expose
+    private User user;
+
     public String getPostId() {
         return postId;
     }
@@ -82,7 +91,7 @@ public class UserPost {
         this.userId = user_id;
     }
 
-    public String getPost_text() {
+    public String getPostText() {
         return postText;
     }
 
@@ -144,6 +153,14 @@ public class UserPost {
 
     public ArrayList<UserPostLike> getPostLikes() {
         return postLikes;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public ArrayList<UserPostHavePhotos> getUserPostHavePhotos() {
+        return userPostHavePhotos;
     }
 
     public static boolean createUserPost(String userId, UserPost userPost, final Activity activity) {

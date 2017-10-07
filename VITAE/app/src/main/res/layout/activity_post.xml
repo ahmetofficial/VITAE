@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
 
     <LinearLayout
@@ -26,68 +26,51 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp"
         android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/post_border">
 
 
         <ImageView
-            android:id="@+id/post_activity_drug"
+            android:id="@+id/upload_image_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            tools:ignore="ContentDescription,RtlHardcoded"
-            android:contentDescription=""/>
-
-        <ImageView
-            android:id="@+id/post_activity_hospital"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_camera_grey600_24dp"
+            android:layout_marginLeft="20dp"
             tools:ignore="ContentDescription,RtlHardcoded"/>
 
         <ImageView
-            android:id="@+id/post_activity_treatment"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/post_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            tools:ignore="ContentDescription,RtlHardcoded"
-            android:contentDescription=""/>
-
-        <ImageView
-            android:id="@+id/post_activity_disease"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            tools:ignore="ContentDescription,RtlHardcoded"
-            android:contentDescription=""/>
-
+            android:layout_toRightOf="@+id/upload_image_icon"
+            android:layout_marginLeft="20dp"
+            tools:ignore="ContentDescription,RtlHardcoded"/>
 
         <Button
             android:id="@+id/activity_post_btn_post"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/signup_round"
             android:gravity="center"
+            android:layout_alignParentRight="true"
             android:text="@string/send"
             android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
             android:textSize="15sp"/>
-    </LinearLayout>
 
-
+    </RelativeLayout>
 
 
 </LinearLayout>

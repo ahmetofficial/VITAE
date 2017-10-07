@@ -1,3 +1,6 @@
+// Developer: Ahmet Kaymak
+// Date: 25.12.2016
+
 package com.project.ui;
 
 import android.support.v4.app.Fragment;

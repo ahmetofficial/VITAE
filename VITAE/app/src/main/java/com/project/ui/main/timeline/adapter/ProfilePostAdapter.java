@@ -24,7 +24,6 @@ import com.project.core.postmodule.UserPost;
 import com.project.core.postmodule.UserPostLike;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
-import com.project.utils.Typefaces;
 import com.project.utils.WifiUtils;
 
 import java.net.UnknownHostException;
@@ -35,19 +34,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
+public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.MyViewHolder> {
     private List<UserPost> userPosts = new ArrayList<>();
     private String userId;
     private Context context;
+    private String profilePicturePath;
 
-    public PostAdapter(List<UserPost> userPosts, String userId, Context context) {
+    public ProfilePostAdapter(List<UserPost> userPosts, String userId, String profilePicturePath, Context context) {
         this.userPosts = userPosts;
         this.userId = userId;
+        this.profilePicturePath = profilePicturePath;
         this.context = context;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView userId, postText, timestamp, url, likeCount, commentCount;
+        public TextView user_id, post_text, timestamp, url, likeCount, commentCount;
         public ImageView postPhoto;
         public LikeButton likebutton;
         public CircleImageView profilePicture;
@@ -55,8 +56,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public MyViewHolder(View view) {
             super( view );
             profilePicture = (CircleImageView) view.findViewById( R.id.postProfilePicture );
-            userId = (TextView) view.findViewById( R.id.postUserName );
-            postText = (TextView) view.findViewById( R.id.postText );
+            user_id = (TextView) view.findViewById( R.id.postUserName );
+            post_text = (TextView) view.findViewById( R.id.postText );
             timestamp = (TextView) view.findViewById( R.id.postTimestamp );
             postPhoto = (ImageView) view.findViewById( R.id.postPhoto );
             url = (TextView) view.findViewById( R.id.postURL );
@@ -77,24 +78,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final UserPost userPost = userPosts.get( position );
-        holder.userId.setText( userPost.getUser_id() );
-        holder.postText.setText( userPost.getPostText() );
-        holder.postText.setTypeface( Typefaces.getRobotoLight( context ) );
+        holder.user_id.setText( userPost.getUser_id() );
+        holder.post_text.setText( userPost.getPostText() );
         holder.commentCount.setText( String.valueOf( userPost.getCommentCount() ) );
         holder.likeCount.setText( String.valueOf( userPost.getLikeCount() ) );
-
-        String photoId = userPost.getUser().getProfilePictureId();
-        if (!photoId.equals( "" )) {
-            String picturePath = "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
-                    + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
-                    + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
-                    + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
-
-            Glide.with( context )
-                    .load( picturePath )
-                    .into( holder.profilePicture );
-        }
-
+        Glide.with( context )
+                .load( profilePicturePath )
+                .into( holder.profilePicture );
         if (userPost.getPostLikes() != null) {
             for (int i = 0; i < userPost.getPostLikes().size(); i++) {
                 if (userPost.getPostLikes().get( i ).getUserId().equals( userId )) {
@@ -122,17 +112,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             Glide.with( context )
                     .load( picturePath )
                     .apply(new RequestOptions()
-                            //.override(1000, 800) // set exact size
+                            .override(1000, 800) // set exact size
                             .fitCenter() // keep memory usage low by fitting into (w x h) [optional]
-                            .centerCrop()
                             .dontAnimate()
-
+                            .placeholder(R.drawable.emoji_1f3c4_1f3ff)
                     )
-                    .into( holder.postPhoto )
-            ;
+                    .into( holder.postPhoto );
         } else {
             holder.postPhoto.setVisibility( View.GONE );
         }
+
 
         holder.likebutton.setOnLikeListener( new OnLikeListener() {
             @Override

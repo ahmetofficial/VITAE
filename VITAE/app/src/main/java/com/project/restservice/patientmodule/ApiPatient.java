@@ -4,8 +4,8 @@
 package com.project.restservice.patientmodule;
 
 import com.project.core.usermodule.Patient;
-import com.project.core.usermodule.PatientSimilarityRequest;
-import com.project.core.usermodule.PatientSimularityResponse;
+import com.project.restservice.PatientSimilarityRequest;
+import com.project.restservice.PatientSimularityResponse;
 import com.project.core.usermodule.User;
 
 import retrofit2.Call;
@@ -19,9 +19,9 @@ public interface ApiPatient {
     @POST("userModule/patients/searchSimilarPatient")
     Call<PatientSimularityResponse> searchSimilarUsers(@Body PatientSimilarityRequest patientSimilarityRequest);
 
-    @GET("userModule/patients/getPatientProfile/{userId}")
-    Call<Patient> getPatientProfileInformation(@Path("userId") String userId);
+    @GET("userModule/patients/getPatientProfile/{user_id}")
+    Call<Patient> getPatientProfileInformation(@Path("user_id") String userId);
 
-    @GET("userModule/patients/getFriends/{userId}")
-    Call<User> getFriends(@Path("userId") String userId);
+    @GET("userModule/patients/getFriends/{user_id}")
+    Call<User> getFriends(@Path("user_id") String userId);
 }

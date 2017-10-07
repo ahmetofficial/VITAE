@@ -1,14 +1,12 @@
 package com.project.core.eventmodule;
+// Developer: Ahmet Kaymak
+// Date: 17.02.2017
 
 import com.project.core.locationmodule.Adress;
 import com.project.core.usermodule.User;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-/**
- * Created by Ahmet Kaymak on 26.12.2016.
- */
 
 public class Event {
 

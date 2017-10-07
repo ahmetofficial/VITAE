@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 21.07.2017
 
-package com.project.core.usermodule;
+package com.project.restservice;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -26,6 +26,10 @@ public class PatientSimularityResponse {
     @Expose
     private String mail;
 
+    @SerializedName("profile_picture_id")
+    @Expose
+    private String profilePictureId;
+
     @SerializedName("similarity_count")
     @Expose
     private int similarityCount;
@@ -44,6 +48,10 @@ public class PatientSimularityResponse {
 
     public int getUserTypeId() {
         return userTypeId;
+    }
+
+    public String getProfilePictureId() {
+        return profilePictureId;
     }
 
     public String getMail() {

@@ -180,6 +180,7 @@
     <string name="no">Hayır</string>
     <string name="hospital_rankings">Hastane Sıralaması</string>
     <string name="no_review_about_disease_for_hospitals">Hastalıkla ilgili hastane değerlendirmesi bulunamadı.</string>
+    <string name="select_disease">Hastalık Seçiniz</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>

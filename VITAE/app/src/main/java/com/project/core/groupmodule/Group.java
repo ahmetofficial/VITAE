@@ -1,13 +1,12 @@
+// Developer: Ahmet Kaymak
+// Date: 10.03.2016
+
 package com.project.core.groupmodule;
 
 import com.project.core.usermodule.User;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-/**
- * Created by Ahmet Kaymak on 26.12.2016.
- */
 
 public class Group {
 

@@ -37,6 +37,11 @@ public class SearchActivity extends AppCompatActivity {
     private FragmentUserSearch fragmentUserSearch;
     private FragmentSimilarPatientSearch fragmentSimilarPatientSearch;
 
+    private boolean isSearchQueryChangedForHospitalSearch;
+    private boolean isSearchQueryChangedForNormalUserSearch;
+    private boolean isSearchQueryChangedForSimilarUserSearch;
+    private String previousQuery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -66,11 +71,48 @@ public class SearchActivity extends AppCompatActivity {
 
             searchView.setOnQueryTextListener( new MaterialSearchView.OnQueryTextListener() {
                 @Override
-                public boolean onQueryTextSubmit(String query) {
+                public boolean onQueryTextSubmit(final String query) {
                     if (query != null) {
-                        fragmentHospitalSearch.listSearchResult( userId, query );
-                        fragmentUserSearch.listSearchResult( userId, query );
-                        //fragmentSimilarPatientSearch.listSearchResult( query );
+                        viewPager.addOnPageChangeListener( new ViewPager.OnPageChangeListener() {
+                            @Override
+                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                            }
+
+                            @Override
+                            public void onPageSelected(int position) {
+                                if (position == 0) {
+                                    //if (!query.equals( previousQuery )) {
+                                        fragmentHospitalSearch.listSearchResult( userId, query );
+                                        previousQuery = query;
+                                        isSearchQueryChangedForHospitalSearch = false;
+                                        isSearchQueryChangedForNormalUserSearch = true;
+                                        isSearchQueryChangedForSimilarUserSearch = true;
+                                    //}
+                                } else if (position == 1) {
+                                    //if (!query.equals( previousQuery )) {
+                                        fragmentUserSearch.listSearchResult( userId, query );
+                                        previousQuery = query;
+                                        isSearchQueryChangedForHospitalSearch = true;
+                                        isSearchQueryChangedForNormalUserSearch = false;
+                                        isSearchQueryChangedForSimilarUserSearch = true;
+                                    //}
+                                } else {
+                                    //if (!query.equals( previousQuery )) {
+                                        fragmentSimilarPatientSearch.listSearchResult( userId, query,totalHealthItem );
+                                        previousQuery = query;
+                                        isSearchQueryChangedForHospitalSearch = true;
+                                        isSearchQueryChangedForNormalUserSearch = true;
+                                        isSearchQueryChangedForSimilarUserSearch = false;
+                                    //}
+                                }
+                            }
+
+                            @Override
+                            public void onPageScrollStateChanged(int state) {
+
+                            }
+                        } );
                     }
                     return false;
                 }
@@ -80,6 +122,7 @@ public class SearchActivity extends AppCompatActivity {
                     return false;
                 }
             } );
+
 
         } catch (Exception e) {
             Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();

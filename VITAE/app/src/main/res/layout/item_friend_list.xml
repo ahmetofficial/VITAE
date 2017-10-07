@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    android:id="@+id/user_search_item"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:clickable="true"
-                                    android:orientation="vertical">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_search_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/friend_list_item_container"
@@ -16,21 +18,22 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
+        <com.alexzh.circleimageview.CircleImageView
             android:id="@+id/friend_list_item_profile_picture"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/feed_item_profile_pic"
+            android:layout_height="@dimen/feed_item_profile_pic"
+            android:background="@color/white"
             android:contentDescription=""
-            android:scaleType="fitCenter">
-        </ImageView>
+            android:scaleType="fitCenter"
+            tools:ignore="ContentDescription">
+        </com.alexzh.circleimageview.CircleImageView>
 
         <TextView
             android:id="@+id/friend_list_item_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/friend_list_item_profile_picture"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -40,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/friend_list_item_user_name"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
-            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/friend_list_item_profile_picture"
             android:textSize="12sp"/>
 
@@ -49,23 +52,23 @@
             android:id="@+id/friend_list_item_friendship_button"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_color_accent_round"
-            android:src="@drawable/ic_account_remove_white_24dp"
+            android:layout_alignBottom="@+id/friend_list_item_profile_picture"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_alignBottom="@+id/friend_list_item_profile_picture"/>
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_color_accent_round"
+            android:src="@drawable/ic_account_remove_white_24dp"/>
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_below="@id/friend_list_item_friendship_button"
         android:layout_height="0.5dp"
-        android:layout_marginRight="20dp"
+        android:layout_below="@id/friend_list_item_friendship_button"
         android:layout_marginLeft="75dp"
+        android:layout_marginRight="20dp"
         android:background="@android:color/darker_gray"/>
 
 </android.support.v7.widget.CardView>

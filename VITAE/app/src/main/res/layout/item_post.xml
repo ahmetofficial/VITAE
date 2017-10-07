@@ -26,6 +26,7 @@
                 android:layout_width="@dimen/feed_item_profile_pic"
                 android:layout_height="@dimen/feed_item_profile_pic"
                 android:contentDescription=""
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription">
             </com.alexzh.circleimageview.CircleImageView>
@@ -74,11 +75,13 @@
             android:textColorLink="@color/link"/>
 
         <ImageView
-            android:id="@+id/postImage"
+            android:id="@+id/postPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@color/white"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:scaleType="fitXY"
             android:visibility="visible"
             tools:ignore="ContentDescription"/>
@@ -108,9 +111,9 @@
             <ImageView
                 android:id="@+id/postComment"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="40dp"
+                android:layout_marginTop="2dp"
                 android:src="@drawable/ic_comment_outline_grey600_24dp"/>
 
             <TextView

@@ -4,6 +4,7 @@
 package com.project.restservice.imagemodule;
 
 import com.project.restservice.ServerResponse;
+import com.project.restservice.ServerResponseWithPhotoId;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -15,6 +16,10 @@ import retrofit2.http.Path;
 public interface ApiImage {
 
     @Multipart
-    @POST("imageModule/uploadProfilePicture/{userId}")
-    Call<ServerResponse> uploadSingleImage(@Path("userId") String userId, @Part MultipartBody.Part photo);
+    @POST("imageModule/uploadProfilePicture/{user_id}")
+    Call<ServerResponse> uploadUserProfilePicture(@Path("user_id") String userId, @Part MultipartBody.Part photo);
+
+    @Multipart
+    @POST("imageModule/uploadUserPostPhoto/{user_id}")
+    Call<ServerResponseWithPhotoId> uploadUserPostPhoto(@Path("user_id") String userId, @Part MultipartBody.Part photo);
 }

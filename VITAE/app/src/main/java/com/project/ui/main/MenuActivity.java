@@ -190,7 +190,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 1) {
+                if (position == 2) {
                     mFab.setImageDrawable( getResources().getDrawable( R.drawable.ic_plus_white_18dp, getTheme() ) );
                     mFab.setOnClickListener( new View.OnClickListener() {
                         @Override

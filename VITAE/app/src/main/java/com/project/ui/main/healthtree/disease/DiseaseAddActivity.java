@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
@@ -38,6 +39,7 @@ public class DiseaseAddActivity extends AppCompatActivity {
     public static String userId;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
+    private ProgressBar progressBar;
     private MenuItem item;
     public static String query;
     public static String diseaseName;
@@ -50,6 +52,8 @@ public class DiseaseAddActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_disease_add );
 
+        progressBar = (ProgressBar) findViewById( R.id.progress_bar ) ;
+        progressBar.setVisibility( View.INVISIBLE );
         viewPager = (ViewPager) findViewById( R.id.activity_disease_add_viewpager );
         setupViewPager( viewPager );
         mIndicatorView = (IndicatorView) findViewById( R.id.activity_disease_add_indicator );
@@ -87,13 +91,14 @@ public class DiseaseAddActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 DiseaseAddActivity.query = query;
+                progressBar.setVisibility( View.VISIBLE );
+                fragmentDiseaseAddOne.fillDiseases( query );
+                progressBar.setVisibility( View.INVISIBLE );
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                DiseaseAddActivity.query = newText;
-                fragmentDiseaseAddOne.fillDiseases( newText );
                 return false;
             }
         } );

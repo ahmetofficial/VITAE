@@ -42,7 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.project.ui.DashboardActivity"/>
         <activity android:name="com.project.ui.main.MenuActivity"/>
         <activity android:name="com.project.ui.signup.SignUpActivity"/>
         <activity android:name="com.project.ui.main.PostActivity"/>

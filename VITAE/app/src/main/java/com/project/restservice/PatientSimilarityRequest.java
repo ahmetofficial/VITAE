@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 21.07.2017
 
-package com.project.core.usermodule;
+package com.project.restservice;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

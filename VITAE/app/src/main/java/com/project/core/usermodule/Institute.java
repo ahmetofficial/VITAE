@@ -1,10 +1,9 @@
+// Developer: Ahmet Kaymak
+// Date: 10.03.2016
+
 package com.project.core.usermodule;
 
 import java.util.Date;
-
-/**
- * Created by SAMSUNG on 5.12.2016.
- */
 
 public class Institute extends User {
     //This type of user also represent organizations and other legal entities apert from just institutes.

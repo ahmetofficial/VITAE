@@ -1,8 +1,7 @@
-package com.project.core.generalhealthmodule;
+// Developer: Ahmet Kaymak
+// Date: 10.03.2016
 
-/**
- * Created by Ahmet Kaymak on 25.12.2016.
- */
+package com.project.core.generalhealthmodule;
 
 public class Organ {
 

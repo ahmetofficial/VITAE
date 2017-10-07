@@ -1,3 +1,6 @@
+// Developer: Ahmet Kaymak
+// Date: 14.03.2017
+
 package com.project.ui.seach.adapter;
 
 import android.content.Context;

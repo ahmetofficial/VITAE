@@ -5,11 +5,6 @@ package com.project.ui.patient;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Shader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,12 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
+import com.bumptech.glide.Glide;
 import com.project.core.postmodule.UserPost;
+import com.project.core.usermodule.Patient;
+import com.project.core.usermodule.UserRelationship;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
 import com.project.ui.main.timeline.adapter.PostAdapter;
-import com.project.core.usermodule.Patient;
-import com.project.core.usermodule.UserRelationship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,15 +87,10 @@ public class PatientActivity extends AppCompatActivity {
                         userName.setText( response.body().getUserName() );
                         userId.setText( response.body().getUserId() );
                         aboutMe.setText( response.body().getAboutMe() );
-                        bitmap = BitmapFactory.decodeResource( getResources(), R.drawable.my_picture );
-                        Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
-                        BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
-                        Paint paint = new Paint();
-                        paint.setShader( shader );
-                        paint.setAntiAlias( true );
-                        Canvas c = new Canvas( circleBitmap );
-                        c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
-                        profile_picture.setImageBitmap( circleBitmap );
+                        Glide.with(getBaseContext()).load("http://razemovafaghiat.ir/uploads/download/egve.jpg").into(profile_picture);
+                        /*
+
+                        */
                     }
                 }
 

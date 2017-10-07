@@ -1,10 +1,9 @@
+// Developer: Ahmet Kaymak
+// Date: 10.03.2016
+
 package com.project.core.generalhealthmodule;
 
 import java.util.ArrayList;
-
-/**
- * Created by Ahmet Kaymak on 25.12.2016.
- */
 
 public class BodySystem {
 

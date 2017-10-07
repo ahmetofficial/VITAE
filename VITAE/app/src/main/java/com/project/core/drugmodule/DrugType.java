@@ -1,7 +1,7 @@
-package com.project.core.drugmodule;
-
 // Developer: Ahmet Kaymak
 // Date: 17.02.2017
+
+package com.project.core.drugmodule;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
