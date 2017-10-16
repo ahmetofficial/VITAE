@@ -34,9 +34,14 @@ import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.github.fabtransitionactivity.SheetLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.project.core.usermodule.User;
+import com.project.restservice.ApiClient;
+import com.project.restservice.ServerResponse;
 import com.project.ui.ViewPagerAdapter;
-import com.project.ui.location.HospitalDiseasePerformanceMap;
+import com.project.ui.location.ActivityBloodAlertMap;
+import com.project.ui.location.ActivityHospitalDiseasePerformanceMap;
 import com.project.ui.main.healthtree.FragmentHealthTree;
 import com.project.ui.main.message.FragmentConversation;
 import com.project.ui.main.profile.FragmentProfile;
@@ -45,12 +50,16 @@ import com.project.ui.patient.PatientFriendsActivity;
 import com.project.ui.patient.PatientSettingsActivity;
 import com.project.ui.seach.SearchActivity;
 import com.project.ui.userhealthtree.UserHealthTreeActivity;
+import com.project.utils.SessionUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFabAnimationEndListener {
 
@@ -94,6 +103,9 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         tabLayout.setupWithViewPager( viewPager );
         setupTabIcons();
 
+        String token=FirebaseInstanceId.getInstance().getToken();
+        sendRegistrationToServer( token );
+
         //Post Fields
         LayoutInflater userPostInflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         postView = userPostInflater.inflate( R.layout.activity_post, null );
@@ -108,6 +120,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         mNavItems.add( new NavigationItem( getString( R.string.my_health_tree ), R.drawable.ic_barley_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.friends ), R.drawable.ic_clipboard_account_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.hospital_performance_map ), R.drawable.ic_hospital_marker_white_24dp ) );
+        mNavItems.add( new NavigationItem( getString( R.string.blood_alarm_map ), R.drawable.ic_alarm_light_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.settings ), R.drawable.ic_settings_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.log_out ), R.drawable.ic_logout_white_24dp ) );
         mDrawerLayout = (DrawerLayout) findViewById( R.id.drawerLayout );
@@ -221,6 +234,30 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         } );
     }
 
+    private void sendRegistrationToServer(String token) {
+        User user=new User();
+        user.setUserId( SessionUtils.getUserId());
+        user.setDeviceToken( token );
+        try {
+            ApiClient.userApi().updateUserDeviceToken( user ).enqueue( new Callback<ServerResponse>() {
+                @Override
+                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                    if (response.isSuccessful()) {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ServerResponse> call, Throwable t) {
+                    Log.e( "UserTimeline", t.getMessage() );
+                    Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                }
+            } );
+        } catch (Exception e) {
+            Log.e( "UserTimeline", e.getMessage() );
+            Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -401,16 +438,21 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 2) {
-            Intent intent = new Intent( getBaseContext(), HospitalDiseasePerformanceMap.class );
+            Intent intent = new Intent( getBaseContext(), ActivityHospitalDiseasePerformanceMap.class );
             intent.putExtra( "userId", userId );
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 3) {
-            Intent intent = new Intent( getBaseContext(), PatientSettingsActivity.class );
+            Intent intent = new Intent( getBaseContext(), ActivityBloodAlertMap.class );
             intent.putExtra( "userId", userId );
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 4) {
+            Intent intent = new Intent( getBaseContext(), PatientSettingsActivity.class );
+            intent.putExtra( "userId", userId );
+            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+            getBaseContext().startActivity( intent );
+        } else if (position == 5) {
             SharedPreferences preferences = getSharedPreferences( "VitaeUserSession", Context.MODE_PRIVATE );
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();

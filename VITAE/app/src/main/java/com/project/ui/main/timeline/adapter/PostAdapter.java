@@ -4,6 +4,7 @@
 package com.project.ui.main.timeline.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.project.core.postmodule.UserPost;
 import com.project.core.postmodule.UserPostLike;
 import com.project.restservice.ApiClient;
 import com.project.restservice.ServerResponse;
+import com.project.ui.patient.PatientActivity;
 import com.project.utils.Typefaces;
 import com.project.utils.WifiUtils;
 
@@ -133,6 +135,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         } else {
             holder.postPhoto.setVisibility( View.GONE );
         }
+
+        holder.profilePicture.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if(userPost.getUser_id().equals( userId )){
+
+                    }else {
+                        Intent intent = new Intent( context, PatientActivity.class );
+                        intent.putExtra( "visitorId", userId );
+                        intent.putExtra( "visitedId", userPost.getUser_id() );
+                        context.startActivity( intent );
+                    }
+                } catch (Exception e) {
+                    Toast.makeText( context, e.getMessage(), Toast.LENGTH_LONG ).show();
+                }
+            }
+        } );
 
         holder.likebutton.setOnLikeListener( new OnLikeListener() {
             @Override

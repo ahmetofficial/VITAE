@@ -62,13 +62,13 @@ public class FragmentProfile extends Fragment {
         Typeface typeLight = Typeface.createFromAsset( getActivity().getAssets(), "fonts/Roboto-Light.ttf" );
 
         profileView = inflater.inflate( R.layout.fragment_profile, container, false );
-        userName = (TextView) profileView.findViewById( R.id.fragment_profile_txtUserName );
+        userName = (TextView) profileView.findViewById( R.id.patient_profile_user_name );
         userName.setTypeface( typeLight );
-        userId = (TextView) profileView.findViewById( R.id.fragment_profile_txtUserId );
+        userId = (TextView) profileView.findViewById( R.id.patient_profile_user_id );
         userId.setTypeface( typeLight );
-        aboutMe = (TextView) profileView.findViewById( R.id.fragment_profile_txtAboutMe );
+        aboutMe = (TextView) profileView.findViewById( R.id.patient_profile_about_me );
         aboutMe.setTypeface( typeLight );
-        profile_picture = (ImageView) profileView.findViewById( R.id.fragment_profile_circle_image );
+        profile_picture = (ImageView) profileView.findViewById( R.id.patient_profile_picture );
 
         getPatientProfileInformations();
         getUserProfilePost();
@@ -120,7 +120,7 @@ public class FragmentProfile extends Fragment {
                 public void onResponse(Call<UserPost> call, Response<UserPost> response) {
                     if (response.isSuccessful()) {
                         postList = (ArrayList) response.body().getPosts();
-                        recyclerView = (RecyclerView) profileView.findViewById( R.id.fragment_profile_recycler_view );
+                        recyclerView = (RecyclerView) profileView.findViewById( R.id.patient_profile_post_recycler_view );
                         mAdapter = new ProfilePostAdapter( postList, userID,profilePhotoPath, getContext() );
                         recyclerView.setHasFixedSize( true );
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getActivity() );

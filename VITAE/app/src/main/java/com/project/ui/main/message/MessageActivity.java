@@ -4,24 +4,35 @@
 package com.project.ui.main.message;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
+import com.alexzh.circleimageview.CircleImageView;
+import com.bumptech.glide.Glide;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.project.core.messagemodule.Message;
 import com.project.restservice.ApiClient;
 import com.project.ui.main.message.adapter.MessageAdapter;
+import com.project.utils.Typefaces;
 import com.project.utils.WifiUtils;
 
 import org.json.JSONException;
@@ -40,6 +51,7 @@ public class MessageActivity extends AppCompatActivity {
     private String senderId;
     private String receiverId;
     private String conversationId;
+    private String receiverPhotoPath;
     private String userId;
     private Message message;
 
@@ -47,6 +59,8 @@ public class MessageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Message> messageList = new ArrayList();
     private MessageAdapter mAdapter;
+    private CircleImageView receiverPhoto;
+    private TextView receiverIdText;
 
     private Socket socket;
     {
@@ -63,11 +77,26 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_message );
 
+        receiverPhotoPath="";
         Intent myIntent = getIntent();
         senderId = myIntent.getStringExtra( "senderId" );
         receiverId = myIntent.getStringExtra( "receiverId" );
         conversationId = myIntent.getStringExtra( "conversationId" );
         userId = myIntent.getStringExtra( "userId" );
+        receiverPhotoPath = myIntent.getStringExtra( "receiverPhotoPath" );
+
+        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+        setSupportActionBar( toolbar );
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        getSupportActionBar().setDisplayShowHomeEnabled( true );
+        getSupportActionBar().setTitle( "" );
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         message=new Message();
         message.setConversationId( conversationId );
@@ -75,7 +104,26 @@ public class MessageActivity extends AppCompatActivity {
         message.setReceiverId( receiverId );
 
         messageInputText = (EditText) findViewById( R.id.message_input );
+        messageInputText.setTypeface( Typefaces.getRobotoLight( getBaseContext() ) );
         recyclerView = (RecyclerView) findViewById( R.id.message_recycler_view );
+        receiverIdText = (TextView) findViewById( R.id.receiver_id );
+        receiverPhoto = (CircleImageView) findViewById( R.id.receiver_photo );
+        receiverIdText.setText( receiverId );
+        if (!receiverPhotoPath.equals( "" )) {
+            Glide.with( getBaseContext() )
+                    .load( receiverPhotoPath )
+                    .into( receiverPhoto );
+        }else{
+            Bitmap bitmap = BitmapFactory.decodeResource( getBaseContext().getResources(), R.drawable.empty_profile );
+            Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
+            BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
+            Paint paint = new Paint();
+            paint.setShader( shader );
+            paint.setAntiAlias( true );
+            Canvas c = new Canvas( circleBitmap );
+            c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
+            receiverPhoto.setImageBitmap( circleBitmap );
+        }
         getMessages(message);
 
         socket.connect();

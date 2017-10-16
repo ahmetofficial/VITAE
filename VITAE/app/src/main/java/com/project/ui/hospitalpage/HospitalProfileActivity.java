@@ -59,7 +59,6 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
     private String hospitalAdress;
     private FragmentAddHospitalReview hospitalReview;
     private RelativeLayout hospitalUserReview;
-    private RelativeLayout hospitalDiseaseReview;
     private RelativeLayout ratingLayout;
 
     //////////////////////////////////Hospital Rates Fields/////////////////////////////////////////
@@ -78,7 +77,6 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
         hospitalId = myIntent.getIntExtra( "hospitalId", 0 );
 
         hospitalUserReview =(RelativeLayout) findViewById( R.id.relative_layout_hospital_user_review );
-        hospitalDiseaseReview =(RelativeLayout) findViewById( R.id.relative_layout_hospital_disease_review );
         hospitalNameText = (TextView) findViewById( R.id.hospital_activity_hospital_name );
         hospitalNameText.setGravity( Gravity.CENTER_VERTICAL );
         hospitalType = (TextView) findViewById( R.id.hospital_activity_hospital_type );

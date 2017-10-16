@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hospital_page_background"
+                android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/hospital_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/blood_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_alignLeft="@+id/hospital_name"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:text="@string/alarm_level"
+        android:textColor="@color/white"
+        android:layout_below="@+id/hospital_name"/>
+
+    <ImageView
+        android:id="@+id/alert_circle_image"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/text_1"
+        android:layout_alignTop="@+id/blood_alert"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/blood_alert"/>
+
+    <TextView
+        android:id="@+id/distance_to_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hospital_name"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/blood_alert"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/phone_float_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/icon_phone_white"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_alignTop="@+id/alert_circle_image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/distance_to_location"
+        android:background="@android:color/white"/>
+
+</RelativeLayout>

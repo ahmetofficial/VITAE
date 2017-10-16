@@ -5,6 +5,7 @@ package com.project.core.messagemodule;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.project.core.usermodule.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +47,10 @@ public class Conversation {
     @SerializedName("conversation")
     @Expose
     private ArrayList<Conversation> conversations;
+
+    @SerializedName("USER")
+    @Expose
+    private User receiver;
 
     public String getConversationId() {
         return conversationId;
@@ -106,4 +111,9 @@ public class Conversation {
     public ArrayList<Conversation> getConversations() {
         return conversations;
     }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
 }

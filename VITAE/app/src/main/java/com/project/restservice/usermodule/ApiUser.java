@@ -3,6 +3,7 @@
 
 package com.project.restservice.usermodule;
 
+import com.project.core.usermodule.UserLocation;
 import com.project.restservice.FullTextSearchRequest;
 import com.project.restservice.ServerResponse;
 import com.project.ui.login.LoginActivity;
@@ -40,6 +41,12 @@ public interface ApiUser {
 
     @POST("userModule/users/follow")
     Call<ServerResponse> follow(@Body UserRelationship userRelationship);
+
+    @POST("updateUserDeviceToken")
+    Call<ServerResponse> updateUserDeviceToken(@Body User user);
+
+    @POST("userModule/users/saveLocation")
+    Call<ServerResponse> saveUserLocation(@Body UserLocation userLocation);
 
     @HTTP(method = "DELETE", path = "userModule/users/unfollow", hasBody = true)
     Call<ServerResponse> unfollow(@Body UserRelationship userRelationship);

@@ -21,6 +21,9 @@ public interface ApiHospital {
     @GET("hospitalModule/hospitals/getHospitalById/{hospitalId}")
     Call<Hospital> searchByHospitalId(@Path("hospitalId") int hospitalId);
 
+    @GET("hospitalModule/hospitals/getAllHospitals")
+    Call<Hospital> getAllHospitals();
+
     //Hospital Rates
 
     @POST("hospitalModule/hospitals/createUserHospitalRates")

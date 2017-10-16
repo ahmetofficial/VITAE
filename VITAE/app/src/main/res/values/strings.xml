@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Vitae</string>
-    <string name="google_maps_key">AIzaSyA31rWRypoS_VsV0sKC1yD6_EnE71H8vyA</string>
+    <string name="google_maps_key">AIzaSyBYZ-Q4nV_LikYha2nDKiSlEFC2Kb0q92k</string>
 
     <!--Add Something To Health Tree-->
     <string name="save">Kaydet</string>
@@ -171,7 +171,7 @@
     <string name="hospital_comments_important">Değerlendirmen ile birçok kişiye yardımcı olabilirsin. İlk değerlendirmeyi eklemeye ne dersin? </string>
     <string name="empty_disease">Lütfen değerlendirmeniz için bir hastalık seçtiğinizden emin olun.</string>
     <string name="rate_is_succesful">Değerlendirmeniz başarıyla kaydedildi.</string>
-    <string name="view_hospital_reviews">Hastane için genel değerlendirme ve hastalık karnelerini görüntüleyebilirsin.</string>
+    <string name="view_hospital_reviews">Hastane için yapılan kullanıcı değerlendirmelerine göz atabilirsin.</string>
     <string name="review">Değerlendirme</string>
     <string name="general_review">Genel Karne</string>
     <string name="disease_report">Hastalık Karnesi</string>
@@ -181,6 +181,17 @@
     <string name="hospital_rankings">Hastane Sıralaması</string>
     <string name="no_review_about_disease_for_hospitals">Hastalıkla ilgili hastane değerlendirmesi bulunamadı.</string>
     <string name="select_disease">Hastalık Seçiniz</string>
+    <string name="blood_alarm">Kan Alarmı</string>
+    <string name="alarm_blood_type">Alarm Kan Grubu</string>
+    <string name="hospital">Hastane</string>
+    <string name="optional">Tercihe Bağlı</string>
+    <string name="contact_number">İletişim Numarası</string>
+    <string name="alarm_level">Alarm Seviyesi</string>
+    <string name="select_blood_type">Kan Grubu Seçiniz</string>
+    <string name="select_hospital">Hastane Seçiniz</string>
+    <string name="enter_acceptable_phone_number">Lütfen girdiğiniz numarayı kontrol ediniz.</string>
+    <string name="blood_alarm_has_created">Kan alarmı başarıyla oluşturuldu.</string>
+    <string name="distance_to_my_location">Konuma Göre Uzaklığı</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>
@@ -191,5 +202,23 @@
     <string name="log_out">Hesaptan Çık</string>
     <string name="friends">Arkadaşlar</string>
     <string name="hospital_performance_map">Hastane Performans Haritası</string>
+    <string name="blood_alarm_map">Kan Alarm Haritası</string>
+
+   <!--__________________________________________FCM_____________________________________________-->
+    <string name="quickstart_message">Click the SUBSCRIBE TO NEWS button below to subscribe to the
+        news topic. Messages sent to the news topic will be received. The LOG TOKEN button logs the
+        InstanceID token to logcat.</string>
+    <string name="subscribe_to_news">Subscribe To News</string>
+    <string name="log_token">Log Token</string>
+
+    <string name="msg_subscribed">Subscribed to news topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">News</string>
 
 </resources>

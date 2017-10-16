@@ -126,6 +126,7 @@ public class FragmentOne extends Fragment {
                     patient.setPhoneNumber( null );
                     patient.setAboutMe( null );
                     patient.setProfilePictureId( "" );
+                    //patient.setDeviceName(  );
                     patient.setGender( gender );
                     patient.setBloodTypeId( blood );
                     patient.setBirthday( birthday );

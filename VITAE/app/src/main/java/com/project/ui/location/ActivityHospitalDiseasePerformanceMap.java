@@ -43,7 +43,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.core.hospitalmodule.UserHospitalRate;
+import com.project.core.usermodule.UserLocation;
 import com.project.restservice.ApiClient;
+import com.project.restservice.ServerResponse;
 import com.project.ui.location.adapter.HospitalDiseaseRankAdapter;
 import com.project.ui.main.MenuActivity;
 import com.project.utils.GPSTracker;
@@ -56,7 +58,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HospitalDiseasePerformanceMap extends AppCompatActivity implements OnMapReadyCallback,
+public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, LocationListener, GoogleMap.OnCameraIdleListener {
 
     private MaterialSpinner diseaseSpinner;
@@ -111,27 +113,50 @@ public class HospitalDiseasePerformanceMap extends AppCompatActivity implements 
             GPSTracker gpsTracker = new GPSTracker( getBaseContext() );
             Location location = gpsTracker.getLocation();
 
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
+            if(location!=null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
 
-            try {
-                ApiClient.userDiseaseHistoryApi().getUserDiseaseHistory( userId ).enqueue( new Callback<UserDiseaseHistory>() {
-                    @Override
-                    public void onResponse(Call<UserDiseaseHistory> call, Response<UserDiseaseHistory> response) {
-                        if (response.isSuccessful()) {
-                            fillDiseaseSpinner( response.body().getUserDiseaseHistories() );
+                try {
+                    ApiClient.userDiseaseHistoryApi().getUserDiseaseHistory( userId ).enqueue( new Callback<UserDiseaseHistory>() {
+                        @Override
+                        public void onResponse(Call<UserDiseaseHistory> call, Response<UserDiseaseHistory> response) {
+                            if (response.isSuccessful()) {
+                                fillDiseaseSpinner( response.body().getUserDiseaseHistories() );
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<UserDiseaseHistory> call, Throwable t) {
-                        Log.e( "UserHealthTree", t.getMessage() );
-                        Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
-                    }
-                } );
-            } catch (Exception e) {
-                Log.e( "UserHealthTree", e.getMessage() );
-                Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                        @Override
+                        public void onFailure(Call<UserDiseaseHistory> call, Throwable t) {
+                            Log.e( "UserHealthTree", t.getMessage() );
+                            Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                        }
+                    } );
+                } catch (Exception e) {
+                    Log.e( "UserHealthTree", e.getMessage() );
+                    Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                }
+                try {
+                    UserLocation userLocation=new UserLocation( );
+                    userLocation.setUserId( userId );
+                    userLocation.setLatitude( String.valueOf(latitude) );
+                    userLocation.setLongitude( String.valueOf(longitude) );
+                    ApiClient.userApi().saveUserLocation( userLocation ).enqueue( new Callback<ServerResponse>() {
+                        @Override
+                        public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                            if (response.isSuccessful()) {
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ServerResponse> call, Throwable t) {
+                            Log.e( "UserHealthTree", t.getMessage() );
+                            Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                        }
+                    } );
+                } catch (Exception e) {
+                    Log.e( "UserHealthTree", e.getMessage() );
+                    Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                }
             }
 
         } else {
@@ -243,7 +268,7 @@ public class HospitalDiseasePerformanceMap extends AppCompatActivity implements 
                 .setNegativeButton( getString( R.string.no ), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         dialog.cancel();
-                        startActivity( new Intent( HospitalDiseasePerformanceMap.this, MenuActivity.class ) );
+                        startActivity( new Intent( ActivityHospitalDiseasePerformanceMap.this, MenuActivity.class ) );
                     }
                 } );
         final AlertDialog alert = builder.create();
@@ -268,7 +293,7 @@ public class HospitalDiseasePerformanceMap extends AppCompatActivity implements 
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions( HospitalDiseasePerformanceMap.this,
+                                ActivityCompat.requestPermissions( ActivityHospitalDiseasePerformanceMap.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION );
                             }

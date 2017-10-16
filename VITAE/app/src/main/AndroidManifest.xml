@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.ahmetkaymak.vitae">
 
-    <uses-sdk tools:overrideLibrary="org.qap.ctimelineview"/>
+    <uses-sdk tools:overrideLibrary="org.qap.ctimelineview,gr.escsoft.michaelprimez.searchablespinner"/>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
@@ -32,6 +32,7 @@
         android:icon="@drawable/vitaelogo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/MyMaterialTheme">
         <activity
             android:name="com.project.ui.login.LoginActivity"
@@ -56,7 +57,8 @@
         <activity android:name="com.project.ui.patient.PatientFriendsActivity"/>
         <activity android:name="com.project.ui.main.message.MessageActivity"/>
         <activity android:name="com.project.ui.hospitalpage.HospitalUserReviewActivity"/>
-        <activity android:name="com.project.ui.location.HospitalDiseasePerformanceMap"/>
+        <activity android:name="com.project.ui.location.ActivityHospitalDiseasePerformanceMap"/>
+        <activity android:name="com.project.ui.location.ActivityBloodAlertMap"/>
 
         <meta-data
             android:name="android.app.default_searchable"
@@ -68,6 +70,40 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        //FCM
+        <service
+            android:name="com.project.firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.project.firebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name="com.project.firebase.MyJobService"
+                 android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+        See README(https://goo.gl/l4GJaQ) for more.-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_blood_red" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/blood_alarm_color" />
 
     </application>
 

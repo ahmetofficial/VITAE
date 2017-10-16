@@ -4,6 +4,12 @@
 package com.project.ui.main.timeline.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -82,9 +88,22 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
         holder.post_text.setText( userPost.getPostText() );
         holder.commentCount.setText( String.valueOf( userPost.getCommentCount() ) );
         holder.likeCount.setText( String.valueOf( userPost.getLikeCount() ) );
-        Glide.with( context )
-                .load( profilePicturePath )
-                .into( holder.profilePicture );
+
+        if (!profilePicturePath.equals( "" )) {
+            Glide.with( context )
+                    .load( profilePicturePath )
+                    .into( holder.profilePicture );
+        }else{
+            Bitmap bitmap = BitmapFactory.decodeResource( context.getResources(), R.drawable.empty_profile );
+            Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
+            BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
+            Paint paint = new Paint();
+            paint.setShader( shader );
+            paint.setAntiAlias( true );
+            Canvas c = new Canvas( circleBitmap );
+            c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
+            holder.profilePicture.setImageBitmap( circleBitmap );
+        }
         if (userPost.getPostLikes() != null) {
             for (int i = 0; i < userPost.getPostLikes().size(); i++) {
                 if (userPost.getPostLikes().get( i ).getUserId().equals( userId )) {

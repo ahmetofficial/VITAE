@@ -5,6 +5,12 @@ package com.project.ui.main.message.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -15,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ahmetkaymak.vitae.R;
+import com.alexzh.circleimageview.CircleImageView;
+import com.bumptech.glide.Glide;
 import com.project.core.messagemodule.Conversation;
 import com.project.ui.main.message.MessageActivity;
 
@@ -36,12 +44,14 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView userName, timestamp;
         public RelativeLayout conversation;
+        public CircleImageView userPhoto;
 
         public MyViewHolder(View view) {
             super( view );
             userName = (TextView) view.findViewById( R.id.conversation_item_user_name );
             timestamp = (TextView) view.findViewById( R.id.conversation_item_last_conversation_date );
-            conversation =(RelativeLayout) view.findViewById( R.id.conversation_item_container );
+            conversation = (RelativeLayout) view.findViewById( R.id.conversation_item_container );
+            userPhoto = (CircleImageView) view.findViewById( R.id.conversation_item_profile_picture );
         }
     }
 
@@ -63,6 +73,29 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         final Conversation conversation = conversationList.get( position );
         final Intent intent = new Intent( context, MessageActivity.class );
 
+        String photoId = conversation.getReceiver().getProfilePictureId();
+        String picturePath="";
+        if (!photoId.equals( "" )) {
+             picturePath= "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
+                    + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
+                    + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
+                    + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
+
+            Glide.with( context )
+                    .load( picturePath )
+                    .into( holder.userPhoto );
+        }else{
+            Bitmap bitmap = BitmapFactory.decodeResource( context.getResources(), R.drawable.empty_profile );
+            Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
+            BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
+            Paint paint = new Paint();
+            paint.setShader( shader );
+            paint.setAntiAlias( true );
+            Canvas c = new Canvas( circleBitmap );
+            c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
+            holder.userPhoto.setImageBitmap( circleBitmap );
+        }
+
         if(conversation.getReceiverId().equals( userId )) {
             holder.userName.setText( conversation.getSenderId() );
             intent.putExtra( "senderId", conversation.getReceiverId() );
@@ -78,11 +111,13 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         holder.timestamp.setText( timeAgo );
         holder.timestamp.setText( timeAgo );
 
+        final String finalPicturePath = picturePath;
         holder.conversation.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent.putExtra( "userId", userId );
                 intent.putExtra( "conversationId", conversation.getConversationId() );
+                intent.putExtra( "receiverPhotoPath", finalPicturePath );
                 context.startActivity( intent );
             }
         } );

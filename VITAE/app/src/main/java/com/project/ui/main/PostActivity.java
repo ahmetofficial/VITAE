@@ -117,6 +117,7 @@ public class PostActivity extends AppCompatActivity {
                             RequestBody photoFile = RequestBody.create( MediaType.parse( getContentResolver().getType( uri ) ), file );
                             MultipartBody.Part photoPart = MultipartBody.Part.createFormData( "photo", "picture", photoFile );
                             uploadPhotoForUserPost( newPost, userId, photoPart, getBaseContext() );
+                            startActivity( new Intent( PostActivity.this, MenuActivity.class ) );
                         }
                     } else {
                         if (!postText.getText().toString().equals( "" )) {
@@ -167,7 +168,9 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 if (response.isSuccessful()) {
-                    if (response.body().getStatus().equals( true )) ;
+                    if (response.body().getStatus().equals( true )){
+                        startActivity( new Intent( PostActivity.this, MenuActivity.class ) );
+                    }
                 }
             }
 

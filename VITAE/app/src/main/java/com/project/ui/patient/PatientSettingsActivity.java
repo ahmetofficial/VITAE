@@ -36,12 +36,12 @@ import com.ahmetkaymak.vitae.R;
 import com.alexzh.circleimageview.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.project.core.photomodule.Photo;
+import com.project.core.usermodule.User;
 import com.project.restservice.ApiClient;
 import com.project.ui.user.ChangeAboutMeFragment;
 import com.project.ui.user.ChangeMailFragment;
 import com.project.ui.user.ChangePasswordFragment;
 import com.project.ui.user.ChangeUserNameFragment;
-import com.project.core.usermodule.User;
 import com.project.utils.FileUtils;
 
 import java.io.File;
@@ -151,6 +151,14 @@ public class PatientSettingsActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayShowHomeEnabled( true );
         getSupportActionBar().setTitle( "" );
 
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         if (checkPermissionREAD_EXTERNAL_STORAGE( this )) {
             //choosing photo for profile picture
 
@@ -192,8 +200,7 @@ public class PatientSettingsActivity extends AppCompatActivity{
         }
     }
 
-    public boolean checkPermissionREAD_EXTERNAL_STORAGE(
-            final Context context) {
+    public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
         if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission( context,
@@ -221,8 +228,7 @@ public class PatientSettingsActivity extends AppCompatActivity{
         }
     }
 
-    public void showDialog(final String msg, final Context context,
-                           final String permission) {
+    public void showDialog(final String msg, final Context context, final String permission) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder( context );
         alertBuilder.setCancelable( true );
         alertBuilder.setTitle( "Permission necessary" );
@@ -240,8 +246,7 @@ public class PatientSettingsActivity extends AppCompatActivity{
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/hospital_page_background"
+                android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00000000">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_horizontal"
+                    android:layout_marginLeft="50dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:text="@string/blood_alarm_map"/>
+
+                <ImageView
+                    android:id="@+id/plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_plus_white_24dp"/>
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/container"
+        android:fillViewport="true">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hospital_page_background">
+
+                <LinearLayout
+                    android:id="@+id/linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <fragment
+                        android:id="@+id/blood_alert_map_fragment"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        tools:context="com.project.ui.location.ActivityBloodAlertMap"/>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fillViewport="true">
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:stretchColumns="1">
+
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <com.jaredrummler.materialspinner.MaterialSpinner
+                                        android:id="@+id/blood_spinner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:layout_margin="15dp"
+                                        android:hint="@string/my_diseases"/>
+
+                                    <ImageView
+                                        android:id="@+id/blood_alarm_marker"
+                                        android:layout_width="36dp"
+                                        android:layout_height="36dp"
+                                        android:padding="4dp"
+                                        android:layout_alignLeft="@+id/blood_spinner"
+                                        android:layout_below="@+id/blood_spinner"
+                                        android:src="@drawable/ic_blood_white"/>
+
+                                    <TextView
+                                        android:id="@+id/blood_alarm_level"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_alignBottom="@id/blood_alarm_marker"
+                                        android:layout_alignRight="@id/blood_spinner"
+                                        android:layout_alignTop="@id/blood_alarm_marker"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_toRightOf="@id/blood_alarm_marker"
+                                        android:gravity="center_vertical"
+                                        android:text="@string/alarm_level"
+                                        android:textColor="@color/white"
+                                        android:textSize="16dp"/>
+
+                                    <RelativeLayout
+                                        android:id="@+id/color_bar"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_above="@+id/view_flipper"
+                                        android:layout_alignEnd="@+id/blood_alarm_level"
+                                        android:layout_alignRight="@+id/blood_alarm_level"
+                                        android:layout_below="@+id/blood_spinner">
+
+                                        <TextView
+                                            android:id="@+id/text_1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="1"
+                                            android:textSize="12dp"
+                                            android:gravity="center"
+                                            android:layout_alignRight="@+id/dark_green_circle"
+                                            android:layout_alignEnd="@+id/dark_green_circle"
+                                            android:layout_alignParentLeft="true"
+                                            android:layout_alignParentStart="true"
+                                            android:textColor="@color/white"/>
+
+                                        <ImageView
+                                            android:id="@+id/dark_green_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_below="@id/text_1"
+                                            android:src="@drawable/circle_dark_green"/>
+
+                                        <TextView
+                                            android:id="@+id/text_2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="2"
+                                            android:textSize="12dp"
+                                            android:gravity="center"
+                                            android:layout_alignRight="@+id/light_green_circle"
+                                            android:layout_alignEnd="@+id/light_green_circle"
+                                            android:textColor="@color/white"
+                                            android:layout_alignLeft="@+id/light_green_circle"
+                                            android:layout_alignStart="@+id/light_green_circle"/>
+
+                                        <ImageView
+                                            android:id="@+id/light_green_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_below="@id/text_1"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_toRightOf="@+id/dark_green_circle"
+                                            android:src="@drawable/circle_light_green"/>
+
+                                        <TextView
+                                            android:id="@+id/text_3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="3"
+                                            android:textSize="12dp"
+                                            android:gravity="center"
+                                            android:layout_alignRight="@+id/yellow_circle"
+                                            android:layout_alignEnd="@+id/yellow_circle"
+                                            android:textColor="@color/white"
+                                            android:layout_alignLeft="@+id/yellow_circle"
+                                            android:layout_alignStart="@+id/yellow_circle"/>
+
+                                        <ImageView
+                                            android:id="@+id/yellow_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_below="@id/text_1"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_toRightOf="@+id/light_green_circle"
+                                            android:src="@drawable/circle_yellow"/>
+
+                                        <TextView
+                                            android:id="@+id/text_4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="4"
+                                            android:textSize="12dp"
+                                            android:gravity="center"
+                                            android:layout_alignRight="@+id/orange_circle"
+                                            android:layout_alignEnd="@+id/orange_circle"
+                                            android:textColor="@color/white"
+                                            android:layout_alignLeft="@+id/orange_circle"
+                                            android:layout_alignStart="@+id/orange_circle"/>
+
+                                        <ImageView
+                                            android:id="@+id/orange_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_below="@id/text_1"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_toRightOf="@+id/yellow_circle"
+                                            android:src="@drawable/circle_orange"/>
+
+                                        <TextView
+                                            android:id="@+id/text_5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="5"
+                                            android:textSize="12dp"
+                                            android:gravity="center"
+                                            android:layout_alignRight="@+id/red_circle"
+                                            android:layout_alignEnd="@+id/red_circle"
+                                            android:textColor="@color/white"
+                                            android:layout_alignLeft="@+id/red_circle"
+                                            android:layout_alignStart="@+id/red_circle"/>
+
+                                        <ImageView
+                                            android:id="@+id/red_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_below="@id/text_1"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_toRightOf="@+id/orange_circle"
+                                            android:src="@drawable/circle_red"/>
+
+                                    </RelativeLayout>
+
+                                    <ViewFlipper
+                                        android:id="@+id/view_flipper"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_alignLeft="@id/blood_spinner"
+                                        android:layout_alignRight="@id/blood_spinner"
+                                        android:layout_below="@id/blood_alarm_marker"
+                                        android:layout_marginTop="17dp"
+                                        android:gravity="center">
+
+                                        <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/recycler_view"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+                                        </android.support.v7.widget.RecyclerView>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+
+                                            <RelativeLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentLeft="true"
+                                                android:layout_alignParentStart="true"
+                                                android:layout_marginBottom="15dp"
+                                                android:gravity="center">
+
+                                                <ImageView
+                                                    android:id="@+id/image"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:layout_centerVertical="true"
+
+                                                    android:src="@drawable/ic_content_paste_white_48dp"/>
+
+                                                <TextView
+                                                    android:id="@+id/warning_text"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_below="@id/image"
+                                                    android:layout_marginLeft="15dp"
+                                                    android:layout_marginRight="15dp"
+                                                    android:layout_marginTop="30dp"
+                                                    android:text="@string/no_review_about_disease_for_hospitals"
+                                                    android:textAlignment="center"
+                                                    android:textColor="@color/brightText"
+                                                    android:textSize="14sp"/>
+
+                                            </RelativeLayout>
+
+                                        </RelativeLayout>
+
+                                    </ViewFlipper>
+
+                                </RelativeLayout>
+
+                            </TableLayout>
+
+                        </ScrollView>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </TableLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

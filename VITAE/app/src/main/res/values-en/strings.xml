@@ -166,7 +166,7 @@
     <string name="hospital_comments_important">Your comments will help so many people. How about adding the first review? </string>
     <string name="empty_disease">Please be sure you select a disease for you review.</string>
     <string name="rate_is_succesful">Your review succesfully saved.</string>
-    <string name="view_hospital_reviews">You can reach user and disease reviews about this hospital.</string>
+    <string name="view_hospital_reviews">You can reach out patients reviews about this hospital.</string>
     <string name="review">Review</string>
     <string name="general_review">General Report</string>
     <string name="disease_report">Diseases Report</string>
@@ -176,7 +176,17 @@
     <string name="hospital_rankings">Hospital Ranking</string>
     <string name="no_review_about_disease_for_hospitals">There is no hospital review found for that disease.</string>
     <string name="select_disease">Select Disease</string>
-
+    <string name="blood_alarm">Blood Alert</string>
+    <string name="alarm_blood_type">Alert Blood Type</string>
+    <string name="hospital">Hospital</string>
+    <string name="optional">Optional</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="alarm_level">Alert Level</string>
+    <string name="select_blood_type">Select Blood Type</string>
+    <string name="select_hospital">Select Hospital</string>
+    <string name="enter_acceptable_phone_number">Please enter accurate contact number.</string>
+    <string name="blood_alarm_has_created">Blood alarm has succesfully created.</string>
+    <string name="distance_to_my_location">Distance to Position</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>
@@ -187,6 +197,7 @@
     <string name="log_out">Logout</string>
     <string name="friends">Friends</string>
     <string name="hospital_performance_map">Hospital Performance Maps</string>
+    <string name="blood_alarm_map">Blood Alert Map</string>
 
     <string name="app_name" translatable="false"></string>
 

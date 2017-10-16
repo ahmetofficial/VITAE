@@ -47,4 +47,9 @@
     <color name="color_rank_1_2">#E65100</color>
     <color name="color_rank_0_1">#D50000</color>
 
+    <color name="message_left">#880E4F</color>
+    <color name="message_right">#4A148C</color>
+    <color name="blood_alarm_color">#c0392b</color>
+
+
 </resources>

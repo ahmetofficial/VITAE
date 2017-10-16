@@ -62,6 +62,10 @@ public class User {
     @Expose
     private String profilePictureId;
 
+    @SerializedName("device_token")
+    @Expose
+    private String deviceToken;
+
     @SerializedName("created_at")
     @Expose
     private Date createdAt;
@@ -160,6 +164,14 @@ public class User {
 
     public void setProfilePictureId(String profilePictureId) {
         this.profilePictureId = profilePictureId;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public Date getCreatedAt() {

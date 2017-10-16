@@ -26,7 +26,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
 
                     <fragment
                         android:id="@+id/hospital_location_performace_map_fragment"
@@ -34,7 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        tools:context="com.project.ui.location.HospitalDiseasePerformanceMap"/>
+                        tools:context="com.project.ui.location.ActivityHospitalDiseasePerformanceMap"/>
 
 
                     <RelativeLayout
@@ -85,6 +88,118 @@
                                         android:textColor="@color/white"
                                         android:textSize="16dp"/>
 
+                                    <RelativeLayout
+                                        android:id="@+id/color_bar"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_above="@+id/view_flipper"
+                                        android:layout_alignRight="@+id/hospital_ranking"
+                                        android:layout_alignEnd="@+id/hospital_ranking"
+                                        android:layout_below="@+id/disease_spinner">
+
+                                        <TextView
+                                            android:id="@+id/text_0"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/white"
+                                            android:textSize="12dp"
+                                            android:text="0"/>
+
+                                        <TextView
+                                            android:id="@+id/text_1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/white"
+                                            android:layout_toRightOf="@+id/red_circle"
+                                            android:textSize="12dp"
+                                            android:text="1"/>
+
+                                        <TextView
+                                            android:id="@+id/text_2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/white"
+                                            android:layout_toRightOf="@+id/orange_circle"
+                                            android:textSize="12dp"
+                                            android:text="2"/>
+
+                                        <TextView
+                                            android:id="@+id/text_3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toRightOf="@+id/yellow_circle"
+                                            android:textColor="@color/white"
+                                            android:textSize="12dp"
+                                            android:text="3"/>
+
+                                        <TextView
+                                            android:id="@+id/text_4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/white"
+                                            android:layout_toRightOf="@+id/light_green_circle"
+                                            android:textSize="12dp"
+                                            android:text="4"/>
+
+                                        <TextView
+                                            android:id="@+id/text_5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textColor="@color/white"
+                                            android:layout_toRightOf="@+id/dark_green_circle"
+                                            android:textSize="12dp"
+                                            android:text="5"/>
+
+                                        <ImageView
+                                            android:id="@+id/red_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_below="@id/text_1"
+                                            android:layout_toRightOf="@+id/text_0"
+                                            android:src="@drawable/circle_red"/>
+
+                                        <ImageView
+                                            android:id="@+id/orange_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_alignBottom="@id/red_circle"
+                                            android:layout_alignTop="@id/red_circle"
+                                            android:layout_toRightOf="@+id/red_circle"
+                                            android:src="@drawable/circle_orange"/>
+
+                                        <ImageView
+                                            android:id="@+id/yellow_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_alignBottom="@id/red_circle"
+                                            android:layout_alignTop="@id/red_circle"
+                                            android:layout_toRightOf="@+id/orange_circle"
+                                            android:src="@drawable/circle_yellow"/>
+
+                                        <ImageView
+                                            android:id="@+id/light_green_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_alignBottom="@id/red_circle"
+                                            android:layout_alignTop="@id/red_circle"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_toRightOf="@+id/yellow_circle"
+                                            android:src="@drawable/circle_light_green"/>
+
+                                        <ImageView
+                                            android:id="@+id/dark_green_circle"
+                                            android:layout_width="12dp"
+                                            android:layout_height="12dp"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_alignBottom="@id/red_circle"
+                                            android:layout_alignTop="@id/red_circle"
+                                            android:layout_toRightOf="@+id/light_green_circle"
+                                            android:src="@drawable/circle_dark_green"/>
+
+                                    </RelativeLayout>
+
                                     <ViewFlipper
                                         android:id="@+id/view_flipper"
                                         android:layout_width="match_parent"
@@ -92,7 +207,7 @@
                                         android:layout_alignLeft="@id/disease_spinner"
                                         android:layout_alignRight="@id/disease_spinner"
                                         android:layout_below="@id/hospital_marker"
-                                        android:layout_marginTop="15dp"
+                                        android:layout_marginTop="17dp"
                                         android:gravity="center">
 
                                         <android.support.v7.widget.RecyclerView
@@ -140,6 +255,7 @@
                                         </RelativeLayout>
 
                                     </ViewFlipper>
+
                                 </RelativeLayout>
 
                             </TableLayout>

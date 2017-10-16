@@ -31,8 +31,20 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:cardview-v7:23.3.0'
     compile 'com.google.android.gms:play-services:11.0.2'
-    compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.google.android.gms:play-services-maps:11.0.2'
+    compile 'com.google.maps.android:android-maps-utils:0.4+'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.google.firebase:firebase-core:11.0.2'                        // this line must be included to integrate with Firebase
+    compile 'com.google.firebase:firebase-messaging:11.0.2'
+    compile ("com.firebase:firebase-jobdispatcher-with-gcm-dep:0.6.0") {
+        exclude module: "play-services-gcm"
+    }
+
+    //map ripple effect
+    compile 'com.github.aarsy.googlemapsanimations:googlemapsanimations:1.0.5'
+
+    //blood alert level library
+    compile 'com.xw.repo:bubbleseekbar:3.7-lite'
 
     //image library
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
@@ -67,6 +79,7 @@ dependencies {
     
     //Search spinner
     compile 'com.jaredrummler:material-spinner:1.1.0'
+    compile 'gr.escsoft.michaelprimez.searchablespinner:SearchableSpinner:1.0.9'
 
     //date selection
     compile 'com.github.florent37:singledateandtimepicker:1.0.8'
@@ -106,3 +119,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
+apply plugin: 'com.google.gms.google-services'
