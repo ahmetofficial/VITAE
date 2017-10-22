@@ -65,10 +65,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
                         android:textColor="@color/primaryText"
                         android:textSize="14sp"/>
 
                     <RelativeLayout
+                        android:id="@+id/about_me_relative_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -76,25 +78,91 @@
                             android:id="@+id/patient_profile_about_me_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/patient_profile_about_me"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:layout_marginLeft="40dp"
                             android:layout_marginRight="5dp"
-                            android:layout_alignTop="@+id/patient_profile_about_me"
                             android:src="@drawable/ic_format_quote_open_white_18dp"/>
 
                         <TextView
                             android:id="@+id/patient_profile_about_me"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:layout_marginRight="50dp"
-                            android:layout_marginTop="20dp"
                             android:layout_toRightOf="@+id/patient_profile_about_me_icon"
-                            android:textAlignment="center"
                             android:textColor="@color/secondaryText"
                             android:textSize="14sp"/>
 
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/birthday_relative_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/patient_profile_birtday_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/patient_profile_about_me"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_cake_white_18dp"/>
+
+                        <TextView
+                            android:id="@+id/patient_profile_birtday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/patient_profile_birtday_icon"
+                            android:layout_marginRight="50dp"
+                            android:layout_toRightOf="@+id/patient_profile_birtday_icon"
+                            android:textColor="@color/secondaryText"
+                            android:textSize="14sp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/contacts_relative_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:background="@android:color/white"/>
+
+                        <TextView
+                            android:id="@+id/patient_profile_contact_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view"
+                            android:layout_marginRight="50dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/patient_profile_contact_icon"
+                            android:textColor="@color/secondaryText"
+                            android:textSize="14sp"/>
+
+                        <ImageView
+                            android:id="@+id/patient_profile_contact_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/patient_profile_contact_number"
+                            android:layout_alignTop="@+id/patient_profile_contact_number"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_account_multiple_outline_white_18dp"/>
 
                     </RelativeLayout>
 
@@ -106,24 +174,58 @@
                     android:layout_marginTop="20dp"
                     android:background="#ACACAC"/>
 
-                <View
-                    android:id="@+id/patient_profile_post_upper_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:background="#ACACAC"/>
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/patient_profile_post_recycler_view"
+                    <ViewFlipper
+                        android:id="@+id/view_flipper"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@+id/patient_profile_post_upper_line"
-                        android:isScrollContainer="false"
-                        android:stretchMode="columnWidth"
-                        android:verticalSpacing="3dp"/>
+                        android:background="@android:color/white">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/patient_profile_post_recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/dividers"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="30dp"
+                                android:src="@drawable/ic_pencil_grey600_36dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/imageView2"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignTop="@+id/imageView2"
+                                android:layout_marginRight="30dp"
+                                android:layout_toEndOf="@+id/imageView2"
+                                android:layout_toRightOf="@+id/imageView2"
+                                android:gravity="center"
+                                android:text="@string/user_have_no_post"
+                                android:textAlignment="center"/>
+
+                        </RelativeLayout>
+
+                    </ViewFlipper>
 
                 </RelativeLayout>
 

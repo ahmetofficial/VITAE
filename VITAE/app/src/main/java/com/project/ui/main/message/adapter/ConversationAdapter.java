@@ -11,7 +11,6 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Shader;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -24,7 +23,9 @@ import com.ahmetkaymak.vitae.R;
 import com.alexzh.circleimageview.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.project.core.messagemodule.Conversation;
+import com.project.core.usermodule.User;
 import com.project.ui.main.message.MessageActivity;
+import com.project.utils.Typefaces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         this.conversationList = conversationList;
         this.userId = userId;
         this.context = context;
-        orderConversations(conversationList);
+        orderConversations( conversationList );
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -65,59 +66,95 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Typeface typeLight = Typeface.createFromAsset( context.getAssets(), "fonts/Roboto-Light.ttf" );
-        Typeface typeBold = Typeface.createFromAsset( context.getAssets(), "fonts/Roboto-Bold.ttf" );
-        holder.userName.setTypeface( typeBold );
-        holder.timestamp.setTypeface( typeLight );
-
         final Conversation conversation = conversationList.get( position );
+        final User sender = conversation.getSender();
+        final User receiver = conversation.getReceiver();
         final Intent intent = new Intent( context, MessageActivity.class );
 
-        String photoId = conversation.getReceiver().getProfilePictureId();
-        String picturePath="";
-        if (!photoId.equals( "" )) {
-             picturePath= "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
-                    + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
-                    + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
-                    + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
+        holder.userName.setTypeface( Typefaces.getRobotoBold( context ) );
+        holder.timestamp.setTypeface( Typefaces.getRobotoLight( context ) );
 
-            Glide.with( context )
-                    .load( picturePath )
-                    .into( holder.userPhoto );
-        }else{
-            Bitmap bitmap = BitmapFactory.decodeResource( context.getResources(), R.drawable.empty_profile );
-            Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
-            BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
-            Paint paint = new Paint();
-            paint.setShader( shader );
-            paint.setAntiAlias( true );
-            Canvas c = new Canvas( circleBitmap );
-            c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
-            holder.userPhoto.setImageBitmap( circleBitmap );
+        String receiverPhotoId = receiver.getProfilePictureId();
+        String senderPhotoId = sender.getProfilePictureId();
+        String senderPhotoPath = "";
+        String receiverPhotoPath = "";
+        if (!receiverPhotoId.equals( "" )) {
+            receiverPhotoPath = "http://178.62.223.153:3000/images/" + receiverPhotoId.charAt( 0 ) + "/"
+                    + receiverPhotoId.charAt( 1 ) + "/" + receiverPhotoId.charAt( 2 ) + "/"
+                    + receiverPhotoId.charAt( 3 ) + "/" + receiverPhotoId.charAt( 4 ) + "/"
+                    + receiverPhotoId.charAt( 5 ) + "/" + receiverPhotoId.charAt( 6 ) + "/"
+                    + receiverPhotoId.charAt( 7 ) + "/" + receiverPhotoId.charAt( 9 ) + "/"
+                    + receiverPhotoId.charAt( 10 ) + "/" + receiverPhotoId.charAt( 11 ) + "/"
+                    + receiverPhotoId.charAt( 12 ) + "/" + receiverPhotoId + ".jpg";
+        }
+        if (!senderPhotoId.equals( "" )) {
+            senderPhotoPath = "http://178.62.223.153:3000/images/" + senderPhotoId.charAt( 0 ) + "/"
+                    + senderPhotoId.charAt( 1 ) + "/" + senderPhotoId.charAt( 2 ) + "/"
+                    + senderPhotoId.charAt( 3 ) + "/" + senderPhotoId.charAt( 4 ) + "/"
+                    + senderPhotoId.charAt( 5 ) + "/" + senderPhotoId.charAt( 6 ) + "/"
+                    + senderPhotoId.charAt( 7 ) + "/" + senderPhotoId.charAt( 9 ) + "/"
+                    + senderPhotoId.charAt( 10 ) + "/" + senderPhotoId.charAt( 11 ) + "/"
+                    + senderPhotoId.charAt( 12 ) + "/" + senderPhotoId + ".jpg";
         }
 
-        if(conversation.getReceiverId().equals( userId )) {
-            holder.userName.setText( conversation.getSenderId() );
-            intent.putExtra( "senderId", conversation.getReceiverId() );
-            intent.putExtra( "receiverId", conversation.getSenderId() );
-        }else{
-            holder.userName.setText( conversation.getReceiverId() );
-            intent.putExtra( "senderId", conversation.getSenderId() );
-            intent.putExtra( "receiverId", conversation.getReceiverId() );
+        if (receiver.getUserId().equals( userId )) {
+            holder.userName.setText( sender.getUserName() );
+            if (!senderPhotoPath.equals( "" )) {
+                Glide.with( context )
+                        .load( senderPhotoPath )
+                        .into( holder.userPhoto );
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeResource( context.getResources(), R.drawable.empty_profile );
+                Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
+                BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
+                Paint paint = new Paint();
+                paint.setShader( shader );
+                paint.setAntiAlias( true );
+                Canvas c = new Canvas( circleBitmap );
+                c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
+                holder.userPhoto.setImageBitmap( circleBitmap );
+            }
+            intent.putExtra( "senderUserId", sender.getUserId() );
+            intent.putExtra( "senderUserName", sender.getUserName() );
+            intent.putExtra( "senderPhotoPath", senderPhotoPath );
+            intent.putExtra( "receiverUserId", receiver.getUserId() );
+            intent.putExtra( "receiverUserName", receiver.getUserName() );
+            intent.putExtra( "receiverPhotoPath", receiverPhotoPath );
+        } else {
+            holder.userName.setText( receiver.getUserName() );
+            if (!receiverPhotoPath.equals( "" )) {
+                Glide.with( context )
+                        .load( receiverPhotoPath )
+                        .into( holder.userPhoto );
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeResource( context.getResources(), R.drawable.empty_profile );
+                Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
+                BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
+                Paint paint = new Paint();
+                paint.setShader( shader );
+                paint.setAntiAlias( true );
+                Canvas c = new Canvas( circleBitmap );
+                c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
+                holder.userPhoto.setImageBitmap( circleBitmap );
+            }
+            intent.putExtra( "senderUserId", sender.getUserId() );
+            intent.putExtra( "senderUserName", sender.getUserName() );
+            intent.putExtra( "senderPhotoPath", senderPhotoPath );
+            intent.putExtra( "receiverUserId", receiver.getUserId() );
+            intent.putExtra( "receiverUserName", receiver.getUserName() );
+            intent.putExtra( "receiverPhotoPath", receiverPhotoPath );
         }
+
         CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
                 conversation.getUpdatedAt().getTime(),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS );
         holder.timestamp.setText( timeAgo );
         holder.timestamp.setText( timeAgo );
 
-        final String finalPicturePath = picturePath;
         holder.conversation.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra( "userId", userId );
                 intent.putExtra( "conversationId", conversation.getConversationId() );
-                intent.putExtra( "receiverPhotoPath", finalPicturePath );
                 context.startActivity( intent );
             }
         } );
@@ -128,18 +165,14 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         return conversationList.size();
     }
 
-    public void orderConversations(List<Conversation> conversationList)
-    {
+    public void orderConversations(List<Conversation> conversationList) {
         Conversation temp;
-        for (int i=1; i<conversationList.size(); i++)
-        {
-            for(int j=0; j<conversationList.size()-i; j++)
-            {
-                if (conversationList.get(j).getUpdatedAt().getTime() < conversationList.get(j+1).getUpdatedAt().getTime())
-                {
-                    temp = conversationList.get(j);
-                    conversationList.set(j,conversationList.get(j+1));
-                    conversationList.set(j+1,temp);
+        for (int i = 1; i < conversationList.size(); i++) {
+            for (int j = 0; j < conversationList.size() - i; j++) {
+                if (conversationList.get( j ).getUpdatedAt().getTime() < conversationList.get( j + 1 ).getUpdatedAt().getTime()) {
+                    temp = conversationList.get( j );
+                    conversationList.set( j, conversationList.get( j + 1 ) );
+                    conversationList.set( j + 1, temp );
                 }
             }
         }

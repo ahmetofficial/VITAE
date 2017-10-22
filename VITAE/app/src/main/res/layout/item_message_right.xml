@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="right"
-              android:orientation="vertical"
-              android:paddingBottom="5dp"
-              android:paddingRight="20dp"
-              android:paddingTop="1dp">
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="20dp"
+    android:paddingTop="5dp">
 
     <TextView
         android:id="@+id/message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:background="@drawable/border_right_message_text"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/brightText"
-        android:textSize="14sp"/>
+        android:layout_toLeftOf="@+id/arrow_right"
+        android:background="@drawable/rounded_corner_right"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="0.1dp"
+        android:textColor="@color/secondaryDarkText"
+        android:textSize="14dp"/>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/arrow_right"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_toLeftOf="@+id/profile_picture"
+        android:src="@drawable/arrow_right"/>
+
+    <com.alexzh.circleimageview.CircleImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:foregroundGravity="right"
+        app:view_borderColor="#cccccc"
+        app:view_borderWidth="1dp"/>
+
+</RelativeLayout>

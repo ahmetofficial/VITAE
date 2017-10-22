@@ -38,11 +38,12 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.project.core.usermodule.User;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.ui.ViewPagerAdapter;
 import com.project.ui.location.ActivityBloodAlertMap;
 import com.project.ui.location.ActivityHospitalDiseasePerformanceMap;
 import com.project.ui.main.healthtree.FragmentHealthTree;
+import com.project.ui.main.message.ContactActivity;
 import com.project.ui.main.message.FragmentConversation;
 import com.project.ui.main.profile.FragmentProfile;
 import com.project.ui.main.timeline.FragmentTimeline;
@@ -66,6 +67,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private TabLayout tabLayout;
     private ViewPager viewPager;
     public static String userId;
+    public static String userName;
+    public static String userProfilePictureId;
     private MaterialSearchView searchView;
 
     private FragmentTimeline fragmentTimeline;
@@ -120,7 +123,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         mNavItems.add( new NavigationItem( getString( R.string.my_health_tree ), R.drawable.ic_barley_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.friends ), R.drawable.ic_clipboard_account_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.hospital_performance_map ), R.drawable.ic_hospital_marker_white_24dp ) );
-        mNavItems.add( new NavigationItem( getString( R.string.blood_alarm_map ), R.drawable.ic_alarm_light_white_24dp ) );
+        mNavItems.add( new NavigationItem( getString( R.string.blood_alarm_map ), R.drawable.ic_blood_white ) );
         mNavItems.add( new NavigationItem( getString( R.string.settings ), R.drawable.ic_settings_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.log_out ), R.drawable.ic_logout_white_24dp ) );
         mDrawerLayout = (DrawerLayout) findViewById( R.id.drawerLayout );
@@ -186,7 +189,6 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         };
         mDrawerLayout.setDrawerListener( mDrawerToggle );
 
-
         // Drawer Item click listeners
         mDrawerList.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
@@ -208,7 +210,10 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
                     mFab.setOnClickListener( new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            Intent intent = new Intent( getBaseContext(), ContactActivity.class );
+                            intent.putExtra( "userId", userId );
+                            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                            getBaseContext().startActivity( intent );
                         }
                     } );
                 } else {

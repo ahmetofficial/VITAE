@@ -19,7 +19,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.project.core.generalhealthmodule.BloodAlarm;
 import com.project.core.hospitalmodule.Hospital;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.utils.Typefaces;
 import com.xw.repo.BubbleSeekBar;
 
@@ -50,13 +50,13 @@ public class FragmentCreateBloodAlarm extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate( R.layout.fragment_add_blood_alarm, container, false);
-        getDialog().setTitle(getString( R.string.my_treatments ));
+        View rootView = inflater.inflate( R.layout.fragment_add_blood_alarm, container, false );
+        getDialog().setTitle( getString( R.string.my_treatments ) );
 
         viewFlipper = (ViewFlipper) rootView.findViewById( R.id.view_flipper );
         viewFlipper.setDisplayedChild( 0 );
-        selectedHospitalName = (TextView) rootView.findViewById( R.id.selected_hospital_name ) ;
-        contactNumber = (EditText) rootView.findViewById( R.id.contact_number);
+        selectedHospitalName = (TextView) rootView.findViewById( R.id.selected_hospital_name );
+        contactNumber = (EditText) rootView.findViewById( R.id.contact_number );
         createBloodAlarm = (TextView) rootView.findViewById( R.id.create_blood_alarm );
         hospitalSpinner = (MaterialSpinner) rootView.findViewById( R.id.hospital_spinner );
         bloodSpinner = (MaterialSpinner) rootView.findViewById( R.id.blood_spinner );
@@ -65,8 +65,8 @@ public class FragmentCreateBloodAlarm extends DialogFragment {
         alarmLevel = (BubbleSeekBar) rootView.findViewById( R.id.alarm_level );
         alarmLevel.setElevation( 1 );
 
-        bloodTypeId=-1;
-        hospitalId=-1;
+        bloodTypeId = -1;
+        hospitalId = -1;
 
         bloodSpinner.setItems( getString( R.string.select_blood_type ), "0 Rh+", "0 Rh-", "A Rh+", "A Rh-", "B Rh+", "B Rh-", "AB Rh+", "AB Rh-" );
         bloodSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -74,9 +74,9 @@ public class FragmentCreateBloodAlarm extends DialogFragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 if (position != 0) {
-                    bloodTypeId = position - 1;
-                }else{
-                    bloodTypeId=-1;
+                    bloodTypeId = position;
+                } else {
+                    bloodTypeId = -1;
                 }
             }
         } );
@@ -104,19 +104,20 @@ public class FragmentCreateBloodAlarm extends DialogFragment {
         createBloodAlarm.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int alertLevel=alarmLevel.getProgress();
-                String phoneNumber=contactNumber.getText().toString().trim();
-                if(bloodTypeId!=1 && hospitalId!=1 && phoneNumber.trim().length()==10 && phoneNumber.substring( 0,2 ).equals( "53" )){
-                    BloodAlarm bloodAlarm=new BloodAlarm();
+                int alertLevel = alarmLevel.getProgress();
+                String phoneNumber = contactNumber.getText().toString().trim();
+                if (bloodTypeId != -1 && hospitalId != -1 &&
+                        ((phoneNumber.trim().length() == 10 && phoneNumber.substring( 0, 2 ).equals( "53" )) || (phoneNumber.equals( "" )))) {
+                    BloodAlarm bloodAlarm = new BloodAlarm();
                     bloodAlarm.setUserId( userId );
                     bloodAlarm.setBloodTypeId( bloodTypeId );
                     bloodAlarm.setHospitalId( hospitalId );
                     bloodAlarm.setAlarmLevel( alertLevel );
-                    if(!phoneNumber.equals( "" )){
+                    if (!phoneNumber.equals( "" )) {
                         bloodAlarm.setContactNumber( phoneNumber );
                     }
                     try {
-                        ApiClient.bloodApi().createBloodAlert(bloodAlarm).enqueue( new Callback<ServerResponse>() {
+                        ApiClient.bloodApi().createBloodAlert( bloodAlarm ).enqueue( new Callback<ServerResponse>() {
                             @Override
                             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                                 if (response.isSuccessful()) {
@@ -133,9 +134,11 @@ public class FragmentCreateBloodAlarm extends DialogFragment {
                     } catch (Exception e) {
                         Log.e( "UserHealthTree", e.getMessage() );
                         Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    } catch (NoSuchMethodError e) {
+                        Log.e( "UserHealthTree", e.getMessage() );
                     }
-                }else if(phoneNumber.trim().length()!=10 || !phoneNumber.substring( 0,2 ).equals( "53" )){
-                    Toast.makeText( getContext(), getString( R.string.enter_acceptable_phone_number), Toast.LENGTH_LONG ).show();
+                } else if (phoneNumber.trim().length() != 10 || !phoneNumber.substring( 0, 2 ).equals( "53" )) {
+                    Toast.makeText( getContext(), getString( R.string.enter_acceptable_phone_number ), Toast.LENGTH_LONG ).show();
                 }
             }
         } );
@@ -154,16 +157,18 @@ public class FragmentCreateBloodAlarm extends DialogFragment {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                if(position!=0) {
+                if (position != 0) {
                     hospitalId = hospitals.get( position - 1 ).getHospitalId();
                     selectedHospitalName.setVisibility( View.VISIBLE );
                     selectedHospitalName.setText( hospitals.get( position - 1 ).getHospitalName() );
-                }else{
-                    hospitalId=-1;
+                } else {
+                    hospitalId = -1;
                     selectedHospitalName.setVisibility( View.GONE );
                     selectedHospitalName.setText( "" );
                 }
             }
         } );
     }
+
+
 }

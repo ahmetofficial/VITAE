@@ -36,11 +36,8 @@ public class SearchActivity extends AppCompatActivity {
     private FragmentHospitalSearch fragmentHospitalSearch;
     private FragmentUserSearch fragmentUserSearch;
     private FragmentSimilarPatientSearch fragmentSimilarPatientSearch;
-
-    private boolean isSearchQueryChangedForHospitalSearch;
-    private boolean isSearchQueryChangedForNormalUserSearch;
-    private boolean isSearchQueryChangedForSimilarUserSearch;
-    private String previousQuery;
+    private int viewPagePosition;
+    private boolean isFirstSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +47,13 @@ public class SearchActivity extends AppCompatActivity {
             viewPager = (ViewPager) findViewById( R.id.search_activity_viewpager );
             setupViewPager( viewPager );
 
+            isFirstSearch=true;
             Intent myIntent = getIntent();
             userId = myIntent.getStringExtra( "userId" );
             query = myIntent.getStringExtra( "query" );
             totalHealthItem = myIntent.getIntExtra( "totalHealthItem", -1 );
+
+            fragmentHospitalSearch.listSearchResult( userId, query );
 
             tabLayout = (TabLayout) findViewById( R.id.search_activity_tabs );
             tabLayout.setupWithViewPager( viewPager );
@@ -69,50 +69,44 @@ public class SearchActivity extends AppCompatActivity {
             searchView.setEllipsize( true );
             searchView.setSuggestions( null );
 
+            viewPager.addOnPageChangeListener( new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    if (position == 0 || isFirstSearch) {
+                        fragmentHospitalSearch.listSearchResult( userId, query );
+                        viewPagePosition=0;
+                    } else if (position == 1) {
+                        fragmentUserSearch.listSearchResult( userId, query );
+                        viewPagePosition=1;
+                    } else {
+                        fragmentSimilarPatientSearch.listSearchResult( userId, query, totalHealthItem );
+                        viewPagePosition=2;
+                    }
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    isFirstSearch=false;
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            } );
+
             searchView.setOnQueryTextListener( new MaterialSearchView.OnQueryTextListener() {
                 @Override
-                public boolean onQueryTextSubmit(final String query) {
-                    if (query != null) {
-                        viewPager.addOnPageChangeListener( new ViewPager.OnPageChangeListener() {
-                            @Override
-                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                            }
-
-                            @Override
-                            public void onPageSelected(int position) {
-                                if (position == 0) {
-                                    //if (!query.equals( previousQuery )) {
-                                        fragmentHospitalSearch.listSearchResult( userId, query );
-                                        previousQuery = query;
-                                        isSearchQueryChangedForHospitalSearch = false;
-                                        isSearchQueryChangedForNormalUserSearch = true;
-                                        isSearchQueryChangedForSimilarUserSearch = true;
-                                    //}
-                                } else if (position == 1) {
-                                    //if (!query.equals( previousQuery )) {
-                                        fragmentUserSearch.listSearchResult( userId, query );
-                                        previousQuery = query;
-                                        isSearchQueryChangedForHospitalSearch = true;
-                                        isSearchQueryChangedForNormalUserSearch = false;
-                                        isSearchQueryChangedForSimilarUserSearch = true;
-                                    //}
-                                } else {
-                                    //if (!query.equals( previousQuery )) {
-                                        fragmentSimilarPatientSearch.listSearchResult( userId, query,totalHealthItem );
-                                        previousQuery = query;
-                                        isSearchQueryChangedForHospitalSearch = true;
-                                        isSearchQueryChangedForNormalUserSearch = true;
-                                        isSearchQueryChangedForSimilarUserSearch = false;
-                                    //}
-                                }
-                            }
-
-                            @Override
-                            public void onPageScrollStateChanged(int state) {
-
-                            }
-                        } );
+                public boolean onQueryTextSubmit(String newQuery) {
+                    if (newQuery != null) {
+                        query = newQuery;
+                        if (viewPagePosition == 0) {
+                            fragmentHospitalSearch.listSearchResult( userId, query );
+                        } else if (viewPagePosition == 1) {
+                            fragmentUserSearch.listSearchResult( userId, query );
+                        } else {
+                            fragmentSimilarPatientSearch.listSearchResult( userId, query, totalHealthItem );
+                        }
                     }
                     return false;
                 }

@@ -17,6 +17,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -37,7 +40,9 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.project.core.hospitalmodule.Hospital;
+import com.project.core.hospitalmodule.UserHospitalRate;
 import com.project.restservice.ApiClient;
+import com.project.ui.hospitalpage.adapter.UserHospitalRateAdapter;
 import com.project.utils.Typefaces;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
@@ -49,7 +54,7 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
 
     private ImageView profilePicture;
     private Bitmap bitmap;
-    private TextView hospitalNameText, hospitalType, hospitalNoCommentText, hospitalVoteCount;
+    private TextView hospitalNameText, hospitalType, hospitalNoCommentText, patientReview;
     private MaterialRatingBar hospitalRatingBar;
     private FloatingActionButton hospitalMail, hospitalPhone;
     private ViewFlipper viewFlipper;
@@ -58,15 +63,16 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
     private String hospitalEmail;
     private String hospitalAdress;
     private FragmentAddHospitalReview hospitalReview;
-    private RelativeLayout hospitalUserReview;
     private RelativeLayout ratingLayout;
 
     //////////////////////////////////Hospital Rates Fields/////////////////////////////////////////
     private int hospitalId;
     private String userId;
     private String hospitalName;
-
     private GoogleMap mMap;
+
+    private UserHospitalRateAdapter mAdapter;
+    private RecyclerView recyclerView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -76,7 +82,6 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
         userId = myIntent.getStringExtra( "userId" );
         hospitalId = myIntent.getIntExtra( "hospitalId", 0 );
 
-        hospitalUserReview =(RelativeLayout) findViewById( R.id.relative_layout_hospital_user_review );
         hospitalNameText = (TextView) findViewById( R.id.hospital_activity_hospital_name );
         hospitalNameText.setGravity( Gravity.CENTER_VERTICAL );
         hospitalType = (TextView) findViewById( R.id.hospital_activity_hospital_type );
@@ -85,13 +90,13 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
         addFirstComment = (ImageView) findViewById( R.id.hospital_activity_add_first_comment_image );
         viewFlipper = (ViewFlipper) findViewById( R.id.hospital_activity_viewflipper );
         ratingLayout = (RelativeLayout) findViewById( R.id.rating_relative_layout );
+        recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
+        patientReview = (TextView) findViewById( R.id.hospital_activity_patient_reviews );
+        patientReview.setTypeface( Typefaces.getRobotoBold( getBaseContext() ) );
 
-        hospitalVoteCount = (TextView) findViewById( R.id.hospital_activity_total_rating_count );
         hospitalNoCommentText.setTypeface( Typefaces.getRobotoBold( getBaseContext() ) );
 
         hospitalRatingBar = (MaterialRatingBar) findViewById( R.id.hospital_activity_rating_bar );
-        hospitalNoCommentText.setTypeface( Typefaces.getRobotoLight( getBaseContext() ) );
-
         hospitalMail = (FloatingActionButton) findViewById( R.id.hospital_activity_mail_float_button );
         hospitalPhone = (FloatingActionButton) findViewById( R.id.hospital_activity_phone_float_button );
 
@@ -114,7 +119,8 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
         } );
 
         Typeface hospitalNameTypeFace = Typeface.createFromAsset( getAssets(), "fonts/Roboto-Bold.ttf" );
-        hospitalNameText.setTypeface( hospitalNameTypeFace );
+        //hospitalNameText.setTypeface( hospitalNameTypeFace );
+        hospitalNameText.setTypeface( Typefaces.getRobotoBold( getBaseContext() ) );
         Typeface typeface = Typeface.createFromAsset( getAssets(), "fonts/Lato-Light.ttf" );
         hospitalType.setTypeface( typeface );
 
@@ -134,6 +140,7 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
             Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
         }
         fillHospitalAreas( hospitalId );
+        getUserReviews(hospitalId);
 
         addFirstComment.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -153,18 +160,6 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
             }
         } );
 
-
-        hospitalUserReview.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( getBaseContext(), HospitalUserReviewActivity.class );
-                intent.putExtra( "userId", userId );
-                intent.putExtra( "hospitalName", hospitalName );
-                intent.putExtra( "hospitalId", hospitalId );
-                intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-                getBaseContext().startActivity( intent );
-            }
-        } );
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById( R.id.hospital_location_map_fragment );
         mapFragment.getMapAsync( this );
     }
@@ -177,7 +172,7 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
                     if (response.isSuccessful()) {
                         Hospital h = response.body().getHospital();
                         hospitalNameText.setText( h.getHospitalName() );
-                        hospitalName=h.getHospitalName();
+                        hospitalName = h.getHospitalName();
 
                         if (h.getHospitalType() == 0) {
                             hospitalType.setText( getBaseContext().getResources().getString( R.string.state_hospital ) );
@@ -186,7 +181,6 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
                         }
                         if (h.getTotalVoteNumber() != 0) {
                             hospitalRatingBar.setRating( (float) (h.getTotalScore() / h.getTotalVoteNumber()) );
-                            hospitalVoteCount.setText( h.getTotalVoteNumber()+ " " +getString( R.string.review ) );
                         } else {
                             hospitalRatingBar.setRating( 0 );
                         }
@@ -237,5 +231,32 @@ public class HospitalProfileActivity extends AppCompatActivity implements OnMapR
                 //.title("Sydney")
                 .snippet( hospitalAdress )
                 .icon( BitmapDescriptorFactory.fromResource( R.drawable.icon_hospital_marker ) ) );
+    }
+
+    private void getUserReviews(final int hospitalId) {
+        try {
+            ApiClient.hospitalApi().getHospitalRates( hospitalId ).enqueue( new Callback<UserHospitalRate>() {
+                @Override
+                public void onResponse(Call<UserHospitalRate> call, Response<UserHospitalRate> response) {
+                    if (response.isSuccessful()) {
+                        mAdapter = new UserHospitalRateAdapter( userId, response.body().getUserHospitalRates(), getBaseContext() );
+                        recyclerView.setHasFixedSize( true );
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
+                        recyclerView.setLayoutManager( mLayoutManager );
+                        recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                        recyclerView.setAdapter( mAdapter );
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserHospitalRate> call, Throwable t) {
+                    Log.e( "UserTimeline", t.getMessage() );
+                }
+            } );
+        } catch (Exception e) {
+            Log.e( "UserHealthTree", e.getMessage() );
+            Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();
+        }
     }
 }

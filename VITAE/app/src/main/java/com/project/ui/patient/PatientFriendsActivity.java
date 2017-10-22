@@ -42,7 +42,7 @@ public class PatientFriendsActivity extends AppCompatActivity{
 
     public void friendList(final String userId) {
         try {
-            ApiClient.patientApi().getFriends( userId ).enqueue( new Callback<User>() {
+            ApiClient.patientApi().getPatientFriends( userId ).enqueue( new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {

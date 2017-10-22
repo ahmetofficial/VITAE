@@ -56,9 +56,9 @@
         <activity android:name="com.project.ui.patient.PatientSettingsActivity"/>
         <activity android:name="com.project.ui.patient.PatientFriendsActivity"/>
         <activity android:name="com.project.ui.main.message.MessageActivity"/>
-        <activity android:name="com.project.ui.hospitalpage.HospitalUserReviewActivity"/>
         <activity android:name="com.project.ui.location.ActivityHospitalDiseasePerformanceMap"/>
         <activity android:name="com.project.ui.location.ActivityBloodAlertMap"/>
+        <activity android:name="com.project.ui.main.message.ContactActivity"/>
 
         <meta-data
             android:name="android.app.default_searchable"

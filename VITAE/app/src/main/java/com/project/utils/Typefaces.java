@@ -26,4 +26,14 @@ public class Typefaces {
         RobotoBold=Typeface.createFromAsset( context.getAssets(), "fonts/Roboto-Bold.ttf" );
         return RobotoBold;
     }
+
+    public static Typeface getLatoLight(Context context) {
+        RobotoBold=Typeface.createFromAsset( context.getAssets(), "fonts/Lato-Light.ttf" );
+        return RobotoBold;
+    }
+
+    public static Typeface getLatoRegular(Context context) {
+        RobotoBold=Typeface.createFromAsset( context.getAssets(), "fonts/Lato-Regular.ttf" );
+        return RobotoBold;
+    }
 }

@@ -5,7 +5,7 @@ package com.project.restservice.generalhealthmodule;
 
 import com.project.core.generalhealthmodule.BloodAlarm;
 import com.project.core.generalhealthmodule.BloodType;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

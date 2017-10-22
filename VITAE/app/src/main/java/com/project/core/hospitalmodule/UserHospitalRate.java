@@ -5,13 +5,15 @@ package com.project.core.hospitalmodule;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.project.core.diseasemodule.Disease;
+import com.project.core.usermodule.User;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class UserHospitalRate {
 
-    @SerializedName("userId")
+    @SerializedName("user_id")
     @Expose
     private String userId;
 
@@ -49,7 +51,15 @@ public class UserHospitalRate {
 
     @SerializedName("HOSPITAL")
     @Expose
-    private Hospital hospitalByDiseaseIdRank;
+    private Hospital hospital;
+
+    @SerializedName("USER")
+    @Expose
+    private User user;
+
+    @SerializedName("DISEASE")
+    @Expose
+    private Disease disease;
 
     public String getUserId() {
         return userId;
@@ -115,7 +125,15 @@ public class UserHospitalRate {
         return hospitalOverallScore;
     }
 
-    public Hospital getHospitaltByDiseaseRank() {
-        return hospitalByDiseaseIdRank;
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Disease getDisease() {
+        return disease;
     }
 }

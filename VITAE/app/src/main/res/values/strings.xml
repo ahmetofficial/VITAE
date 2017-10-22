@@ -114,6 +114,10 @@
     <!--Post-->
     <string name="send">Gönder</string>
     <string name="shareSomething">Bir şeyler paylaş...</string>
+    <string name="like">Beğen</string>
+    <string name="comment">Yorum Yap</string>
+    <string name="like_count">Beğeni</string>
+    <string name="comment_count">Yorum</string>
 
     <!-- Profile-->
     <string name="edit_profile">Profili Düzenle</string>
@@ -130,6 +134,8 @@
     <string name="content_downloading">İndiriliyor</string>
     <string name="upload">Yükleme</string>
     <string name="download">İndirme</string>
+    <string name="user_have_no_post">Vitae\'de hiç gönderin yok gibi duruyor. Hemen bir tane paylaşmaya ne dersin?</string>
+    <string name="patient_have_no_post">hiç gönderi paylaşmamış gibi duruyor.</string>
 
     <!--Profile Settings-->
     <string name="change_password">Şifre Değiştir</string>
@@ -164,6 +170,9 @@
     <!--Search Activity-->
     <string name="private_hospital">Özel Hastane</string>
     <string name="state_hospital">Devlet Hastanesi</string>
+    <string name="hospital_doesnt_fount">Aradığın kritere uygun hastane bilgisi bulamadık.</string>
+    <string name="user_doesnt_found">Aradığın kritere uygun kullanıcı bulamadık.</string>
+    <string name="similar_user_doesnt_found">Aradığın kritere uygun sağlık geçmişi senle benzeşen bir kullanıcı bulamadık.</string>
 
     <!--Hospital Activity-->
     <string name="total_rating_count">Toplam Değerlendirme</string>
@@ -192,6 +201,7 @@
     <string name="enter_acceptable_phone_number">Lütfen girdiğiniz numarayı kontrol ediniz.</string>
     <string name="blood_alarm_has_created">Kan alarmı başarıyla oluşturuldu.</string>
     <string name="distance_to_my_location">Konuma Göre Uzaklığı</string>
+    <string name="patients_review">Hasta Değerlendirmeleri</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>
@@ -201,6 +211,7 @@
     <string name="settings">Ayarlar</string>
     <string name="log_out">Hesaptan Çık</string>
     <string name="friends">Arkadaşlar</string>
+    <string name="contact">Bağlantı</string>
     <string name="hospital_performance_map">Hastane Performans Haritası</string>
     <string name="blood_alarm_map">Kan Alarm Haritası</string>
 

@@ -12,7 +12,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.ui.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class Patient extends User {
 
     @SerializedName("PATIENTs")
     @Expose
-    private ArrayList<Patient> thisPatient;
+    private ArrayList<Patient> patients;
 
     public static void createPatient(Patient patient, final Fragment fragment) {
         ApiClient.userApi().createPatient(patient).enqueue(new Callback<ServerResponse>() {
@@ -85,8 +85,8 @@ public class Patient extends User {
         this.birthday = birthday;
     }
 
-    public ArrayList<Patient> getThisPatient() {
-        return thisPatient;
+    public ArrayList<Patient> getPatients() {
+        return patients;
     }
 
 }

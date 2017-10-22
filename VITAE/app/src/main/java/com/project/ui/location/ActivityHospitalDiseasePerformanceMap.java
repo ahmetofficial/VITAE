@@ -45,7 +45,7 @@ import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.core.hospitalmodule.UserHospitalRate;
 import com.project.core.usermodule.UserLocation;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.ui.location.adapter.HospitalDiseaseRankAdapter;
 import com.project.ui.main.MenuActivity;
 import com.project.utils.GPSTracker;
@@ -200,38 +200,38 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
                                     }
 
                                     for (int i = 0; i < hospitals.size(); i++) {
-                                        double lat = Double.valueOf( hospitals.get( i ).getHospitaltByDiseaseRank().getLatitude() );
-                                        double lon = Double.valueOf( hospitals.get( i ).getHospitaltByDiseaseRank().getLongitude() );
+                                        double lat = Double.valueOf( hospitals.get( i ).getHospital().getLatitude() );
+                                        double lon = Double.valueOf( hospitals.get( i ).getHospital().getLongitude() );
                                         LatLng hospitalLocation = new LatLng( lat, lon );
                                         if (hospitals.get( i ).getHospitalOverallScore() >= 4) {
                                             mMap.addMarker( new MarkerOptions()
                                                     .position( hospitalLocation )
                                                     .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_4_5 ) )
-                                                    .title( hospitals.get( i ).getHospitaltByDiseaseRank().getHospitalName() )
+                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
                                             );
                                         } else if (hospitals.get( i ).getHospitalOverallScore() >= 3) {
                                             mMap.addMarker( new MarkerOptions()
                                                     .position( hospitalLocation )
                                                     .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_3_4 ) )
-                                                    .title( hospitals.get( i ).getHospitaltByDiseaseRank().getHospitalName() )
+                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
                                             );
                                         } else if (hospitals.get( i ).getHospitalOverallScore() >= 2) {
                                             mMap.addMarker( new MarkerOptions()
                                                     .position( hospitalLocation )
                                                     .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_2_3 ) )
-                                                    .title( hospitals.get( i ).getHospitaltByDiseaseRank().getHospitalName() )
+                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
                                             );
                                         } else if (hospitals.get( i ).getHospitalOverallScore() >= 1) {
                                             mMap.addMarker( new MarkerOptions()
                                                     .position( hospitalLocation )
                                                     .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_1_2 ) )
-                                                    .title( hospitals.get( i ).getHospitaltByDiseaseRank().getHospitalName() )
+                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
                                             );
                                         } else {
                                             mMap.addMarker( new MarkerOptions()
                                                     .position( hospitalLocation )
                                                     .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_0_1 ) )
-                                                    .title( hospitals.get( i ).getHospitaltByDiseaseRank().getHospitalName() )
+                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
                                             );
                                         }
                                     }

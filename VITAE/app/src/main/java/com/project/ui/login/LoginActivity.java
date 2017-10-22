@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.ui.BaseActivity;
 import com.project.ui.main.MenuActivity;
 import com.project.ui.signup.SignUpActivity;

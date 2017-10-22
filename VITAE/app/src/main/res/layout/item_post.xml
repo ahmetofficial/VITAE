@@ -5,21 +5,24 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/feed_bg"
+              android:layout_marginBottom="5dp"
               android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_parent_rounded_corner"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/feed_item_padding_left_right"
-            android:paddingRight="@dimen/feed_item_padding_left_right">
+            android:paddingRight="@dimen/feed_item_padding_left_right"
+            android:layout_weight="0.29">
 
             <com.alexzh.circleimageview.CircleImageView
                 android:id="@+id/postProfilePicture"
@@ -31,7 +34,7 @@
                 tools:ignore="ContentDescription">
             </com.alexzh.circleimageview.CircleImageView>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -40,7 +43,7 @@
 
                 <TextView
                     android:id="@+id/postUserName"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/feed_item_profile_name"
                     android:textStyle="bold"
@@ -48,12 +51,24 @@
 
                 <TextView
                     android:id="@+id/postTimestamp"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/timestamp"
+                    android:layout_below="@id/postUserName"
                     android:textSize="@dimen/feed_item_timestamp"
                     tools:ignore="SpUsage"/>
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/dots_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_dots_vertical_grey600_24dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
         </LinearLayout>
 
         <io.github.rockerhieu.emojicon.EmojiconTextView
@@ -61,6 +76,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
+            android:textSize="14sp"
             android:paddingLeft="@dimen/feed_item_status_pad_left_right"
             android:paddingRight="@dimen/feed_item_status_pad_left_right"
             android:paddingTop="@dimen/feed_item_status_pad_top"/>
@@ -86,6 +102,28 @@
             android:visibility="visible"
             tools:ignore="ContentDescription"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/postInteractionInformation"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textSize="12dp"
+                android:textColor="@color/secondaryDarkText"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/dividers"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,35 +131,33 @@
 
             <com.like.LikeButton
                 android:id="@+id/postLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                app:icon_size="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
                 app:anim_scale_factor="3"
-                app:icon_type="heart" />
+                app:icon_size="20dp"
+                app:icon_type="heart"/>
 
             <TextView
-                android:id="@+id/postLikeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
                 android:layout_toRightOf="@id/postLike"
+                android:text="@string/like"
                 android:gravity="center"/>
 
             <ImageView
                 android:id="@+id/postComment"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginTop="2dp"
                 android:src="@drawable/ic_comment_outline_grey600_24dp"/>
 
             <TextView
-                android:id="@+id/postCommentCount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="2dp"
+                android:text="@string/comment"
                 android:layout_toRightOf="@id/postComment"
                 android:gravity="center"/>
 

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
+import com.baoyz.widget.PullRefreshLayout;
 import com.project.core.postmodule.UserPost;
 import com.project.restservice.ApiClient;
 import com.project.ui.main.timeline.adapter.PostAdapter;
@@ -29,50 +30,66 @@ public class FragmentTimeline extends Fragment {
 
     private ArrayList<UserPost> postList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private PullRefreshLayout refreshLayout;
     private PostAdapter mAdapter;
     private String userId;
 
     public FragmentTimeline(String userId) {
-        this.userId=userId;
+        this.userId = userId;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate( savedInstanceState );
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View timelineView = inflater.inflate(R.layout.fragment_timeline, container, false);
+        final View timelineView = inflater.inflate( R.layout.fragment_timeline, container, false );
+        recyclerView = (RecyclerView) timelineView.findViewById( R.id.timeline_recycler_view );
+        refreshLayout = (PullRefreshLayout) timelineView.findViewById( R.id.refresh_layout );
+        getTimeline( userId );
+
+        refreshLayout.setOnRefreshListener( new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getTimeline( userId );
+                refreshLayout.setRefreshing(false);
+            }
+        } );
+
+        //refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_CIRCLES);
+
+        return timelineView;
+    }
+
+    private void getTimeline(final String userId) {
         try {
-            ApiClient.postApi().getUserTimeline(userId).enqueue(new Callback<UserPost>() {
+            ApiClient.postApi().getUserTimeline( userId ).enqueue( new Callback<UserPost>() {
                 @Override
                 public void onResponse(Call<UserPost> call, Response<UserPost> response) {
                     if (response.isSuccessful()) {
                         postList = (ArrayList) response.body().getPosts();
-                        recyclerView = (RecyclerView) timelineView.findViewById(R.id.timeline_recycler_view);
-                        mAdapter = new PostAdapter(postList,userId,getContext());
-                        recyclerView.setHasFixedSize(true);
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                        recyclerView.setLayoutManager(mLayoutManager);
-                        recyclerView.setItemAnimator(new DefaultItemAnimator());
-                        recyclerView.setAdapter(mAdapter);
+                        mAdapter = new PostAdapter( postList, userId, getContext() );
+                        recyclerView.setHasFixedSize( true );
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getActivity() );
+                        recyclerView.setLayoutManager( mLayoutManager );
+                        recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                        recyclerView.setAdapter( mAdapter );
                         mAdapter.notifyDataSetChanged();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UserPost> call, Throwable t) {
-                    Log.e("UserTimeline", t.getMessage());
+                    Log.e( "UserTimeline", t.getMessage() );
                 }
-            });
+            } );
         } catch (Exception e) {
             Log.e( "UserHealthTree", e.getMessage() );
             Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
         }
-
-        return timelineView;
     }
 }

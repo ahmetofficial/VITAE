@@ -29,7 +29,8 @@ import com.like.OnLikeListener;
 import com.project.core.postmodule.UserPost;
 import com.project.core.postmodule.UserPostLike;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
+import com.project.utils.Typefaces;
 import com.project.utils.WifiUtils;
 
 import java.net.UnknownHostException;
@@ -54,10 +55,11 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView user_id, post_text, timestamp, url, likeCount, commentCount;
+        public TextView user_id, post_text, timestamp, url, postInteractionInformation;
         public ImageView postPhoto;
         public LikeButton likebutton;
         public CircleImageView profilePicture;
+        public ImageView dotsVertical;
 
         public MyViewHolder(View view) {
             super( view );
@@ -67,9 +69,9 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
             timestamp = (TextView) view.findViewById( R.id.postTimestamp );
             postPhoto = (ImageView) view.findViewById( R.id.postPhoto );
             url = (TextView) view.findViewById( R.id.postURL );
-            likeCount = (TextView) view.findViewById( R.id.postLikeCount );
-            commentCount = (TextView) view.findViewById( R.id.postCommentCount );
+            postInteractionInformation = (TextView) view.findViewById( R.id.postInteractionInformation );
             likebutton = (LikeButton) view.findViewById( R.id.postLike );
+            dotsVertical = (ImageView) view.findViewById( R.id.dots_vertical );
         }
     }
 
@@ -84,10 +86,19 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final UserPost userPost = userPosts.get( position );
-        holder.user_id.setText( userPost.getUser_id() );
+        holder.user_id.setText( userPost.getUserId() );
         holder.post_text.setText( userPost.getPostText() );
-        holder.commentCount.setText( String.valueOf( userPost.getCommentCount() ) );
-        holder.likeCount.setText( String.valueOf( userPost.getLikeCount() ) );
+
+        if(!userId.equals( userPost.getUserId() )){
+            holder.dotsVertical.setVisibility( View.GONE );
+        }
+
+        final int[] likeCount = {userPost.getLikeCount()};
+        final int commentCount = userPost.getCommentCount();
+        holder.postInteractionInformation.setText( String.valueOf( likeCount[0] ) + " "
+                + context.getString( R.string.like_count ) + ", " + String.valueOf( commentCount )
+                + " " + context.getString( R.string.comment_count ) );
+        holder.postInteractionInformation.setTypeface( Typefaces.getRobotoBold( context ) );
 
         if (!profilePicturePath.equals( "" )) {
             Glide.with( context )
@@ -131,9 +142,10 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
             Glide.with( context )
                     .load( picturePath )
                     .apply(new RequestOptions()
-                            .override(1000, 800) // set exact size
                             .fitCenter() // keep memory usage low by fitting into (w x h) [optional]
                             .dontAnimate()
+                            .centerCrop()
+                            .dontTransform()
                             .placeholder(R.drawable.emoji_1f3c4_1f3ff)
                     )
                     .into( holder.postPhoto );
@@ -146,8 +158,11 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
             @Override
             public void liked(LikeButton likeButton) {
                 try {
+                    likeCount[0] += 1;
                     holder.likebutton.setLiked( true );
-                    holder.likeCount.setText( String.valueOf( Integer.valueOf( holder.likeCount.getText().toString() ) + 1 ) );
+                    holder.postInteractionInformation.setText( String.valueOf( likeCount[0] ) + " "
+                            + context.getString( R.string.like_count ) + ", " + String.valueOf( commentCount )
+                            + " " + context.getString( R.string.comment_count ) );
                     like( userPost.getPostId(), userId );
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
@@ -157,9 +172,12 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
             @Override
             public void unLiked(LikeButton likeButton) {
                 try {
-                    holder.likebutton.setLiked( false );
-                    holder.likeCount.setText( String.valueOf( Integer.valueOf( holder.likeCount.getText().toString() ) - 1 ) );
-                    unlike( userPost.getPostId(), userId );
+                    likeCount[0] -= 1;
+                    holder.likebutton.setLiked( true );
+                    holder.postInteractionInformation.setText( String.valueOf( likeCount[0] ) + " "
+                            + context.getString( R.string.like_count ) + ", " + String.valueOf( commentCount )
+                            + " " + context.getString( R.string.comment ) );
+                    like( userPost.getPostId(), userId );
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
                 }

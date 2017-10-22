@@ -13,14 +13,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,13 +43,14 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.project.core.generalhealthmodule.BloodAlarm;
 import com.project.restservice.ApiClient;
 import com.project.ui.location.adapter.BloodAlarmAdapter;
 import com.project.ui.main.MenuActivity;
+import com.project.utils.ClusterUtils;
 import com.project.utils.GPSTracker;
-import com.project.utils.Typefaces;
 
 import java.util.ArrayList;
 
@@ -71,17 +71,18 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
     private int bloodTypeId;
     private RecyclerView recyclerView;
     private BloodAlarmAdapter mAdapter;
+    private FloatingActionButton createBloodAlarmFAB;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Marker mLocationMarker;
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
+    private ClusterManager<ClusterUtils> mClusterManager;
 
     private boolean isGPSEnabled;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private TextView hospitalRanking;
-    private TextView header;
 
     private FragmentCreateBloodAlarm fragmentCreateBloodAlarm;
 
@@ -94,9 +95,8 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
         Intent myIntent = getIntent();
         userId = myIntent.getStringExtra( "userId" );
 
-        createBloodAlarmIcon = (ImageView) findViewById( R.id.plus );
-        header = (TextView) findViewById( R.id.header );
-        header.setTypeface( Typefaces.getRobotoMedium( getBaseContext() ) );
+        createBloodAlarmFAB = (FloatingActionButton) findViewById( R.id.add_blood_alert_fab_button );
+        //createBloodAlarmIcon = (ImageView) findViewById( R.id.plus );
         bloodTypeSpinner = (MaterialSpinner) findViewById( R.id.blood_spinner );
         bloodTypeSpinner.setItems( getString( R.string.select_blood_type ), "0 Rh+", "0 Rh-", "A Rh+", "A Rh-", "B Rh+", "B Rh-", "AB Rh+", "AB Rh-" );
         bloodTypeSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -104,14 +104,20 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 if (position != 0) {
-                    bloodTypeId = position - 1;
+                    bloodTypeId = position;
                     mMap.clear();
                     try {
-                        ApiClient.bloodApi().getBloodAlarmsByBloodType(bloodTypeId).enqueue( new Callback<BloodAlarm>() {
+                        ApiClient.bloodApi().getBloodAlarmsByBloodType( bloodTypeId ).enqueue( new Callback<BloodAlarm>() {
                             @Override
                             public void onResponse(Call<BloodAlarm> call, Response<BloodAlarm> response) {
                                 if (response.isSuccessful()) {
                                     ArrayList<BloodAlarm> bloodAlarms = response.body().getBloodAlarms();
+                                    for (int i = 0; i < bloodAlarms.size(); i++) {
+                                        double lat = Double.valueOf( bloodAlarms.get( i ).getHospital().getLatitude() );
+                                        double lon = Double.valueOf( bloodAlarms.get( i ).getHospital().getLongitude() );
+                                        LatLng latLng = new LatLng( lat, lon );
+                                        mClusterManager.addItem( new ClusterUtils( latLng ) );
+                                    }
                                     recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
                                     LatLng userLocation = new LatLng( latitude, longitude );
                                     mAdapter = new BloodAlarmAdapter( bloodAlarms, getBaseContext(), mMap, userLocation );
@@ -178,20 +184,23 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
                     } catch (Exception e) {
                         Log.e( "UserHealthTree", e.getMessage() );
                         Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    } catch (NoSuchMethodError e) {
+                        Log.e( "UserHealthTree", e.getMessage() );
                     }
                 }
             }
         } );
 
-        createBloodAlarmIcon.setOnClickListener( new View.OnClickListener() {
+
+        createBloodAlarmFAB.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final FragmentManager fm = getSupportFragmentManager();
                 fragmentCreateBloodAlarm = new FragmentCreateBloodAlarm( userId );
-                fragmentCreateBloodAlarm.show( fm, "Disease Treatments" );
+                fragmentCreateBloodAlarm.show( getSupportFragmentManager(),"" );
             }
         } );
 
+        /*
         //making back arrow on toolbar
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
         setSupportActionBar( toolbar );
@@ -205,6 +214,7 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
                 finish();
             }
         } );
+        */
 
         checkLocationPermission();
         LocationManager locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
@@ -239,6 +249,11 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
         googleMap.setMapStyle( MapStyleOptions.loadRawResourceStyle( this, R.raw.map_style ) );
         buildGoogleApiClient();
         mMap.setMyLocationEnabled( true );
+        mClusterManager = new ClusterManager<>( this, googleMap );
+        googleMap.setOnCameraIdleListener( mClusterManager );
+        googleMap.setOnMarkerClickListener( mClusterManager );
+        googleMap.setOnInfoWindowClickListener( mClusterManager );
+        mClusterManager.cluster();
     }
 
     protected synchronized void buildGoogleApiClient() {

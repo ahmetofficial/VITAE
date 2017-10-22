@@ -11,13 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
 import com.project.ui.seach.adapter.SimilarUserSearchAdapter;
 import com.project.restservice.PatientSimilarityRequest;
-import com.project.restservice.PatientSimularityResponse;
+import com.project.restservice.serverresponse.PatientSimularityResponse;
 
 import java.util.ArrayList;
 
@@ -27,12 +29,6 @@ import retrofit2.Response;
 
 public class FragmentSimilarPatientSearch extends Fragment {
 
-    public FragmentSimilarPatientSearch(String visitorUserId,String query,int totalHealthItem) {
-        this.query = query;
-        this.visitorUserId = visitorUserId;
-        this.totalHealthItem = totalHealthItem;
-    }
-
     private int totalHealthItem;
     private String query;
     private String visitorUserId;
@@ -40,6 +36,14 @@ public class FragmentSimilarPatientSearch extends Fragment {
     private ArrayList<PatientSimularityResponse> userSearchList;
     private SimilarUserSearchAdapter mAdapter;
     private RecyclerView recyclerView;
+    private TextView dontFoundText;
+    private ViewFlipper viewFlipper;
+
+    public FragmentSimilarPatientSearch(String visitorUserId,String query,int totalHealthItem) {
+        this.query = query;
+        this.visitorUserId = visitorUserId;
+        this.totalHealthItem = totalHealthItem;
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -48,7 +52,9 @@ public class FragmentSimilarPatientSearch extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentSimilarUserSearchView = inflater.inflate( R.layout.fragment_similar_patient, container, false );
+        fragmentSimilarUserSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
+        viewFlipper = (ViewFlipper) fragmentSimilarUserSearchView.findViewById( R.id.view_flipper );
+        dontFoundText = (TextView) fragmentSimilarUserSearchView.findViewById( R.id.dont_found_text );
         listSearchResult( visitorUserId,query, totalHealthItem );
         return fragmentSimilarUserSearchView;
     }
@@ -63,14 +69,20 @@ public class FragmentSimilarPatientSearch extends Fragment {
                 public void onResponse(Call<PatientSimularityResponse> call, Response<PatientSimularityResponse> response) {
                     if (response.isSuccessful()) {
                         userSearchList = response.body().getSimilarUsers();
-                        recyclerView = (RecyclerView) fragmentSimilarUserSearchView.findViewById( R.id.recycler_view );
-                        mAdapter = new SimilarUserSearchAdapter( userSearchList, getContext(), visitorUserId, totalHealthItem );
-                        recyclerView.setHasFixedSize( true );
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentSimilarUserSearchView.getContext() );
-                        recyclerView.setLayoutManager( mLayoutManager );
-                        recyclerView.setItemAnimator( new DefaultItemAnimator() );
-                        recyclerView.setAdapter( mAdapter );
-                        mAdapter.notifyDataSetChanged();
+                        if(userSearchList.size()==0){
+                            dontFoundText.setText( getString( R.string.similar_user_doesnt_found ) );
+                            viewFlipper.setDisplayedChild( 1 );
+                        }else {
+                            viewFlipper.setDisplayedChild( 0 );
+                            recyclerView = (RecyclerView) fragmentSimilarUserSearchView.findViewById( R.id.recycler_view );
+                            mAdapter = new SimilarUserSearchAdapter( userSearchList, getContext(), visitorUserId, totalHealthItem );
+                            recyclerView.setHasFixedSize( true );
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentSimilarUserSearchView.getContext() );
+                            recyclerView.setLayoutManager( mLayoutManager );
+                            recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                            recyclerView.setAdapter( mAdapter );
+                            mAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
 

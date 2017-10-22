@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.ahmetkaymak.vitae.R;
 import com.project.core.hospitalmodule.Hospital;
@@ -31,6 +33,8 @@ public class FragmentHospitalSearch extends Fragment {
     private RecyclerView recyclerView;
     private HospitalSearchAdapter mAdapter;
     private View fragmentHospitalSearchView;
+    private TextView dontFoundText;
+    private ViewFlipper viewFlipper;
     private String query;
     private String userId;
 
@@ -47,6 +51,8 @@ public class FragmentHospitalSearch extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentHospitalSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
+        viewFlipper = (ViewFlipper) fragmentHospitalSearchView.findViewById( R.id.view_flipper );
+        dontFoundText = (TextView) fragmentHospitalSearchView.findViewById( R.id.dont_found_text );
         listSearchResult( userId,query );
         return fragmentHospitalSearchView;
     }
@@ -60,14 +66,20 @@ public class FragmentHospitalSearch extends Fragment {
                 public void onResponse(Call<Hospital> call, Response<Hospital> response) {
                     if (response.isSuccessful()) {
                         hospitalSearchList = response.body().getHospitals();
-                        recyclerView = (RecyclerView) fragmentHospitalSearchView.findViewById( R.id.recycler_view );
-                        mAdapter = new HospitalSearchAdapter( userId, hospitalSearchList, fragmentHospitalSearchView.getContext() );
-                        recyclerView.setHasFixedSize( true );
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentHospitalSearchView.getContext() );
-                        recyclerView.setLayoutManager( mLayoutManager );
-                        recyclerView.setItemAnimator( new DefaultItemAnimator() );
-                        recyclerView.setAdapter( mAdapter );
-                        mAdapter.notifyDataSetChanged();
+                        if(hospitalSearchList.size()==0){
+                            dontFoundText.setText( getString( R.string.hospital_doesnt_fount ) );
+                            viewFlipper.setDisplayedChild( 1 );
+                        }else {
+                            viewFlipper.setDisplayedChild( 0 );
+                            recyclerView = (RecyclerView) fragmentHospitalSearchView.findViewById( R.id.recycler_view );
+                            mAdapter = new HospitalSearchAdapter( userId, hospitalSearchList, fragmentHospitalSearchView.getContext() );
+                            recyclerView.setHasFixedSize( true );
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentHospitalSearchView.getContext() );
+                            recyclerView.setLayoutManager( mLayoutManager );
+                            recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                            recyclerView.setAdapter( mAdapter );
+                            mAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
 

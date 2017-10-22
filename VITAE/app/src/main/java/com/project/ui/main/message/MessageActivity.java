@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,16 +31,15 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.project.core.messagemodule.Message;
+import com.project.core.usermodule.User;
 import com.project.restservice.ApiClient;
 import com.project.ui.main.message.adapter.MessageAdapter;
 import com.project.utils.Typefaces;
-import com.project.utils.WifiUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -48,11 +48,15 @@ import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity {
 
-    private String senderId;
-    private String receiverId;
-    private String conversationId;
+    private User sender;
+    private User receiver;
+    private String senderUserId;
+    private String senderUserName;
+    private String senderPhotoPath;
+    private String receiverUserId;
+    private String receiverUserName;
     private String receiverPhotoPath;
-    private String userId;
+    private String conversationId;
     private Message message;
 
     private EditText messageInputText;
@@ -61,8 +65,10 @@ public class MessageActivity extends AppCompatActivity {
     private MessageAdapter mAdapter;
     private CircleImageView receiverPhoto;
     private TextView receiverIdText;
+    private ImageView backButton;
 
     private Socket socket;
+
     {
         try {
             socket = IO.socket( ApiClient.BASE_URL );
@@ -77,43 +83,55 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_message );
 
-        receiverPhotoPath="";
+
+        sender = new User();
+        receiver = new User();
         Intent myIntent = getIntent();
-        senderId = myIntent.getStringExtra( "senderId" );
-        receiverId = myIntent.getStringExtra( "receiverId" );
-        conversationId = myIntent.getStringExtra( "conversationId" );
-        userId = myIntent.getStringExtra( "userId" );
+        senderUserId = myIntent.getStringExtra( "senderUserId" );
+        senderUserName = myIntent.getStringExtra( "senderUserName" );
+        senderPhotoPath = myIntent.getStringExtra( "senderPhotoPath" );
+        receiverUserId = myIntent.getStringExtra( "receiverUserId" );
+        receiverUserName = myIntent.getStringExtra( "receiverUserName" );
         receiverPhotoPath = myIntent.getStringExtra( "receiverPhotoPath" );
+        conversationId = myIntent.getStringExtra( "conversationId" );
+
+        sender.setUserId( senderUserId );
+        sender.setUserName( senderUserName );
+        sender.setProfilePictureId( senderPhotoPath );
+        receiver.setUserId( receiverUserId );
+        receiver.setUserName( receiverUserName );
+        receiver.setProfilePictureId( receiverPhotoPath );
 
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
         setSupportActionBar( toolbar );
-        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
-        getSupportActionBar().setDisplayShowHomeEnabled( true );
         getSupportActionBar().setTitle( "" );
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        message=new Message();
+        message = new Message();
         message.setConversationId( conversationId );
-        message.setSenderId( senderId );
-        message.setReceiverId( receiverId );
+        message.setSenderId( senderUserId );
+        message.setReceiverId( receiverUserId );
 
         messageInputText = (EditText) findViewById( R.id.message_input );
         messageInputText.setTypeface( Typefaces.getRobotoLight( getBaseContext() ) );
         recyclerView = (RecyclerView) findViewById( R.id.message_recycler_view );
         receiverIdText = (TextView) findViewById( R.id.receiver_id );
         receiverPhoto = (CircleImageView) findViewById( R.id.receiver_photo );
-        receiverIdText.setText( receiverId );
-        if (!receiverPhotoPath.equals( "" )) {
+        backButton = (ImageView) findViewById( R.id.back_image );
+
+        backButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
+
+        receiverIdText.setText( receiver.getUserName() );
+        receiverIdText.setTypeface( Typefaces.getRobotoBold( getBaseContext() ) );
+        if (!receiver.getProfilePictureId().equals( "" )) {
             Glide.with( getBaseContext() )
-                    .load( receiverPhotoPath )
+                    .load( receiver.getProfilePictureId() )
                     .into( receiverPhoto );
-        }else{
+        } else {
             Bitmap bitmap = BitmapFactory.decodeResource( getBaseContext().getResources(), R.drawable.empty_profile );
             Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
             BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
@@ -124,13 +142,13 @@ public class MessageActivity extends AppCompatActivity {
             c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
             receiverPhoto.setImageBitmap( circleBitmap );
         }
-        getMessages(message);
+        getMessages( message, sender, receiver );
 
         socket.connect();
         socket.on( "new message", handleIncomingMessages );
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
-        recyclerView.setLayoutManager( mLayoutManager);
+        recyclerView.setLayoutManager( mLayoutManager );
         recyclerView.setAdapter( mAdapter );
 
         ImageButton sendButton = (ImageButton) findViewById( R.id.send_button );
@@ -143,14 +161,14 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
-    private void getMessages(Message message) {
+    private void getMessages(Message message, final User sender, final User receiver) {
         try {
-            ApiClient.messageApi().getMessages(message).enqueue( new Callback<Message>() {
+            ApiClient.messageApi().getMessages( message ).enqueue( new Callback<Message>() {
                 @Override
                 public void onResponse(Call<Message> call, Response<Message> response) {
                     if (response.isSuccessful()) {
                         messageList = (ArrayList) response.body().getMessages();
-                        mAdapter = new MessageAdapter( messageList, userId, getBaseContext() );
+                        mAdapter = new MessageAdapter( messageList, sender, receiver, getBaseContext() );
                         recyclerView.setHasFixedSize( true );
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
                         recyclerView.setLayoutManager( mLayoutManager );
@@ -159,6 +177,7 @@ public class MessageActivity extends AppCompatActivity {
                         mAdapter.notifyDataSetChanged();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<Message> call, Throwable t) {
                     Log.e( "UserTimeline", t.getMessage() );
@@ -167,7 +186,7 @@ public class MessageActivity extends AppCompatActivity {
             } );
         } catch (Exception e) {
             Log.e( "UserTimeline", e.getMessage() );
-            Toast.makeText(getBaseContext() , e.getMessage(), Toast.LENGTH_LONG ).show();
+            Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
         }
     }
 
@@ -177,31 +196,29 @@ public class MessageActivity extends AppCompatActivity {
         JSONObject messageJson = new JSONObject();
         try {
             messageJson.put( "conversation_id", conversationId );
-            messageJson.put( "sender_id", senderId );
-            messageJson.put( "receiver_id", receiverId );
+            messageJson.put( "sender_id", senderUserId );
+            messageJson.put( "receiver_id", receiverUserId );
             messageJson.put( "message_text", message );
-            messageJson.put( "sender_ip", WifiUtils.getIpAdress( getBaseContext() ) );
+            //messageJson.put( "sender_ip", WifiUtils.getIpAdress( getBaseContext() ) );
             socket.emit( "new message", messageJson );
         } catch (JSONException e) {
-
-        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
 
     }
 
     private void addMessage(String messageText, String senderId) {
-        Message newMessage=new Message();
+        Message newMessage = new Message();
         newMessage.setMessageText( messageText );
         newMessage.setSenderId( senderId );
         messageList.add( newMessage );
-        mAdapter = new MessageAdapter( messageList,userId, getBaseContext() );
+        mAdapter = new MessageAdapter( messageList, receiver, sender, getBaseContext() );
         mAdapter.notifyDataSetChanged();
         scrollToBottom();
     }
 
     private void scrollToBottom() {
-        recyclerView.scrollToPosition( mAdapter.getItemCount()-1 );
+        recyclerView.scrollToPosition( mAdapter.getItemCount() - 1 );
     }
 
     private Emitter.Listener handleIncomingMessages = new Emitter.Listener() {
@@ -210,8 +227,11 @@ public class MessageActivity extends AppCompatActivity {
             runOnUiThread( new Runnable() {
                 @Override
                 public void run() {
-                    String messageText=args[0].toString(), senderId=args[1].toString();
-                    addMessage(messageText,senderId);
+                    String messageText = args[0].toString(), senderId = args[1].toString();
+                    String receiverId=args[2].toString();
+                    if(receiverId.equals( senderUserId )) {
+                        addMessage( messageText, senderId );
+                    }
                 }
             } );
         }

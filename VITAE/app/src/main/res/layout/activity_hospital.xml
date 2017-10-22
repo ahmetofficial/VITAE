@@ -152,7 +152,7 @@
                         android:src="@drawable/ic_thumbs_up_down_white_48dp"/>
 
                     <TextView
-                        android:id="@+id/hospital_activity_no_comment_text"
+                        android:id="@+id/hospital_activity_patient_reviews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/hospital_activity_add_first_comment_image"
@@ -166,86 +166,50 @@
 
                 </RelativeLayout>
 
-
                 <!--At least one user comment-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:id="@+id/linear_layout"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
                         android:layout_marginTop="20dp"
-                        android:gravity="center">
+                        android:layout_marginLeft="30dp">
 
                         <ImageView
                             android:id="@+id/hospital_activity_rates_image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:foregroundGravity="right"
-                            android:src="@drawable/ic_bulletin_board_white_36dp"/>
+                            android:src="@drawable/ic_bulletin_board_white_24dp"/>
 
                         <TextView
-                            android:id="@+id/hospital_activity_total_rating_count"
+                            android:id="@+id/hospital_activity_no_comment_text"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
+                            android:text="@string/patients_review"
                             android:gravity="center"
                             android:textAlignment="center"
                             android:textColor="@android:color/white"
+                            android:textStyle="bold"
                             android:textSize="16sp"/>
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/hospital_activity_no_comment_text"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
                         android:layout_below="@+id/linear_layout"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="2dp"
-                        android:text="@string/view_hospital_reviews"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignEnd="@+id/hospital_activity_no_comment_text"
-                        android:layout_alignLeft="@+id/hospital_activity_no_comment_text"
-                        android:layout_alignRight="@+id/hospital_activity_no_comment_text"
-                        android:layout_alignStart="@+id/hospital_activity_no_comment_text"
-                        android:layout_below="@+id/hospital_activity_no_comment_text"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:id="@+id/relative_layout_hospital_user_review"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/border_white_background">
-
-                            <ImageView
-                                android:id="@+id/hospital_activity_rates_image"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:foregroundGravity="center"
-                                android:padding="5dp"
-                                android:src="@drawable/ic_thumbs_up_down_white_24dp"/>
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"/>
 
                 </RelativeLayout>
 

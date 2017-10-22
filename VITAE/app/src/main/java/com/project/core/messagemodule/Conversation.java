@@ -48,7 +48,11 @@ public class Conversation {
     @Expose
     private ArrayList<Conversation> conversations;
 
-    @SerializedName("USER")
+    @SerializedName("SENDER")
+    @Expose
+    private User sender;
+
+    @SerializedName("RECEIVER")
     @Expose
     private User receiver;
 
@@ -112,8 +116,11 @@ public class Conversation {
         return conversations;
     }
 
+    public User getSender() {
+        return sender;
+    }
+
     public User getReceiver() {
         return receiver;
     }
-
 }

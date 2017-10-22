@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ahmetkaymak.vitae.R;
+import com.alexzh.circleimageview.CircleImageView;
+import com.bumptech.glide.Glide;
 import com.project.core.messagemodule.Message;
+import com.project.core.usermodule.User;
 import com.project.utils.Typefaces;
 
 import java.util.ArrayList;
@@ -22,24 +25,29 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
     private List<Message> messageList = new ArrayList<>();
     private Context context;
-    private String userId;
+    private User sender;
+    private User receiver;
+    private boolean isSenderMessage;
     public static final int SENDER = 0;
     public static final int RECEIVER = 1;
 
 
-    public MessageAdapter(List<Message> messageList, String userId, Context context) {
+    public MessageAdapter(List<Message> messageList, User sender, User receiver, Context context) {
         this.messageList = messageList;
-        this.userId = userId;
+        this.sender = sender;
+        this.receiver = receiver;
         this.context = context;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView userId;
         private TextView message;
+        private CircleImageView userPhoto;
 
         public MyViewHolder(View itemView) {
             super( itemView );
             message = (TextView) itemView.findViewById( R.id.message_text );
+            userPhoto = (CircleImageView) itemView.findViewById( R.id.profile_picture );
         }
     }
 
@@ -61,6 +69,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         Message message = messageList.get( position );
         holder.message.setText( message.getMessageText() );
         holder.message.setTypeface( Typefaces.getRobotoLight( context ) );
+        if (isSenderMessage == true) {
+            Glide.with( context )
+                    .load( sender.getProfilePictureId() )
+                    .into( holder.userPhoto );
+        }else{
+            Glide.with( context )
+                    .load( receiver.getProfilePictureId() )
+                    .into( holder.userPhoto );
+        }
     }
 
     @Override
@@ -70,10 +87,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
     @Override
     public int getItemViewType(int position) {
-        Message message = messageList.get(position);
-        if (message.getSenderId().equals(userId)) {
+        Message message = messageList.get( position );
+        if (message.getSenderId().equals( sender.getUserId() )) {
+            isSenderMessage = true;
             return SENDER;
         } else {
+            isSenderMessage = false;
             return RECEIVER;
         }
     }

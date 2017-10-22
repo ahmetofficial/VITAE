@@ -5,7 +5,7 @@ package com.project.restservice.hospitalmodule;
 
 import com.project.core.hospitalmodule.Hospital;
 import com.project.core.hospitalmodule.UserHospitalRate;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

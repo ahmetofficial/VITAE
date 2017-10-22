@@ -24,7 +24,7 @@ import com.ahmetkaymak.vitae.R;
 import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.core.generalhealthmodule.UserTreatmentHistory;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.ui.main.MenuActivity;
 import com.project.ui.main.healthtree.disease.FragmentDiseaseAddTwo;
 

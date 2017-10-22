@@ -110,6 +110,10 @@
     <!--Post-->
     <string name="send">Send</string>
     <string name="shareSomething">Share something...</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
+    <string name="like_count">Like</string>
+    <string name="comment_count">Comments</string>
 
     <!-- Profile-->
     <string name="edit_profile">Edit Profile</string>
@@ -126,6 +130,8 @@
     <string name="content_downloading">Content downloading</string>
     <string name="upload">Upload</string>
     <string name="download">Download</string>
+    <string name="user_have_no_post">It seems that you don\'t have any post in Vitae. What about posting now? </string>
+    <string name="patient_have_no_post">seems haven\'t post anything yet.</string>
 
     <!--Profile Settings-->
     <string name="old_pasword">Old Password</string>
@@ -159,6 +165,9 @@
     <!--Search Activity-->
     <string name="private_hospital">Private Hospital</string>
     <string name="state_hospital">State Hospital</string>
+    <string name="hospital_doesnt_fount">We cannot find any hospital that you\'ve searched.</string>
+    <string name="user_doesnt_found">We cannot find any user that you\'ve searched.</string>
+    <string name="similar_user_doesnt_found">We cannot find any similar user that you\'ve searched.</string>
 
     <!--Hospital Activity-->
     <string name="total_rating_count">Total Count</string>
@@ -187,6 +196,7 @@
     <string name="enter_acceptable_phone_number">Please enter accurate contact number.</string>
     <string name="blood_alarm_has_created">Blood alarm has succesfully created.</string>
     <string name="distance_to_my_location">Distance to Position</string>
+    <string name="patients_review">Patient Reviews</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>
@@ -196,6 +206,7 @@
     <string name="settings">Settings</string>
     <string name="log_out">Logout</string>
     <string name="friends">Friends</string>
+    <string name="contact">Contact</string>
     <string name="hospital_performance_map">Hospital Performance Maps</string>
     <string name="blood_alarm_map">Blood Alert Map</string>
 

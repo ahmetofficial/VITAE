@@ -5,6 +5,12 @@ package com.project.ui.main.timeline.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -24,7 +30,7 @@ import com.like.OnLikeListener;
 import com.project.core.postmodule.UserPost;
 import com.project.core.postmodule.UserPostLike;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.ui.patient.PatientActivity;
 import com.project.utils.Typefaces;
 import com.project.utils.WifiUtils;
@@ -49,10 +55,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView userId, postText, timestamp, url, likeCount, commentCount;
+        public TextView userId, postText, timestamp, url, postInteractionInformation;
         public ImageView postPhoto;
         public LikeButton likebutton;
         public CircleImageView profilePicture;
+        public ImageView dotsVertical;
 
         public MyViewHolder(View view) {
             super( view );
@@ -62,9 +69,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             timestamp = (TextView) view.findViewById( R.id.postTimestamp );
             postPhoto = (ImageView) view.findViewById( R.id.postPhoto );
             url = (TextView) view.findViewById( R.id.postURL );
-            likeCount = (TextView) view.findViewById( R.id.postLikeCount );
-            commentCount = (TextView) view.findViewById( R.id.postCommentCount );
+            postInteractionInformation = (TextView) view.findViewById( R.id.postInteractionInformation );
             likebutton = (LikeButton) view.findViewById( R.id.postLike );
+            dotsVertical = (ImageView) view.findViewById( R.id.dots_vertical );
         }
     }
 
@@ -79,11 +86,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final UserPost userPost = userPosts.get( position );
-        holder.userId.setText( userPost.getUser_id() );
+        holder.userId.setText( userPost.getUserId() );
         holder.postText.setText( userPost.getPostText() );
         holder.postText.setTypeface( Typefaces.getRobotoLight( context ) );
-        holder.commentCount.setText( String.valueOf( userPost.getCommentCount() ) );
-        holder.likeCount.setText( String.valueOf( userPost.getLikeCount() ) );
+
+        if(!userId.equals( userPost.getUserId() )){
+            holder.dotsVertical.setVisibility( View.GONE );
+        }
+
+        final int[] likeCount = {userPost.getLikeCount()};
+        final int commentCount = userPost.getCommentCount();
+        holder.postInteractionInformation.setText( String.valueOf( likeCount[0] ) + " "
+                + context.getString( R.string.like_count ) + ", " + String.valueOf( commentCount )
+                + " " + context.getString( R.string.comment_count ) );
+        holder.postInteractionInformation.setTypeface( Typefaces.getRobotoBold( context ) );
 
         String photoId = userPost.getUser().getProfilePictureId();
         if (!photoId.equals( "" )) {
@@ -94,7 +110,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
             Glide.with( context )
                     .load( picturePath )
+                    .apply(new RequestOptions()
+                            .fitCenter() // keep memory usage low by fitting into (w x h) [optional]
+                            .dontAnimate()
+                    )
                     .into( holder.profilePicture );
+        }else{
+            Bitmap bitmap = BitmapFactory.decodeResource( context.getResources(), R.drawable.empty_profile );
+            Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
+            BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
+            Paint paint = new Paint();
+            paint.setShader( shader );
+            paint.setAntiAlias( true );
+            Canvas c = new Canvas( circleBitmap );
+            c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
+            holder.profilePicture.setImageBitmap( circleBitmap );
         }
 
         if (userPost.getPostLikes() != null) {
@@ -120,18 +150,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     + postPhotoId.charAt( 1 ) + "/" + postPhotoId.charAt( 2 ) + "/" + postPhotoId.charAt( 3 ) + "/" + postPhotoId.charAt( 4 ) + "/"
                     + postPhotoId.charAt( 5 ) + "/" + postPhotoId.charAt( 6 ) + "/" + postPhotoId.charAt( 7 ) + "/" + postPhotoId.charAt( 9 ) + "/"
                     + postPhotoId.charAt( 10 ) + "/" + postPhotoId.charAt( 11 ) + "/" + postPhotoId.charAt( 12 ) + "/" + postPhotoId + ".jpg";
-
             Glide.with( context )
                     .load( picturePath )
-                    .apply(new RequestOptions()
-                            //.override(1000, 800) // set exact size
+                    .apply( new RequestOptions()
                             .fitCenter() // keep memory usage low by fitting into (w x h) [optional]
-                            .centerCrop()
                             .dontAnimate()
-
+                            .centerCrop()
+                            .dontTransform()
                     )
-                    .into( holder.postPhoto )
-            ;
+                    .into( holder.postPhoto );
         } else {
             holder.postPhoto.setVisibility( View.GONE );
         }
@@ -140,12 +167,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
                 try {
-                    if(userPost.getUser_id().equals( userId )){
+                    if (userPost.getUserId().equals( userId )) {
 
-                    }else {
+                    } else {
                         Intent intent = new Intent( context, PatientActivity.class );
                         intent.putExtra( "visitorId", userId );
-                        intent.putExtra( "visitedId", userPost.getUser_id() );
+                        intent.putExtra( "visitedId", userPost.getUserId() );
                         context.startActivity( intent );
                     }
                 } catch (Exception e) {
@@ -158,8 +185,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             @Override
             public void liked(LikeButton likeButton) {
                 try {
+                    likeCount[0] += 1;
                     holder.likebutton.setLiked( true );
-                    holder.likeCount.setText( String.valueOf( Integer.valueOf( holder.likeCount.getText().toString() ) + 1 ) );
+                    holder.postInteractionInformation.setText( String.valueOf( likeCount[0] ) + " "
+                            + context.getString( R.string.like_count ) + ", " + String.valueOf( commentCount )
+                            + " " + context.getString( R.string.comment_count ) );
                     like( userPost.getPostId(), userId );
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
@@ -169,8 +199,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             @Override
             public void unLiked(LikeButton likeButton) {
                 try {
+                    likeCount[0] -= 1;
                     holder.likebutton.setLiked( false );
-                    holder.likeCount.setText( String.valueOf( Integer.valueOf( holder.likeCount.getText().toString() ) - 1 ) );
+                    holder.postInteractionInformation.setText( String.valueOf( likeCount[0] ) + " "
+                            + context.getString( R.string.like_count ) + ", " + String.valueOf( commentCount )
+                            + " " + context.getString( R.string.comment_count ) );
                     unlike( userPost.getPostId(), userId );
                 } catch (UnknownHostException e) {
                     e.printStackTrace();

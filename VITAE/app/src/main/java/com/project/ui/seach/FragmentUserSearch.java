@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
@@ -27,17 +29,19 @@ import retrofit2.Response;
 
 public class FragmentUserSearch extends Fragment {
 
-    public FragmentUserSearch(String visitorUserId,String query) {
-        this.query = query;
-        this.visitorUserId = visitorUserId;
-    }
-
     private String query;
     private String visitorUserId;
     private View fragmentUserSearchView;
     private ArrayList<User> userSearchList;
     private UserSearchAdapter mAdapter;
     private RecyclerView recyclerView;
+    private TextView dontFoundText;
+    private ViewFlipper viewFlipper;
+
+    public FragmentUserSearch(String visitorUserId,String query) {
+        this.query = query;
+        this.visitorUserId = visitorUserId;
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -47,6 +51,8 @@ public class FragmentUserSearch extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentUserSearchView = inflater.inflate( R.layout.fragment_recyclerview, container, false );
+        viewFlipper = (ViewFlipper) fragmentUserSearchView.findViewById( R.id.view_flipper );
+        dontFoundText = (TextView) fragmentUserSearchView.findViewById( R.id.dont_found_text );
         listSearchResult(visitorUserId, query );
         return fragmentUserSearchView;
     }
@@ -60,14 +66,20 @@ public class FragmentUserSearch extends Fragment {
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
                         userSearchList = response.body().getUsers();
-                        recyclerView = (RecyclerView) fragmentUserSearchView.findViewById( R.id.recycler_view );
-                        mAdapter = new UserSearchAdapter( userSearchList, getContext(), visitorUserId );
-                        recyclerView.setHasFixedSize( true );
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentUserSearchView.getContext() );
-                        recyclerView.setLayoutManager( mLayoutManager );
-                        recyclerView.setItemAnimator( new DefaultItemAnimator() );
-                        recyclerView.setAdapter( mAdapter );
-                        mAdapter.notifyDataSetChanged();
+                        if(userSearchList.size()==0){
+                            dontFoundText.setText( getString( R.string.user_doesnt_found ) );
+                            viewFlipper.setDisplayedChild( 1 );
+                        }else {
+                            viewFlipper.setDisplayedChild( 0 );
+                            recyclerView = (RecyclerView) fragmentUserSearchView.findViewById( R.id.recycler_view );
+                            mAdapter = new UserSearchAdapter( userSearchList, getContext(), visitorUserId );
+                            recyclerView.setHasFixedSize( true );
+                            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( fragmentUserSearchView.getContext() );
+                            recyclerView.setLayoutManager( mLayoutManager );
+                            recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                            recyclerView.setAdapter( mAdapter );
+                            mAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
 

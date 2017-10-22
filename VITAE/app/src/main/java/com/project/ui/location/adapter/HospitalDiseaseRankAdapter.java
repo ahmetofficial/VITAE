@@ -16,9 +16,7 @@ import android.widget.Toast;
 import com.ahmetkaymak.vitae.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.project.core.hospitalmodule.UserHospitalRate;
 
 import java.util.ArrayList;
@@ -60,7 +58,7 @@ public class HospitalDiseaseRankAdapter extends RecyclerView.Adapter<HospitalDis
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final UserHospitalRate rate = hospitalRates.get( position );
         try {
-            holder.hospitalName.setText( rate.getHospitaltByDiseaseRank().getHospitalName() );
+            holder.hospitalName.setText( rate.getHospital().getHospitalName() );
             double overallRank = rate.getHospitalOverallScore();
             if (overallRank >= 4) {
                 holder.hospitalRankView.setBackgroundColor( context.getColor( R.color.color_rank_4_5 ) );
@@ -81,14 +79,13 @@ public class HospitalDiseaseRankAdapter extends RecyclerView.Adapter<HospitalDis
         holder.relativeLayout.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double lat= Double.valueOf( rate.getHospitaltByDiseaseRank().getLatitude() );
-                double lon= Double.valueOf( rate.getHospitaltByDiseaseRank().getLongitude() );
+                double lat= Double.valueOf( rate.getHospital().getLatitude() );
+                double lon= Double.valueOf( rate.getHospital().getLongitude() );
                 LatLng camera = new LatLng( lat, lon );
                 mMap.moveCamera( CameraUpdateFactory.newLatLng( camera ) );
                 mMap.animateCamera( CameraUpdateFactory.zoomTo( 12 ), 2000, null );
             }
         } );
-
 
     }
 

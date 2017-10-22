@@ -36,8 +36,8 @@ import android.widget.Toast;
 import com.ahmetkaymak.vitae.R;
 import com.project.core.postmodule.UserPost;
 import com.project.restservice.ApiClient;
-import com.project.restservice.ServerResponse;
-import com.project.restservice.ServerResponseWithPhotoId;
+import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponseWithPhotoId;
 import com.project.utils.FileUtils;
 import com.project.utils.WifiUtils;
 
@@ -106,7 +106,7 @@ public class PostActivity extends AppCompatActivity {
                     if (file != null) {
                         if (!postText.getText().toString().equals( "" )) {
                             UserPost newPost = new UserPost();
-                            newPost.setUser_id( userId );
+                            newPost.setUserId( userId );
                             newPost.setPost_text( postText.getText().toString() );
                             newPost.setUrl( null );
                             try {
@@ -122,7 +122,7 @@ public class PostActivity extends AppCompatActivity {
                     } else {
                         if (!postText.getText().toString().equals( "" )) {
                             UserPost newPost = new UserPost();
-                            newPost.setUser_id( userId );
+                            newPost.setUserId( userId );
                             newPost.setPost_text( postText.getText().toString() );
                             newPost.setUrl( null );
                             try {

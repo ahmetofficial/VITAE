@@ -5,7 +5,7 @@ package com.project.restservice.usermodule;
 
 import com.project.core.usermodule.UserLocation;
 import com.project.restservice.FullTextSearchRequest;
-import com.project.restservice.ServerResponse;
+import com.project.restservice.serverresponse.ServerResponse;
 import com.project.ui.login.LoginActivity;
 import com.project.core.usermodule.Patient;
 import com.project.core.usermodule.User;
