@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +25,7 @@ import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.core.generalhealthmodule.UserDrugUsageHistory;
 import com.project.core.generalhealthmodule.UserTreatmentHistory;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.main.MenuActivity;
 
 import java.util.Date;
@@ -49,7 +48,7 @@ public class FragmentDrugAddFour extends Fragment {
     private TextView selectedDiseaseNameText;
     private TextView selectedTreatmentNameText;
     private TextView selectedDrugNameText;
-    private EditText drugStartDateText;
+    private TextView drugStartDateText;
     private Date drugStartDate;
     private Button drugSaveButton;
 
@@ -72,7 +71,7 @@ public class FragmentDrugAddFour extends Fragment {
         selectedDiseaseNameText = (TextView) drugInfo.findViewById( R.id.activity_drug_add_disease_name_text );
         selectedTreatmentNameText = (TextView) drugInfo.findViewById( R.id.activity_drug_add_treatment_name_text );
         selectedDrugNameText = (TextView) drugInfo.findViewById( R.id.activity_drug_add_drug_name_text );
-        drugStartDateText = (EditText) drugInfo.findViewById( R.id.activity_drug_add_start_date_text );
+        drugStartDateText = (TextView) drugInfo.findViewById( R.id.activity_drug_add_start_date_text );
         drugSaveButton = (Button) drugInfo.findViewById( R.id.activity_drug_add_save_button );
 
         String alertDisease= getResources().getString( R.string.please_select_disease );

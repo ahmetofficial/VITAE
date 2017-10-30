@@ -95,6 +95,7 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
         Intent myIntent = getIntent();
         userId = myIntent.getStringExtra( "userId" );
 
+        checkLocationPermission();
         createBloodAlarmFAB = (FloatingActionButton) findViewById( R.id.add_blood_alert_fab_button );
         //createBloodAlarmIcon = (ImageView) findViewById( R.id.plus );
         bloodTypeSpinner = (MaterialSpinner) findViewById( R.id.blood_spinner );
@@ -200,25 +201,7 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
             }
         } );
 
-        /*
-        //making back arrow on toolbar
-        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
-        setSupportActionBar( toolbar );
-        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
-        getSupportActionBar().setDisplayShowHomeEnabled( true );
-        getSupportActionBar().setTitle( "" );
-
-        toolbar.setNavigationOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        } );
-        */
-
-        checkLocationPermission();
         LocationManager locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
-
         try {
             isGPSEnabled = locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER );
         } catch (Exception ex) {
@@ -243,12 +226,12 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng camera = new LatLng( latitude, longitude );
-        mMap.moveCamera( CameraUpdateFactory.newLatLng( camera ) );
-        mMap.animateCamera( CameraUpdateFactory.zoomTo( 12 ), 2000, null );
         googleMap.setMapStyle( MapStyleOptions.loadRawResourceStyle( this, R.raw.map_style ) );
         buildGoogleApiClient();
         mMap.setMyLocationEnabled( true );
+        LatLng camera = new LatLng( latitude, longitude );
+        mMap.moveCamera( CameraUpdateFactory.newLatLng( camera ) );
+        mMap.animateCamera( CameraUpdateFactory.zoomTo( 12 ), 2000, null );
         mClusterManager = new ClusterManager<>( this, googleMap );
         googleMap.setOnCameraIdleListener( mClusterManager );
         googleMap.setOnMarkerClickListener( mClusterManager );

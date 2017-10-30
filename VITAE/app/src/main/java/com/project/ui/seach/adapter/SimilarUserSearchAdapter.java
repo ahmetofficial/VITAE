@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.ahmetkaymak.vitae.R;
 import com.alexzh.circleimageview.CircleImageView;
 import com.bumptech.glide.Glide;
-import com.project.restservice.serverresponse.PatientSimularityResponse;
+import com.project.restservice.serverResponse.PatientSimularityResponse;
 import com.project.ui.patient.PatientActivity;
 import com.project.utils.Typefaces;
 

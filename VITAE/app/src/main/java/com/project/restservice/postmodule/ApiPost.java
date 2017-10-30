@@ -5,7 +5,7 @@ package com.project.restservice.postmodule;
 
 import com.project.core.postmodule.UserPost;
 import com.project.core.postmodule.UserPostLike;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

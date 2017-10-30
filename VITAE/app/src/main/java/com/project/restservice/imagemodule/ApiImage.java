@@ -3,8 +3,8 @@
 
 package com.project.restservice.imagemodule;
 
-import com.project.restservice.serverresponse.ServerResponse;
-import com.project.restservice.serverresponse.ServerResponseWithPhotoId;
+import com.project.restservice.serverResponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponseWithPhotoId;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;

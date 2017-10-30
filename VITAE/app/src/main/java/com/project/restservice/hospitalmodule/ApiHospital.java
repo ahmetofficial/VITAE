@@ -3,9 +3,10 @@
 
 package com.project.restservice.hospitalmodule;
 
+import com.project.core.hospitalmodule.Clinic;
 import com.project.core.hospitalmodule.Hospital;
 import com.project.core.hospitalmodule.UserHospitalRate;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,6 +24,9 @@ public interface ApiHospital {
 
     @GET("hospitalModule/hospitals/getAllHospitals")
     Call<Hospital> getAllHospitals();
+
+    @GET("hospitalModule/clinics/getAllClinics")
+    Call<Clinic> getAllClinics();
 
     //Hospital Rates
 

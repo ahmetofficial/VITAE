@@ -195,6 +195,7 @@ public class MessageActivity extends AppCompatActivity {
         messageInputText.setText( "" );
         JSONObject messageJson = new JSONObject();
         try {
+            addMessage( message,senderUserId);
             messageJson.put( "conversation_id", conversationId );
             messageJson.put( "sender_id", senderUserId );
             messageJson.put( "receiver_id", receiverUserId );

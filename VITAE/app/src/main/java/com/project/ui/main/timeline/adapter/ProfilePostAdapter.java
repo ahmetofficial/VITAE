@@ -29,7 +29,7 @@ import com.like.OnLikeListener;
 import com.project.core.postmodule.UserPost;
 import com.project.core.postmodule.UserPostLike;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.utils.Typefaces;
 import com.project.utils.WifiUtils;
 
@@ -86,10 +86,15 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final UserPost userPost = userPosts.get( position );
+        if (profilePicturePath != null) {
+
+        } else {
+            profilePicturePath = "";
+        }
         holder.user_id.setText( userPost.getUserId() );
         holder.post_text.setText( userPost.getPostText() );
 
-        if(!userId.equals( userPost.getUserId() )){
+        if (!userId.equals( userPost.getUserId() )) {
             holder.dotsVertical.setVisibility( View.GONE );
         }
 
@@ -104,7 +109,7 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
             Glide.with( context )
                     .load( profilePicturePath )
                     .into( holder.profilePicture );
-        }else{
+        } else {
             Bitmap bitmap = BitmapFactory.decodeResource( context.getResources(), R.drawable.empty_profile );
             Bitmap circleBitmap = Bitmap.createBitmap( bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888 );
             BitmapShader shader = new BitmapShader( bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP );
@@ -141,12 +146,12 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
 
             Glide.with( context )
                     .load( picturePath )
-                    .apply(new RequestOptions()
+                    .apply( new RequestOptions()
                             .fitCenter() // keep memory usage low by fitting into (w x h) [optional]
                             .dontAnimate()
                             .centerCrop()
                             .dontTransform()
-                            .placeholder(R.drawable.emoji_1f3c4_1f3ff)
+                            .placeholder( R.drawable.emoji_1f3c4_1f3ff )
                     )
                     .into( holder.postPhoto );
         } else {

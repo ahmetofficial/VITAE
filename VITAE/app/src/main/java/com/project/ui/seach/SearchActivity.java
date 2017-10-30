@@ -34,8 +34,9 @@ public class SearchActivity extends AppCompatActivity {
     private ViewPagerAdapter adapter;
 
     private FragmentHospitalSearch fragmentHospitalSearch;
-    private FragmentUserSearch fragmentUserSearch;
+    private FragmentPatientSearch fragmentUserSearch;
     private FragmentSimilarPatientSearch fragmentSimilarPatientSearch;
+    private FragmentDoctorSearch fragmentDoctorSearch;
     private int viewPagePosition;
     private boolean isFirstSearch;
 
@@ -78,9 +79,12 @@ public class SearchActivity extends AppCompatActivity {
                     } else if (position == 1) {
                         fragmentUserSearch.listSearchResult( userId, query );
                         viewPagePosition=1;
-                    } else {
+                    } else if (position == 1){
                         fragmentSimilarPatientSearch.listSearchResult( userId, query, totalHealthItem );
                         viewPagePosition=2;
+                    } else{
+                        fragmentDoctorSearch.listSearchResult( userId,query );
+                        viewPagePosition=3;
                     }
                 }
 
@@ -104,8 +108,10 @@ public class SearchActivity extends AppCompatActivity {
                             fragmentHospitalSearch.listSearchResult( userId, query );
                         } else if (viewPagePosition == 1) {
                             fragmentUserSearch.listSearchResult( userId, query );
-                        } else {
+                        } else if (viewPagePosition == 1){
                             fragmentSimilarPatientSearch.listSearchResult( userId, query, totalHealthItem );
+                        } else{
+                            fragmentDoctorSearch.listSearchResult( userId,query );
                         }
                     }
                     return false;
@@ -167,21 +173,25 @@ public class SearchActivity extends AppCompatActivity {
         int[] tabIcons = {
                 R.drawable.icon_hospital_white,
                 R.drawable.icon_user_white,
-                R.drawable.icon_similar_user
+                R.drawable.icon_similar_user,
+                R.drawable.ic_stethoscope_white_24dp,
         };
         tabLayout.getTabAt( 0 ).setIcon( tabIcons[0] );
         tabLayout.getTabAt( 1 ).setIcon( tabIcons[1] );
         tabLayout.getTabAt( 2 ).setIcon( tabIcons[2] );
+        tabLayout.getTabAt( 3 ).setIcon( tabIcons[3] );
     }
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentHospitalSearch = new FragmentHospitalSearch( userId, query );
-        fragmentUserSearch = new FragmentUserSearch( userId, query );
+        fragmentUserSearch = new FragmentPatientSearch( userId, query );
         fragmentSimilarPatientSearch = new FragmentSimilarPatientSearch( userId, query, totalHealthItem );
+        fragmentDoctorSearch = new FragmentDoctorSearch( userId, query );
         adapter.addFrag( fragmentHospitalSearch, "Hospital Search" );
-        adapter.addFrag( fragmentUserSearch, "User Search" );
+        adapter.addFrag( fragmentUserSearch, "Patient Search" );
         adapter.addFrag( fragmentSimilarPatientSearch, "Similar User Search" );
+        adapter.addFrag( fragmentDoctorSearch, "Doctor Search" );
         viewPager.setAdapter( adapter );
     }
 }

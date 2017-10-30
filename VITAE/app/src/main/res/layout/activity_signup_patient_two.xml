@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/main_layout"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_weight="12"
+              android:background="@color/hospital_page_background"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/personal_info"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/signup_roundwhite"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/signup_gender"/>
+
+                <TextView
+                    android:id="@+id/txt_signup_gender"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/gender"
+                    android:letterSpacing="0.1"
+                    android:paddingLeft="10dp"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:textSize="13dp"/>
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/signUp_gender_spinner"
+                    android:layout_width="175dp"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/signup_roundwhite"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/signup_blood"/>
+
+                <TextView
+                    android:id="@+id/txt_signup_blood"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/blood_type"
+                    android:letterSpacing="0.1"
+                    android:paddingLeft="10dp"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:textSize="13dp"/>
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/signUp_blood_spinner"
+                    android:layout_width="175dp"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/signup_roundwhite"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/signup_birthday"/>
+
+                <TextView
+                    android:id="@+id/txt_signup_birthday"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:clickable="true"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/birthday"
+                    android:letterSpacing="0.1"
+                    android:onClick="onClick"
+                    android:paddingLeft="10dp"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:textSize="13dp"
+                    android:windowSoftInputMode="adjustResize"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/create_profile"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_above="@+id/bottom"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/signup_round"
+                android:gravity="center"
+                android:text="@string/create_account"
+                android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp"
+        android:textColor="#ffffff"
+        android:textSize="16sp"/>
+
+</LinearLayout>

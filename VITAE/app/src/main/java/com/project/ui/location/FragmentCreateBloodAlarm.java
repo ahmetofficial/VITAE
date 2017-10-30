@@ -19,7 +19,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.project.core.generalhealthmodule.BloodAlarm;
 import com.project.core.hospitalmodule.Hospital;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.utils.Typefaces;
 import com.xw.repo.BubbleSeekBar;
 

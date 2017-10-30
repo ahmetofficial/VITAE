@@ -159,7 +159,7 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginTop="2dp"
-                        android:text="@string/hospital_comments_important"
+                        android:text="@string/reviews_are_important"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"/>

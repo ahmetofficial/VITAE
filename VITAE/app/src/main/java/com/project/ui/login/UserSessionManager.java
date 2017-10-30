@@ -17,6 +17,7 @@ public class UserSessionManager {
     private static final String PREFER_NAME = "VitaeUserSession";
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
     public static final String KEY_USERNAME = "name";
+    public static final String KEY_USERTYPEID = "userTypeId";
     public static final String KEY_PASSWORD = "email";
 
     public UserSessionManager(Context context){
@@ -25,9 +26,10 @@ public class UserSessionManager {
         editor = pref.edit();
     }
 
-    public void createUserLoginSession(String name, String email){
+    public void createUserLoginSession(String name,String userTypeId, String email){
         editor.putBoolean(IS_USER_LOGIN, true);
         editor.putString( KEY_USERNAME, name);
+        editor.putString( KEY_USERTYPEID, userTypeId );
         editor.putString( KEY_PASSWORD, email);
         editor.commit();
     }
@@ -46,6 +48,7 @@ public class UserSessionManager {
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         user.put( KEY_USERNAME, pref.getString( KEY_USERNAME, null));
+        user.put( KEY_USERTYPEID, pref.getString( KEY_USERTYPEID, null));
         user.put( KEY_PASSWORD, pref.getString( KEY_PASSWORD, null));
         return user;
     }

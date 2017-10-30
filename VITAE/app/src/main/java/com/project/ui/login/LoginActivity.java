@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.BaseActivity;
 import com.project.ui.main.MenuActivity;
-import com.project.ui.signup.SignUpActivity;
+import com.project.ui.signup.SignUpMainActivity;
 import com.project.utils.SessionUtils;
 import com.project.utils.Typefaces;
 
@@ -42,11 +42,15 @@ public class LoginActivity extends BaseActivity {
         if (session.isUserLoggedIn()) {
             HashMap<String, String> user = session.getUserDetails();
             String userId = user.get( UserSessionManager.KEY_USERNAME );
+            String userTypeId = user.get( UserSessionManager.KEY_USERTYPEID );
             SessionUtils.setUserId( userId );
-            MenuActivity.userId = userId;
-            startActivity( new Intent( LoginActivity.this, MenuActivity.class ) );
+            Intent intent = new Intent( getBaseContext(), MenuActivity.class );
+            MenuActivity.userId=userId;
+            intent.putExtra( "userId", userId );
+            intent.putExtra( "userTypeId", Integer.valueOf(userTypeId) );
+            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+            startActivity( intent );
         } else {
-
             btn_login = (Button) findViewById( R.id.btn_signIn );
             btn_signUp = (Button) findViewById( R.id.btn_signIn_create_account );
             txt_userId = (EditText) findViewById( R.id.txt_signIn_username );
@@ -67,7 +71,7 @@ public class LoginActivity extends BaseActivity {
             btn_signUp.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity( new Intent( LoginActivity.this, SignUpActivity.class ) );
+                    startActivity( new Intent( LoginActivity.this, SignUpMainActivity.class ) );
                 }
             } );
         }
@@ -84,9 +88,13 @@ public class LoginActivity extends BaseActivity {
                                     loginAuthenticationFragment.dismiss();
                                     Toast.makeText( LoginActivity.this, getString( R.string.login_succesfull ), Toast.LENGTH_SHORT ).show();
                                     if (response.body().getStatus().equals( "true" )) {
-                                        MenuActivity.userId = userId;
-                                        session.createUserLoginSession( userId, password );
-                                        startActivity( new Intent( LoginActivity.this, MenuActivity.class ) );
+                                        session.createUserLoginSession( userId,String.valueOf( response.body().getUserTypeId() ),password );
+                                        Intent intent = new Intent( getBaseContext(), MenuActivity.class );
+                                        MenuActivity.userId=userId;
+                                        intent.putExtra( "userId", userId );
+                                        intent.putExtra( "userTypeId", Integer.valueOf(response.body().getUserTypeId()) );
+                                        intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                                        startActivity( intent );
                                     }
                                 }else{
                                     loginAuthenticationFragment.dismiss();

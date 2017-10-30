@@ -54,7 +54,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="0dp"
                         app:view_borderColor="#cccccc"
-                        app:view_borderWidth="2dp"/>
+                        app:view_borderWidth="0dp"/>
 
                 </FrameLayout>
 

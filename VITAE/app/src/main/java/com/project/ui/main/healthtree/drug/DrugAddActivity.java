@@ -20,11 +20,11 @@ import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.rd.PageIndicatorView;
+import com.rd.animation.type.AnimationType;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.kshitij_jain.indicatorview.IndicatorView;
 
 public class DrugAddActivity extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class DrugAddActivity extends AppCompatActivity {
     private FragmentDrugAddFour fragmentDrugAddFour;
 
     private ViewPager viewPager;
-    private IndicatorView mIndicatorView;
+    private PageIndicatorView pageIndicatorView;
 
     public static String userId;
     private Toolbar toolbar;
@@ -53,13 +53,13 @@ public class DrugAddActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById( R.id.activity_drug_add_viewpager );
         setupViewPager( viewPager );
-        mIndicatorView = (IndicatorView) findViewById( R.id.activity_drug_add_indicator );
-        mIndicatorView.setPageIndicators( 4 );
 
         final String alertDisease = getResources().getString( R.string.please_select_disease );
         final String alertTreatment = getResources().getString( R.string.please_select_treatment );
         final String alertDrug = getResources().getString( R.string.please_select_drug );
 
+        pageIndicatorView = (PageIndicatorView) findViewById( R.id.page_indicator_view );
+        pageIndicatorView.setCount( 4 );
         viewPager.addOnPageChangeListener( new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -68,7 +68,7 @@ public class DrugAddActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mIndicatorView.setCurrentPage( position );
+                pageIndicatorView.onPageSelected( position );
             }
 
             @Override
@@ -76,8 +76,9 @@ public class DrugAddActivity extends AppCompatActivity {
             }
 
         } );
-        mIndicatorView.setActiveIndicatorColor( R.color.drug_color_light );
-        mIndicatorView.setInactiveIndicatorColor( R.color.white );
+        pageIndicatorView.setSelectedColor( getColor( R.color.drug_color ) );
+        pageIndicatorView.setUnselectedColor( getColor( R.color.drug_color_light ) );
+        pageIndicatorView.setAnimationType( AnimationType.WORM );
 
         //Search Bar Fields
         toolbar = (Toolbar) findViewById( R.id.activity_drug_add_toolbar );
@@ -99,8 +100,6 @@ public class DrugAddActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchQuery = newText;
-                fragmentDrugAddThree.fillTreatments( newText );
                 return false;
             }
         } );

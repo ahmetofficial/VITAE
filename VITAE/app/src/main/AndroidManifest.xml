@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.project.ui.main.MenuActivity"/>
-        <activity android:name="com.project.ui.signup.SignUpActivity"/>
+        <activity android:name="com.project.ui.signup.SignUpMainActivity"/>
         <activity android:name="com.project.ui.main.PostActivity"/>
         <activity android:name="com.project.ui.seach.SearchActivity"/>
         <activity android:name="com.project.ui.hospitalpage.HospitalProfileActivity"/>
@@ -53,12 +53,15 @@
         <activity android:name="com.project.ui.main.healthtree.drug.DrugAddActivity"/>
         <activity android:name="com.project.ui.userhealthtree.UserHealthTreeActivity"/>
         <activity android:name="com.project.ui.patient.PatientActivity"/>
-        <activity android:name="com.project.ui.patient.PatientSettingsActivity"/>
-        <activity android:name="com.project.ui.patient.PatientFriendsActivity"/>
+        <activity android:name="com.project.ui.patient.UserSettingsActivity"/>
+        <activity android:name="com.project.ui.patient.UserFriendsActivity"/>
         <activity android:name="com.project.ui.main.message.MessageActivity"/>
         <activity android:name="com.project.ui.location.ActivityHospitalDiseasePerformanceMap"/>
         <activity android:name="com.project.ui.location.ActivityBloodAlertMap"/>
         <activity android:name="com.project.ui.main.message.ContactActivity"/>
+        <activity android:name="com.project.ui.signup.SignUpUserActivity"/>
+        <activity android:name="com.project.ui.doctor.DoctorActivity"/>
+        <activity android:name="com.project.ui.location.ActivityDoctorDiseasePerformanceMap"/>
 
         <meta-data
             android:name="android.app.default_searchable"

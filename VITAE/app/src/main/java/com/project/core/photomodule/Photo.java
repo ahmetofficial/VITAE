@@ -10,8 +10,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.project.core.postmodule.UserPost;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
-import com.project.restservice.serverresponse.ServerResponseWithPhotoId;
+import com.project.restservice.serverResponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponseWithPhotoId;
 
 import java.util.Date;
 

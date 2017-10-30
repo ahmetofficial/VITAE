@@ -97,7 +97,7 @@ public class UserHealthTreeActivity extends BaseActivity {
 
     public void orderDiseases(ArrayList<UserDiseaseHistory> diseaseHistory)
     {
-        UserDiseaseHistory temp;   // Yer değiştirmede kullanılacak geçici değişken
+        UserDiseaseHistory temp;
         for (int i=1; i<diseaseHistory.size(); i++)
         {
             for(int j=0; j<diseaseHistory.size()-i; j++)
@@ -107,8 +107,8 @@ public class UserHealthTreeActivity extends BaseActivity {
                     temp = diseaseHistory.get(j);
                     diseaseHistory.set(j,diseaseHistory.get(j+1));
                     diseaseHistory.set(j+1,temp);
-                }//Önce gelen elaman bir sonrakinden büyükse ikisi yer değiştiriyor
-            }// Dizinin ardışık elamanlarını karşılaştırmak için kullandığımız döngü
-        }// Her karşılaştırmadan sonra yeniden kaldığımız yerden devam etmemizi sağlayan döngü
+                }
+            }
+        }
     }
 }

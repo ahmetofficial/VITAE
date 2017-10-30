@@ -30,7 +30,8 @@ import com.like.OnLikeListener;
 import com.project.core.postmodule.UserPost;
 import com.project.core.postmodule.UserPostLike;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
+import com.project.ui.doctor.DoctorActivity;
 import com.project.ui.patient.PatientActivity;
 import com.project.utils.Typefaces;
 import com.project.utils.WifiUtils;
@@ -89,6 +90,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.userId.setText( userPost.getUserId() );
         holder.postText.setText( userPost.getPostText() );
         holder.postText.setTypeface( Typefaces.getRobotoLight( context ) );
+
+        final int userTypeId= userPost.getUser().getUserTypeId();
 
         if(!userId.equals( userPost.getUserId() )){
             holder.dotsVertical.setVisibility( View.GONE );
@@ -169,8 +172,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 try {
                     if (userPost.getUserId().equals( userId )) {
 
-                    } else {
+                    } else if(userTypeId==1) {
                         Intent intent = new Intent( context, PatientActivity.class );
+                        intent.putExtra( "visitorId", userId );
+                        intent.putExtra( "visitedId", userPost.getUserId() );
+                        context.startActivity( intent );
+                    } else if(userTypeId==2) {
+                        Intent intent = new Intent( context, DoctorActivity.class );
                         intent.putExtra( "visitorId", userId );
                         intent.putExtra( "visitedId", userPost.getUserId() );
                         context.startActivity( intent );

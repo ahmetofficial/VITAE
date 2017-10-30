@@ -5,6 +5,10 @@
     <color name="colorPrimaryDark">#004D40 </color>
     <color name="colorAccent">#CDDC39</color>
 
+    <color name="colorPrimaryDarkDoctor">#E65100</color>
+    <color name="colorPrimaryDoctor">#FF6F00</color>
+    <color name="colorAccentDoctor">#CDDC39</color>
+
     <color name="brightText">#fff</color>
     <color name="primaryText">#FAFAFA</color>
     <color name="secondaryText">#F5F5F5</color>

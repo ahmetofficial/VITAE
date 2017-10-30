@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import com.ahmetkaymak.vitae.R;
 import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.core.generalhealthmodule.UserTreatmentHistory;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.main.MenuActivity;
 import com.project.ui.main.healthtree.disease.FragmentDiseaseAddTwo;
 
@@ -48,7 +47,7 @@ public class FragmentTreatmentAddThree extends Fragment {
 
     private TextView selectedDiseaseNameText;
     private TextView selectedTreatmentNameText;
-    private EditText treatmentStartDateText;
+    private TextView treatmentStartDateText;
     private Date treatmentStartDate;
     private Button treatmentSaveButton;
 
@@ -70,7 +69,7 @@ public class FragmentTreatmentAddThree extends Fragment {
 
         selectedDiseaseNameText = (TextView) treatmentInfo.findViewById( R.id.activity_treatment_add_disease_name_text );
         selectedTreatmentNameText = (TextView) treatmentInfo.findViewById( R.id.activity_treatment_add_treatment_name_text );
-        treatmentStartDateText = (EditText) treatmentInfo.findViewById( R.id.activity_treatment_add_start_date_text );
+        treatmentStartDateText = (TextView) treatmentInfo.findViewById( R.id.activity_treatment_add_start_date_text );
         treatmentSaveButton = (Button) treatmentInfo.findViewById( R.id.activity_treatment_add_save_button );
 
         String alertDisease= getResources().getString( R.string.please_select_disease );

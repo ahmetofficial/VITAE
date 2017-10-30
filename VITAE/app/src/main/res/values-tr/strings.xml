@@ -40,6 +40,14 @@
     <string name="user_cannot_created">Kullanıcı oluşturulamadı.</string>
     <string name="edit">Düzenle</string>
     <string name="add">Ekle</string>
+    <string name="welcome">Vitae\'ye hoş geldin!</string>
+    <string name="patient">Hasta</string>
+    <string name="doctor">Doktor</string>
+    <string name="hospital">Hastane</string>
+    <string name="personal_info">Kişisel Bilgiler</string>
+    <string name="professional_info">Profesyonel Bilgiler</string>
+    <string name="doctor_branch">Uzmanlık Alanı</string>
+    <string name="check_all_fields">Lütfen bütün alanların doldurulmuş olduğundan emin olduktan sonra tekrar dene.</string>
 
     <string name="unknown_phase">Bilinmiyor</string>
     <string name="diagnosis_phase">Teşhis</string>
@@ -132,6 +140,9 @@
     <string name="download">İndirme</string>
     <string name="user_have_no_post">Vitae\'de hiç gönderin yok gibi duruyor. Hemen bir tane paylaşmaya ne dersin?</string>
     <string name="patient_have_no_post">hiç gönderi paylaşmamış gibi duruyor.</string>
+    <string name="posts">Gönderiler</string>
+    <string name="reviews">Değerlendirmeler</string>
+    <string name="doctor_general_rating">Doktor Karnesi</string>
 
     <!--Profile Settings-->
     <string name="old_pasword">Eski Şifre</string>
@@ -172,7 +183,7 @@
     <!--Hospital Activity-->
     <string name="total_rating_count">Toplam Değerlendirme</string>
     <string name="overall_score">Ortalama</string>
-    <string name="hospital_comments_important">Değerlendirmen ile birçok kişiye yardımcı olabilirsin. İlk değerlendirmeyi eklemeye ne dersin? </string>
+    <string name="reviews_are_important">Değerlendirmen ile birçok kişiye yardımcı olabilirsin. İlk değerlendirmeyi eklemeye ne dersin? </string>
     <string name="empty_disease">Lütfen değerlendirmeniz için bir hastalık seçtiğinizden emin olun.</string>
     <string name="rate_is_succesful">Değerlendirmeniz başarıyla kaydedildi.</string>
     <string name="view_hospital_reviews">Hastane için yapılan kullanıcı değerlendirmelerine göz atabilirsin.</string>
@@ -183,16 +194,18 @@
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="hospital_rankings">Hastane Sıralaması</string>
+    <string name="doctor_ranking">Doktor Sıralaması</string>
     <string name="no_review_about_disease_for_hospitals">Hastalıkla ilgili hastane değerlendirmesi bulunamadı.</string>
+    <string name="no_review_about_disease_for_doctors">Hastalıkla ilgili doktor değerlendirmesi bulunamadı.</string>
     <string name="select_disease">Hastalık Seçiniz</string>
     <string name="blood_alarm">Kan Alarmı</string>
     <string name="alarm_blood_type">Alarm Kan Grubu</string>
-    <string name="hospital">Hastane</string>
     <string name="optional">Tercihe Bağlı</string>
     <string name="contact_number">İletişim Numarası</string>
     <string name="alarm_level">Alarm Seviyesi</string>
     <string name="select_blood_type">Kan Grubu Seçiniz</string>
     <string name="select_hospital">Hastane Seçiniz</string>
+    <string name="select_clinic">Klinik Seçiniz</string>
     <string name="enter_acceptable_phone_number">Lütfen girdiğiniz numarayı kontrol ediniz.</string>
     <string name="blood_alarm_has_created">Kan alarmı başarıyla oluşturuldu.</string>
     <string name="distance_to_my_location">Konuma Göre Uzaklığı</string>
@@ -208,6 +221,7 @@
     <string name="friends">Arkadaşlar</string>
     <string name="contact">Bağlantı</string>
     <string name="hospital_performance_map">Hastane Performans Haritası</string>
+    <string name="doctor_performance_map">Doktor Performans Haritası</string>
     <string name="blood_alarm_map">Kan Alarm Haritası</string>
 
 </resources>

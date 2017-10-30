@@ -74,7 +74,7 @@
                     android:paddingLeft="10dp"
                     android:src="@drawable/icon_start_date_green"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/activity_treatment_add_start_date_text"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -82,6 +82,7 @@
                     android:background="#00000000"
                     android:hint="@string/treatment_start_date"
                     android:onClick="onClick"
+                    android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:textColor="@color/primaryDarkText"
                     android:textColorHint="@color/primaryDarkText"

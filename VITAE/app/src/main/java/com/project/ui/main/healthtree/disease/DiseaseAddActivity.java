@@ -21,11 +21,11 @@ import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.rd.PageIndicatorView;
+import com.rd.animation.type.AnimationType;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.kshitij_jain.indicatorview.IndicatorView;
 
 public class DiseaseAddActivity extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class DiseaseAddActivity extends AppCompatActivity {
     private FragmentDiseaseAddTwo fragmentDiseaseAddTwo;
 
     private ViewPager viewPager;
-    private IndicatorView mIndicatorView;
+    private PageIndicatorView pageIndicatorView;
 
     public static String userId;
     private Toolbar toolbar;
@@ -56,8 +56,8 @@ public class DiseaseAddActivity extends AppCompatActivity {
         progressBar.setVisibility( View.INVISIBLE );
         viewPager = (ViewPager) findViewById( R.id.activity_disease_add_viewpager );
         setupViewPager( viewPager );
-        mIndicatorView = (IndicatorView) findViewById( R.id.activity_disease_add_indicator );
-        mIndicatorView.setPageIndicators( 2 );
+        pageIndicatorView = (PageIndicatorView) findViewById( R.id.page_indicator_view );
+        pageIndicatorView.setCount( 2 );
         viewPager.addOnPageChangeListener( new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -66,7 +66,7 @@ public class DiseaseAddActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mIndicatorView.setCurrentPage( position );
+                pageIndicatorView.onPageSelected( position );
             }
 
             @Override
@@ -74,8 +74,9 @@ public class DiseaseAddActivity extends AppCompatActivity {
             }
 
         } );
-        mIndicatorView.setActiveIndicatorColor( R.color.disease_color_light );
-        mIndicatorView.setInactiveIndicatorColor( R.color.white );
+        pageIndicatorView.setSelectedColor( getColor( R.color.disease_color ) );
+        pageIndicatorView.setUnselectedColor( getColor( R.color.disease_color_light ) );
+        pageIndicatorView.setAnimationType( AnimationType.WORM );
 
         //Search Bar Fields
         toolbar = (Toolbar) findViewById( R.id.activity_disease_add_toolbar );

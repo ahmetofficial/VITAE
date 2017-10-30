@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hospital_page_background"
+                android:orientation="vertical">
+
+    <View
+        android:id="@+id/doctor_rank_view"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/view2"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/doctor_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/doctor_rank_view"
+        android:gravity="center_vertical"
+        android:textSize="16dp"
+        android:textColor="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/hospital_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/doctor_name"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_hospital_marker_white_18dp"
+        android:layout_below="@+id/doctor_name"/>
+
+    <TextView
+        android:id="@+id/hospital_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="12dp"
+        android:textColor="@android:color/white"
+        android:layout_alignTop="@+id/hospital_icon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/hospital_icon"
+        android:layout_toEndOf="@+id/hospital_icon"/>
+
+    <ImageView
+        android:id="@+id/clinic_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/doctor_name"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_stethoscope_white_18dp"
+        android:layout_below="@+id/hospital_name"/>
+
+    <TextView
+        android:id="@+id/clinic_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="12dp"
+        android:textColor="@android:color/white"
+        android:layout_alignTop="@+id/clinic_icon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/clinic_icon"
+        android:layout_toEndOf="@+id/clinic_icon"/>
+
+    <TextView
+        android:id="@+id/distance_to_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/doctor_name"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/clinic_icon"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/distance_to_location"
+        android:background="@android:color/white"
+        android:id="@+id/view2"/>
+
+</RelativeLayout>

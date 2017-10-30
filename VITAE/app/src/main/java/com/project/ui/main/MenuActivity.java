@@ -38,17 +38,19 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.project.core.usermodule.User;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.ViewPagerAdapter;
 import com.project.ui.location.ActivityBloodAlertMap;
+import com.project.ui.location.ActivityDoctorDiseasePerformanceMap;
 import com.project.ui.location.ActivityHospitalDiseasePerformanceMap;
 import com.project.ui.main.healthtree.FragmentHealthTree;
 import com.project.ui.main.message.ContactActivity;
 import com.project.ui.main.message.FragmentConversation;
-import com.project.ui.main.profile.FragmentProfile;
+import com.project.ui.main.profile.FragmentDoctorProfile;
+import com.project.ui.main.profile.FragmentPatientProfile;
 import com.project.ui.main.timeline.FragmentTimeline;
-import com.project.ui.patient.PatientFriendsActivity;
-import com.project.ui.patient.PatientSettingsActivity;
+import com.project.ui.patient.UserFriendsActivity;
+import com.project.ui.patient.UserSettingsActivity;
 import com.project.ui.seach.SearchActivity;
 import com.project.ui.userhealthtree.UserHealthTreeActivity;
 import com.project.utils.SessionUtils;
@@ -68,13 +70,15 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private ViewPager viewPager;
     public static String userId;
     public static String userName;
+    private int userTypeId;
     public static String userProfilePictureId;
     private MaterialSearchView searchView;
 
     private FragmentTimeline fragmentTimeline;
     private FragmentHealthTree fragmentHealthTree;
-    private FragmentProfile fragmentProfile;
+    private FragmentPatientProfile fragmentPatientProfile;
     private FragmentConversation fragmentConversation;
+    private FragmentDoctorProfile fragmentDoctorProfile;
 
     @BindView(R.id.menu_post_sheet)
     SheetLayout mSheetLayout;
@@ -99,14 +103,32 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_menu );
 
-        viewPager = (ViewPager) findViewById( R.id.viewpager );
-        setupViewPager( viewPager );
-
+        Intent myIntent = getIntent();
+        userId = myIntent.getStringExtra( "userId" );
+        userTypeId = myIntent.getIntExtra( "userTypeId", 0 );
         tabLayout = (TabLayout) findViewById( R.id.tabs );
-        tabLayout.setupWithViewPager( viewPager );
-        setupTabIcons();
+        viewPager = (ViewPager) findViewById( R.id.viewpager );
 
-        String token=FirebaseInstanceId.getInstance().getToken();
+        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+        setSupportActionBar( toolbar );
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        getSupportActionBar().setTitle( "" );
+
+        if (userTypeId == 1) {
+            setupViewPagerForPatient( viewPager );
+            tabLayout.setupWithViewPager( viewPager );
+            //tabLayout.setBackgroundResource( R.color.colorPrimary);
+            //toolbar.setBackgroundResource( R.color.colorPrimaryDark );
+            setupTabIconsForPatientAndDoctors();
+        } else if (userTypeId == 2) {
+            setupViewPagerForDoctor( viewPager );
+            tabLayout.setupWithViewPager( viewPager );
+            //tabLayout.setBackgroundResource( R.color.colorPrimaryDoctor );
+            //toolbar.setBackgroundResource( R.color.colorPrimaryDarkDoctor );
+            setupTabIconsForPatientAndDoctors();
+        }
+
+        String token = FirebaseInstanceId.getInstance().getToken();
         sendRegistrationToServer( token );
 
         //Post Fields
@@ -123,6 +145,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         mNavItems.add( new NavigationItem( getString( R.string.my_health_tree ), R.drawable.ic_barley_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.friends ), R.drawable.ic_clipboard_account_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.hospital_performance_map ), R.drawable.ic_hospital_marker_white_24dp ) );
+        mNavItems.add( new NavigationItem( getString( R.string.doctor_performance_map ), R.drawable.ic_stethoscope_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.blood_alarm_map ), R.drawable.ic_blood_white ) );
         mNavItems.add( new NavigationItem( getString( R.string.settings ), R.drawable.ic_settings_white_24dp ) );
         mNavItems.add( new NavigationItem( getString( R.string.log_out ), R.drawable.ic_logout_white_24dp ) );
@@ -141,12 +164,6 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
                 //Birşeyler
             }
         } );
-
-        //Search Bar Fields
-        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
-        setSupportActionBar( toolbar );
-        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
-        getSupportActionBar().setTitle( "" );
 
         searchView = (MaterialSearchView) findViewById( R.id.search_view );
         searchView.setVoiceSearch( false );
@@ -240,8 +257,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     }
 
     private void sendRegistrationToServer(String token) {
-        User user=new User();
-        user.setUserId( SessionUtils.getUserId());
+        User user = new User();
+        user.setUserId( SessionUtils.getUserId() );
         user.setDeviceToken( token );
         try {
             ApiClient.userApi().updateUserDeviceToken( user ).enqueue( new Callback<ServerResponse>() {
@@ -335,7 +352,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         }
     }
 
-    private void setupTabIcons() {
+    private void setupTabIconsForPatientAndDoctors() {
         int[] tabIcons = {
                 R.drawable.icon_timeline_white,
                 R.drawable.icon_dna_white,
@@ -349,16 +366,29 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         tabLayout.getTabAt( 3 ).setIcon( tabIcons[3] );
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPagerForPatient(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentTimeline = new FragmentTimeline( userId );
         fragmentHealthTree = new FragmentHealthTree( userId );
         fragmentConversation = new FragmentConversation( userId );
-        fragmentProfile = new FragmentProfile( userId );
+        fragmentPatientProfile = new FragmentPatientProfile( userId );
         adapter.addFrag( fragmentTimeline, "Timeline" );
         adapter.addFrag( fragmentHealthTree, "Health Tree" );
         adapter.addFrag( fragmentConversation, "Message" );
-        adapter.addFrag( fragmentProfile, "Profile" );
+        adapter.addFrag( fragmentPatientProfile, "Profile" );
+        viewPager.setAdapter( adapter );
+    }
+
+    private void setupViewPagerForDoctor(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
+        fragmentTimeline = new FragmentTimeline( userId );
+        fragmentHealthTree = new FragmentHealthTree( userId );
+        fragmentConversation = new FragmentConversation( userId );
+        fragmentDoctorProfile = new FragmentDoctorProfile( userId );
+        adapter.addFrag( fragmentTimeline, "Timeline" );
+        adapter.addFrag( fragmentHealthTree, "Health Tree" );
+        adapter.addFrag( fragmentConversation, "Message" );
+        adapter.addFrag( fragmentDoctorProfile, "Profile" );
         viewPager.setAdapter( adapter );
     }
 
@@ -438,7 +468,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             UserHealthTreeActivity.userId = userId;
             startActivity( new Intent( MenuActivity.this, UserHealthTreeActivity.class ) );
         } else if (position == 1) {
-            Intent intent = new Intent( getBaseContext(), PatientFriendsActivity.class );
+            Intent intent = new Intent( getBaseContext(), UserFriendsActivity.class );
             intent.putExtra( "userId", userId );
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
@@ -448,16 +478,21 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 3) {
-            Intent intent = new Intent( getBaseContext(), ActivityBloodAlertMap.class );
+            Intent intent = new Intent( getBaseContext(), ActivityDoctorDiseasePerformanceMap.class );
             intent.putExtra( "userId", userId );
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 4) {
-            Intent intent = new Intent( getBaseContext(), PatientSettingsActivity.class );
+            Intent intent = new Intent( getBaseContext(), ActivityBloodAlertMap.class );
             intent.putExtra( "userId", userId );
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 5) {
+            Intent intent = new Intent( getBaseContext(), UserSettingsActivity.class );
+            intent.putExtra( "userId", userId );
+            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+            getBaseContext().startActivity( intent );
+        } else if (position == 6) {
             SharedPreferences preferences = getSharedPreferences( "VitaeUserSession", Context.MODE_PRIVATE );
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();

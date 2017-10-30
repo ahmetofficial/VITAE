@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
-import com.project.core.usermodule.PatientForConversation;
+import com.project.core.patientmodule.PatientForConversation;
 import com.project.restservice.ApiClient;
 import com.project.ui.main.message.adapter.ContactAdapter;
 import com.project.utils.Typefaces;
@@ -66,7 +66,7 @@ public class ContactActivity extends AppCompatActivity {
 
     public void patientList(final String userId) {
         try {
-            ApiClient.patientApi().getFriendsWithConversationStatus( userId ).enqueue( new Callback<PatientForConversation>() {
+            ApiClient.userApi().getFriendsWithConversationStatus( userId ).enqueue( new Callback<PatientForConversation>() {
                 @Override
                 public void onResponse(Call<PatientForConversation> call, Response<PatientForConversation> response) {
                     if (response.isSuccessful()) {

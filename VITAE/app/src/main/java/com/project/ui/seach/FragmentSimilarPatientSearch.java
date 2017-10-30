@@ -19,7 +19,7 @@ import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
 import com.project.ui.seach.adapter.SimilarUserSearchAdapter;
 import com.project.restservice.PatientSimilarityRequest;
-import com.project.restservice.serverresponse.PatientSimularityResponse;
+import com.project.restservice.serverResponse.PatientSimularityResponse;
 
 import java.util.ArrayList;
 

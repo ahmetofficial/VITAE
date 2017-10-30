@@ -20,11 +20,11 @@ import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.rd.PageIndicatorView;
+import com.rd.animation.type.AnimationType;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.kshitij_jain.indicatorview.IndicatorView;
 
 public class TreatmentAddActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class TreatmentAddActivity extends AppCompatActivity {
     private FragmentTreatmentAddThree fragmentTreatmentAddThree;
 
     private ViewPager viewPager;
-    private IndicatorView mIndicatorView;
+    private PageIndicatorView pageIndicatorView;
 
     public static String userId;
     private Toolbar toolbar;
@@ -50,12 +50,12 @@ public class TreatmentAddActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById( R.id.activity_treatment_add_viewpager );
         setupViewPager( viewPager );
-        mIndicatorView = (IndicatorView) findViewById( R.id.activity_treatment_add_indicator );
-        mIndicatorView.setPageIndicators( 3 );
 
         final String alertDisease= getResources().getString( R.string.please_select_disease );
         final String alertTreatment = getResources().getString( R.string.please_select_treatment );
 
+        pageIndicatorView = (PageIndicatorView) findViewById( R.id.page_indicator_view );
+        pageIndicatorView.setCount( 3 );
         viewPager.addOnPageChangeListener( new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -64,7 +64,7 @@ public class TreatmentAddActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                mIndicatorView.setCurrentPage( position );
+                pageIndicatorView.onPageSelected( position );
             }
 
             @Override
@@ -72,8 +72,9 @@ public class TreatmentAddActivity extends AppCompatActivity {
             }
 
         } );
-        mIndicatorView.setActiveIndicatorColor( R.color.treatment_color_light );
-        mIndicatorView.setInactiveIndicatorColor( R.color.white );
+        pageIndicatorView.setSelectedColor( getColor( R.color.treatment_color ) );
+        pageIndicatorView.setUnselectedColor( getColor( R.color.treatment_color_light ) );
+        pageIndicatorView.setAnimationType( AnimationType.WORM );
 
         //Search Bar Fields
         toolbar = (Toolbar) findViewById( R.id.activity_treatment_add_toolbar);
@@ -94,7 +95,6 @@ public class TreatmentAddActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                fragmentTreatmentAddTwo.fillTreatments( newText );
                 return false;
             }
         } );

@@ -45,7 +45,7 @@ import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.core.hospitalmodule.UserHospitalRate;
 import com.project.core.usermodule.UserLocation;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.location.adapter.HospitalDiseaseRankAdapter;
 import com.project.ui.main.MenuActivity;
 import com.project.utils.GPSTracker;
@@ -87,6 +87,7 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
 
         Intent myIntent = getIntent();
         userId = myIntent.getStringExtra( "userId" );
+        checkLocationPermission();
 
         diseaseSpinner = (MaterialSpinner) findViewById( R.id.disease_spinner );
         hospitalRanking = (TextView) findViewById( R.id.hospital_ranking );
@@ -101,7 +102,6 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
                 .findFragmentById( R.id.hospital_location_performace_map_fragment );
         mapFragment.getMapAsync( this );
 
-        checkLocationPermission();
         LocationManager locationManager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 
         try {

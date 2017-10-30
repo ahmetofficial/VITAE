@@ -38,6 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:foregroundGravity="right"
+        android:background="@color/colorPrimary"
         app:view_borderColor="#cccccc"
         app:view_borderWidth="1dp"/>
 

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorPrimary">
+
+
+    <ViewFlipper
+        android:id="@+id/view_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_recyler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="@string/doctor_general_rating"
+                android:textColor="@color/white"
+                android:textSize="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/color_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header"
+                android:layout_alignLeft="@+id/header"
+                android:layout_alignRight="@+id/header"
+                android:layout_alignBottom="@+id/fab_rating"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/dark_green_circle"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/text_1"
+                    android:src="@drawable/circle_dark_green"/>
+
+                <ImageView
+                    android:id="@+id/light_green_circle"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/text_1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/dark_green_circle"
+                    android:src="@drawable/circle_light_green"/>
+
+                <ImageView
+                    android:id="@+id/yellow_circle"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/text_1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/light_green_circle"
+                    android:src="@drawable/circle_yellow"/>
+
+                <ImageView
+                    android:id="@+id/orange_circle"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/text_1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/yellow_circle"
+                    android:src="@drawable/circle_orange"/>
+
+                <ImageView
+                    android:id="@+id/red_circle"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/text_1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/orange_circle"
+                    android:src="@drawable/circle_red"/>
+
+            </RelativeLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_star_white_18dp"
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                app:rippleColor="@color/colorPrimary"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/color_bar"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@id/header"
+                android:layout_alignRight="@id/fab_rating"
+                android:background="@color/white"/>
+
+            <TextView
+                android:id="@+id/total_review_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_review_count"
+                android:textColor="@color/white"
+                android:layout_below="@id/view"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@id/header"
+                android:textSize="12dp"/>
+
+            <TextView
+                android:id="@+id/total_review_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="12dp"
+                android:layout_toRightOf="@+id/total_review_count"
+                android:layout_below="@+id/view"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/doctor_rating_pie_chart"
+                    android:layout_below="@+id/total_review_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_weight="1.5"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/doctor_rating_pie_chart"
+                android:clipToPadding="false"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_not_found"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_thumbs_up_down_white_36dp"/>
+
+            <TextView
+                android:id="@+id/dont_found_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/white"
+                android:layout_marginRight="30dp"
+                android:gravity="center"/>
+
+        </RelativeLayout>
+
+    </ViewFlipper>
+
+</LinearLayout>

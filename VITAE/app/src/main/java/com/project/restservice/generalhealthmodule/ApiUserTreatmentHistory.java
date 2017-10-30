@@ -4,7 +4,7 @@
 package com.project.restservice.generalhealthmodule;
 
 import com.project.core.generalhealthmodule.UserTreatmentHistory;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

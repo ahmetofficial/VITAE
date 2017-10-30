@@ -50,6 +50,10 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
 
+    //intro for signup
+    compile 'com.github.paolorotolo:appintro:4.1.0'
+    compile 'com.romandanylyk:pageindicatorview:0.2.0'
+
     //emoji text
     compile 'io.github.rockerhieu:emojicon:1.4.1'
 
@@ -117,6 +121,9 @@ dependencies {
     //Expandable View
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'com.diegodobelo.expandingview:expanding-view:0.9.4'
+
+    //Graph library
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'

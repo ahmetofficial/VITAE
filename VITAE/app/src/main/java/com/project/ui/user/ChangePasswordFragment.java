@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.core.usermodule.User;
 import com.project.utils.ProgressBarAction;
 

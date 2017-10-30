@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:attrs="http://schemas.android.com/tools"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -65,25 +66,21 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/activity_disease_add_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="392dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/page_indicator_view"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    </RelativeLayout>
+            <com.rd.PageIndicatorView
+                android:id="@+id/page_indicator_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:padding="20dp"
+                attrs:piv_padding="12dp"
+                attrs:piv_radius="8dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@color/disease_color">
 
-        <io.github.kshitij_jain.indicatorview.IndicatorView
-            android:id="@+id/activity_disease_add_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:background="@color/disease_color"
-            android:foregroundGravity="center"
-            tools:ignore="ObsoleteLayoutParam"/>
     </RelativeLayout>
 
 </LinearLayout>

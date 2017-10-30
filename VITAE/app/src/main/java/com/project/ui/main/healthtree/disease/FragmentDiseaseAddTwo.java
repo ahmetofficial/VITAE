@@ -16,15 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.ahmetkaymak.vitae.R;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.main.MenuActivity;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class FragmentDiseaseAddTwo extends Fragment {
     private MaterialSpinner diseaseAddDialogLevelSpinner;
     private MaterialSpinner diseaseAddDialogStateSpinner;
     private TextView selectedDiseaseNameText;
-    private EditText diseaseStartDateText;
+    private TextView diseaseStartDateText;
     private Date diseaseStartDate;
     private Button diseaseSaveButton;
 
@@ -70,7 +69,7 @@ public class FragmentDiseaseAddTwo extends Fragment {
         diseaseAddDialogLevelSpinner = (MaterialSpinner) diseaseInfo.findViewById( R.id.activity_disease_add_level_spinner );
         diseaseAddDialogStateSpinner = (MaterialSpinner) diseaseInfo.findViewById( R.id.activity_disease_add_state_spinner );
         diseaseSaveButton = (Button) diseaseInfo.findViewById( R.id.activity_disease_add_save_button );
-        diseaseStartDateText = (EditText) diseaseInfo.findViewById( R.id.activity_disease_start_date_text );
+        diseaseStartDateText = (TextView) diseaseInfo.findViewById( R.id.activity_disease_start_date_text );
         diseaseStartDateText.setInputType( InputType.TYPE_NULL );
 
         selectedDiseaseNameText = (TextView) diseaseInfo.findViewById( R.id.activity_disease_add_name_text );

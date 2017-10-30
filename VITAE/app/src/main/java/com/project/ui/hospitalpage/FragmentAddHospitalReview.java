@@ -15,7 +15,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.project.core.generalhealthmodule.UserDiseaseHistory;
 import com.project.core.hospitalmodule.UserHospitalRate;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.utils.Typefaces;
 
 import java.util.ArrayList;

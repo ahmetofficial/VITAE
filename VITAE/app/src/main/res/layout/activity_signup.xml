@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/loginbackground">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:attrs="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/signUp_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sign_up_pageViewer_height"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <io.github.kshitij_jain.indicatorview.IndicatorView
-        android:id="@+id/signUp_indicator_view"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        tools:ignore="ObsoleteLayoutParam" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</LinearLayout>
+    <com.rd.PageIndicatorView
+        android:id="@+id/page_indicator_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        attrs:piv_padding="12dp"
+        attrs:piv_radius="8dp" />
+
+</RelativeLayout>

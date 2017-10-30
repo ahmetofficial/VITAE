@@ -25,9 +25,9 @@ import com.ahmetkaymak.vitae.R;
 import com.alexzh.circleimageview.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.project.core.messagemodule.Conversation;
-import com.project.core.usermodule.PatientForConversation;
+import com.project.core.patientmodule.PatientForConversation;
 import com.project.restservice.ApiClient;
-import com.project.restservice.serverresponse.ServerResponse;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.main.message.MessageActivity;
 
 import java.util.ArrayList;

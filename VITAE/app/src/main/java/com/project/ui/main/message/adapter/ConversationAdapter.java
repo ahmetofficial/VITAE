@@ -114,12 +114,12 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
                 c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
                 holder.userPhoto.setImageBitmap( circleBitmap );
             }
-            intent.putExtra( "senderUserId", sender.getUserId() );
-            intent.putExtra( "senderUserName", sender.getUserName() );
-            intent.putExtra( "senderPhotoPath", senderPhotoPath );
-            intent.putExtra( "receiverUserId", receiver.getUserId() );
-            intent.putExtra( "receiverUserName", receiver.getUserName() );
-            intent.putExtra( "receiverPhotoPath", receiverPhotoPath );
+            intent.putExtra( "senderUserId", receiver.getUserId() );
+            intent.putExtra( "senderUserName", receiver.getUserName() );
+            intent.putExtra( "senderPhotoPath", receiverPhotoPath );
+            intent.putExtra( "receiverUserId", sender.getUserId() );
+            intent.putExtra( "receiverUserName", sender.getUserName() );
+            intent.putExtra( "receiverPhotoPath", senderPhotoPath );
         } else {
             holder.userName.setText( receiver.getUserName() );
             if (!receiverPhotoPath.equals( "" )) {
