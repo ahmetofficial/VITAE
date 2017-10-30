@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 18.02.2016
 
-package com.project.restservice.serverresponse;
+package com.project.restservice.serverResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -19,6 +19,10 @@ public class ServerResponse {
     @Expose
     private String conversationId;
 
+    @SerializedName("user_type_id")
+    @Expose
+    private int userTypeId;
+
     public String getStatus() {
         return status;
     }
@@ -31,4 +35,7 @@ public class ServerResponse {
         return conversationId;
     }
 
+    public int getUserTypeId() {
+        return userTypeId;
+    }
 }

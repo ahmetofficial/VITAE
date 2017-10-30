@@ -1,7 +1,7 @@
 // Developer: Ahmet Kaymak
 // Date: 17.02.2016
 
-package com.project.restservice.serverresponse;
+package com.project.restservice.serverResponse;
 
 import com.project.restservice.ApiClient;
 
