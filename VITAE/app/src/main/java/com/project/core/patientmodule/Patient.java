@@ -37,6 +37,10 @@ public class Patient extends User {
     @Expose
     private Date birthday;
 
+    @SerializedName("is_blood_alarm_notification_open")
+    @Expose
+    private int isBloodAlarmNotificationOpen;
+
     @SerializedName("PATIENTs")
     @Expose
     private ArrayList<Patient> patients;
@@ -90,4 +94,11 @@ public class Patient extends User {
         return patients;
     }
 
+    public int getIsBloodAlarmNotificationOpen() {
+        return isBloodAlarmNotificationOpen;
+    }
+
+    public void setIsBloodAlarmNotificationOpen(int isBloodAlarmNotificationOpen) {
+        this.isBloodAlarmNotificationOpen = isBloodAlarmNotificationOpen;
+    }
 }

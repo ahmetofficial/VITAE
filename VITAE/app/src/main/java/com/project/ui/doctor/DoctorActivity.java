@@ -119,9 +119,6 @@ public class DoctorActivity extends AppCompatActivity {
         verificationBadge.setVisibility( View.GONE );
 
         getDoctorProfileInformations( visitedUserId );
-        setupViewPager( viewPager );
-        tabLayout.setupWithViewPager( viewPager );
-        setupTabIcons();
 
         areUsersConnected( visitedUserId, visitorUserId );
 
@@ -199,6 +196,10 @@ public class DoctorActivity extends AppCompatActivity {
                             c.drawCircle( bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint );
                             profilePicture.setImageBitmap( circleBitmap );
                         }
+
+                        setupViewPager( viewPager,profilePhotoPath );
+                        tabLayout.setupWithViewPager( viewPager );
+                        setupTabIcons();
                     }
                 }
 
@@ -304,7 +305,7 @@ public class DoctorActivity extends AppCompatActivity {
         }
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager,String profilePhotoPath) {
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentDoctorProfilePosts = new FragmentDoctorProfilePosts(visitorUserId, visitedUserId, profilePhotoPath );
         fragmentDoctorProfileReviews = new FragmentDoctorProfileReviews( visitorUserId, visitedUserId,visitedUserName );

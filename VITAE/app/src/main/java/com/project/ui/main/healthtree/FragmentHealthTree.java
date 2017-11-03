@@ -41,6 +41,7 @@ import retrofit2.Response;
 public class FragmentHealthTree extends Fragment {
 
     private String userId;
+    private int userTypeId;
     private DiseaseTreatmentFragment dialogDiseaseTreatmentFragment;
     private DiseaseDrugFragment dialogDiseaseDrugFragment;
     private DiseaseTreatmentFragment dialogTreatmentDrugFragment;
@@ -86,8 +87,9 @@ public class FragmentHealthTree extends Fragment {
     private TextView drugCellDrugUsageFinishDate;
     private Button drugCellAddDrugButton;
 
-    public FragmentHealthTree(String userId) {
+    public FragmentHealthTree(String userId,int userTypeId) {
         this.userId = userId;
+        this.userTypeId =userTypeId;
     }
 
     @Override
@@ -261,24 +263,33 @@ public class FragmentHealthTree extends Fragment {
             diseaseCellAddDiseaseButton.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DiseaseAddActivity.userId = userId;
-                    startActivity( new Intent( getContext(), DiseaseAddActivity.class ) );
+                    Intent intent = new Intent( getContext(), DiseaseAddActivity.class );
+                    intent.putExtra( "userId", userId );
+                    intent.putExtra( "userTypeId", Integer.valueOf(userTypeId) );
+                    intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                    startActivity( intent );;
                 }
             } );
 
             treatmentCellAddTreatmentButton.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TreatmentAddActivity.userId = userId;
-                    startActivity( new Intent( getContext(), TreatmentAddActivity.class ) );
+                    Intent intent = new Intent( getContext(), TreatmentAddActivity.class );
+                    intent.putExtra( "userId", userId );
+                    intent.putExtra( "userTypeId", Integer.valueOf(userTypeId) );
+                    intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                    startActivity( intent );
                 }
             } );
 
             drugCellAddDrugButton.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DrugAddActivity.userId = userId;
-                    startActivity( new Intent( getContext(), DrugAddActivity.class ) );
+                    Intent intent = new Intent( getContext(), DrugAddActivity.class );
+                    intent.putExtra( "userId", userId );
+                    intent.putExtra( "userTypeId", Integer.valueOf(userTypeId) );
+                    intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                    startActivity( intent );
                 }
             } );
 

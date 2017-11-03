@@ -3,18 +3,14 @@
 
 package com.project.ui.signup.patient;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +20,8 @@ import com.project.core.patientmodule.Patient;
 import com.project.restservice.ApiClient;
 import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.login.LoginActivity;
+import com.project.utils.DatePickerFragment;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -40,11 +36,12 @@ public class FragmentPatientSignUpTwo extends Fragment {
     private String password;
     private int gender;
     private int blood;
-    private Date birthday;
+    private static Date birthday=new Date();
     private TextView birthdayText;
     public Button createPatient;
     private MaterialSpinner genderSpinner;
     private MaterialSpinner bloodSpinner;
+    private DatePickerFragment newFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +63,7 @@ public class FragmentPatientSignUpTwo extends Fragment {
         genderSpinner = (MaterialSpinner) signUp.findViewById( R.id.signUp_gender_spinner );
         bloodSpinner = (MaterialSpinner) signUp.findViewById( R.id.signUp_blood_spinner );
 
+        newFragment = new DatePickerFragment( birthdayText, birthday );
         genderSpinner.setItems( getString( R.string.male ), getString( R.string.female ), getString( R.string.undefined ) );
         genderSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
 
@@ -89,30 +87,7 @@ public class FragmentPatientSignUpTwo extends Fragment {
         birthdayText.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                class DatePickerFragment extends DialogFragment
-                        implements DatePickerDialog.OnDateSetListener {
-
-                    @Override
-                    public Dialog onCreateDialog(Bundle savedInstanceState) {
-                        // Use the current date as the default date in the picker
-                        final Calendar c = Calendar.getInstance();
-                        int year = c.get( Calendar.YEAR ) - 2000;
-                        int month = c.get( Calendar.MONTH );
-                        int day = c.get( Calendar.DAY_OF_MONTH );
-                        return new DatePickerDialog( getActivity(), this, year, month, day );
-                    }
-
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        birthdayText.setTextSize( 13 );
-                        birthdayText.setText( day + "." + month + "." + year );
-                        birthday = new Date( year, month, day );
-                    }
-                }
-
-                DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show( getFragmentManager(), "Birthday" );
-
             }
         } );
 
@@ -142,7 +117,7 @@ public class FragmentPatientSignUpTwo extends Fragment {
                         patient.setProfilePictureId( "" );
                         patient.setGender( gender );
                         patient.setBloodTypeId( blood );
-                        patient.setBirthday( birthday );
+                        patient.setBirthday( newFragment.getDate() );
                         ApiClient.patientApi().createPatient(patient).enqueue( new Callback<ServerResponse>() {
                             @Override
                             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {

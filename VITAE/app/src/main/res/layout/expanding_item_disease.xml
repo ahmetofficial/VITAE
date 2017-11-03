@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/row_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        <TextView
+            android:id="@+id/row_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/row_date"
+            android:layout_centerVertical="true"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/row_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/row_title"
+            android:layout_centerVertical="true"
+            android:text="Description"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"/>
+    </RelativeLayout>
+
+    <com.diegodobelo.expandingview.ExpandingList
+        android:id="@+id/expanding_list"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/row_disease_info"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

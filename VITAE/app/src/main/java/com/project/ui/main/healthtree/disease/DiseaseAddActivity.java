@@ -36,7 +36,8 @@ public class DiseaseAddActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PageIndicatorView pageIndicatorView;
 
-    public static String userId;
+    private String userId;
+    private int userTypeId;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
     private ProgressBar progressBar;
@@ -51,6 +52,10 @@ public class DiseaseAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_disease_add );
+
+        Intent myIntent = getIntent();
+        userId = myIntent.getStringExtra( "userId" );
+        userTypeId = myIntent.getIntExtra( "userTypeId", 0 );
 
         progressBar = (ProgressBar) findViewById( R.id.progress_bar ) ;
         progressBar.setVisibility( View.INVISIBLE );
@@ -185,7 +190,7 @@ public class DiseaseAddActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         fragmentDiseaseAddOne = new FragmentDiseaseAddOne(query,viewPager);
-        fragmentDiseaseAddTwo = new FragmentDiseaseAddTwo(userId);
+        fragmentDiseaseAddTwo = new FragmentDiseaseAddTwo(userId,userTypeId);
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         adapter.addFrag( fragmentDiseaseAddOne, "One" );
         adapter.addFrag( fragmentDiseaseAddTwo, "Two" );

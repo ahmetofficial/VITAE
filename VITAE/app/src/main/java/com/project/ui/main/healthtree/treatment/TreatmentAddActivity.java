@@ -35,7 +35,8 @@ public class TreatmentAddActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PageIndicatorView pageIndicatorView;
 
-    public static String userId;
+    private String userId;
+    private int userTypeId;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
     private MenuItem item;
@@ -47,6 +48,10 @@ public class TreatmentAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_treatment_add );
+
+        Intent myIntent = getIntent();
+        userId = myIntent.getStringExtra( "userId" );
+        userTypeId = myIntent.getIntExtra( "userTypeId", 0 );
 
         viewPager = (ViewPager) findViewById( R.id.activity_treatment_add_viewpager );
         setupViewPager( viewPager );
@@ -185,7 +190,7 @@ public class TreatmentAddActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         fragmentTreatmentAddOne = new FragmentTreatmentAddOne(userId,viewPager);
         fragmentTreatmentAddTwo = new FragmentTreatmentAddTwo(viewPager);
-        fragmentTreatmentAddThree = new FragmentTreatmentAddThree(userId);
+        fragmentTreatmentAddThree = new FragmentTreatmentAddThree(userId,userTypeId);
 
         TreatmentAddActivity.ViewPagerAdapter adapter = new TreatmentAddActivity.ViewPagerAdapter( getSupportFragmentManager() );
         adapter.addFrag( fragmentTreatmentAddOne, "One" );

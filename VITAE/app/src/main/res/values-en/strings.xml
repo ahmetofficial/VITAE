@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="no_internet_connection">Your internet connection quite slow or you don\'t have any connection.</string>
+
     <!--Add Something To Health Tree-->
     <string name="save">Save</string>
     <string name="disease_succesfull_saved">Disease has succesfully added your health tree.</string>

@@ -36,7 +36,8 @@ public class DrugAddActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PageIndicatorView pageIndicatorView;
 
-    public static String userId;
+    private String userId;
+    private int userTypeId;
     private Toolbar toolbar;
     private MaterialSearchView searchView;
     private MenuItem item;
@@ -50,6 +51,10 @@ public class DrugAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_drug_add );
+
+        Intent myIntent = getIntent();
+        userId = myIntent.getStringExtra( "userId" );
+        userTypeId = myIntent.getIntExtra( "userTypeId", 0 );
 
         viewPager = (ViewPager) findViewById( R.id.activity_drug_add_viewpager );
         setupViewPager( viewPager );
@@ -192,7 +197,7 @@ public class DrugAddActivity extends AppCompatActivity {
         fragmentDrugAddOne = new FragmentDrugAddOne( userId, viewPager );
         fragmentDrugAddTwo = new FragmentDrugAddTwo( userId, viewPager );
         fragmentDrugAddThree = new FragmentDrugAddThree( viewPager );
-        fragmentDrugAddFour = new FragmentDrugAddFour( userId );
+        fragmentDrugAddFour = new FragmentDrugAddFour( userId,userTypeId );
 
         DrugAddActivity.ViewPagerAdapter adapter = new DrugAddActivity.ViewPagerAdapter( getSupportFragmentManager() );
         adapter.addFrag( fragmentDrugAddOne, "One" );

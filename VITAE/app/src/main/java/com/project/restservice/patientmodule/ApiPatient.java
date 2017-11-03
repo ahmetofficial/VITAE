@@ -24,6 +24,12 @@ public interface ApiPatient {
     @GET("userModule/patients/getPatientProfile/{user_id}")
     Call<Patient> getPatientProfileInformation(@Path("user_id") String userId);
 
+    @GET("userModule/patients/enableBloodAlarms/{user_id}")
+    Call<ServerResponse> enableBloodAlarms(@Path("user_id") String userId);
+
+    @GET("userModule/patients/disableBloodAlarms/{user_id}")
+    Call<ServerResponse> disableBloodAlarms(@Path("user_id") String userId);
+
     @POST("userModule/patients/registerPatient")
     Call<ServerResponse> createPatient(@Body Patient patient);
 

@@ -3,13 +3,18 @@
 
 package com.project.ui.main;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,6 +37,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ahmetkaymak.vitae.Manifest;
 import com.ahmetkaymak.vitae.R;
 import com.github.fabtransitionactivity.SheetLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -98,6 +104,9 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private RelativeLayout mDrawerPane;
     private ArrayList<NavigationItem> mNavItems = new ArrayList<NavigationItem>();
 
+    //Permission
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -113,6 +122,8 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         setSupportActionBar( toolbar );
         getSupportActionBar().setDisplayHomeAsUpEnabled( true );
         getSupportActionBar().setTitle( "" );
+
+        checkLocationPermission();
 
         if (userTypeId == 1) {
             setupViewPagerForPatient( viewPager );
@@ -369,7 +380,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private void setupViewPagerForPatient(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentTimeline = new FragmentTimeline( userId );
-        fragmentHealthTree = new FragmentHealthTree( userId );
+        fragmentHealthTree = new FragmentHealthTree( userId,userTypeId );
         fragmentConversation = new FragmentConversation( userId );
         fragmentPatientProfile = new FragmentPatientProfile( userId );
         adapter.addFrag( fragmentTimeline, "Timeline" );
@@ -382,7 +393,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     private void setupViewPagerForDoctor(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter( getSupportFragmentManager() );
         fragmentTimeline = new FragmentTimeline( userId );
-        fragmentHealthTree = new FragmentHealthTree( userId );
+        fragmentHealthTree = new FragmentHealthTree( userId,userTypeId );
         fragmentConversation = new FragmentConversation( userId );
         fragmentDoctorProfile = new FragmentDoctorProfile( userId );
         adapter.addFrag( fragmentTimeline, "Timeline" );
@@ -490,6 +501,7 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         } else if (position == 5) {
             Intent intent = new Intent( getBaseContext(), UserSettingsActivity.class );
             intent.putExtra( "userId", userId );
+            intent.putExtra( "userTypeId", userTypeId );
             intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
             getBaseContext().startActivity( intent );
         } else if (position == 6) {
@@ -502,4 +514,68 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
         mDrawerLayout.closeDrawer( mDrawerPane );
     }
 
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION )
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale( this,
+                    Manifest.permission.ACCESS_FINE_LOCATION )) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder( this )
+                        .setTitle( "Location Permission Needed" )
+                        .setMessage( "This app needs the Location permission, please accept to use location functionality" )
+                        .setPositiveButton( "OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions( MenuActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION );
+                            }
+                        } )
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions( this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION );
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission( this,
+                            Manifest.permission.ACCESS_FINE_LOCATION )
+                            == PackageManager.PERMISSION_GRANTED) {
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText( this, "permission denied", Toast.LENGTH_LONG ).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
 }

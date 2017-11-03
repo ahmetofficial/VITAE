@@ -65,6 +65,11 @@ public class UserTreatmentHistory {
     @Expose
     private ArrayList<UserTreatmentHistory> userTreatmentHistory;
 
+    //user health history parameter
+    @SerializedName("USER_DRUG_USAGE_HISTORies")
+    @Expose
+    private ArrayList<UserDrugUsageHistory> userDrugUsageHistory;
+
     public String getUserId() {
         return userId;
     }
@@ -163,5 +168,13 @@ public class UserTreatmentHistory {
 
     public int getCountOfDrugs() {
         return countOfDrugs;
+    }
+
+    public ArrayList<UserDrugUsageHistory> getUserDrugUsageHistory() {
+        return userDrugUsageHistory;
+    }
+
+    public void setUserDrugUsageHistory(ArrayList<UserDrugUsageHistory> userDrugUsageHistory) {
+        this.userDrugUsageHistory = userDrugUsageHistory;
     }
 }

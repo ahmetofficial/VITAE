@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.ahmetkaymak.vitae">
 
-    <uses-sdk tools:overrideLibrary="org.qap.ctimelineview,gr.escsoft.michaelprimez.searchablespinner"/>
+    <uses-sdk tools:overrideLibrary="org.qap.ctimelineview,gr.escsoft.michaelprimez.searchablespinner,belka.us.androidtoggleswitch"/>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>

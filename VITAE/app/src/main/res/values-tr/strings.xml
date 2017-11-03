@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="no_internet_connection">İnternet bağlantınız çok yavaş veya bağlantınız kopmuş gibi görünüyor.</string>
+
     <!--Add Something To Health Tree-->
     <string name="save">Kaydet</string>
     <string name="disease_succesfull_saved">Hastalık sağlık ağacınıza eklendi.</string>

@@ -29,20 +29,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmetkaymak.vitae.R;
 import com.alexzh.circleimageview.CircleImageView;
 import com.bumptech.glide.Glide;
+import com.project.core.patientmodule.Patient;
 import com.project.core.photomodule.Photo;
 import com.project.core.usermodule.User;
 import com.project.restservice.ApiClient;
+import com.project.restservice.serverResponse.ServerResponse;
 import com.project.ui.user.ChangeAboutMeFragment;
 import com.project.ui.user.ChangeMailFragment;
 import com.project.ui.user.ChangePasswordFragment;
 import com.project.ui.user.ChangeUserNameFragment;
 import com.project.utils.FileUtils;
+import com.project.utils.Typefaces;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,12 +58,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserSettingsActivity extends AppCompatActivity{
+public class UserSettingsActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     private String userId;
+    private int userTypeId;
     private CircleImageView profilePicture;
 
     private NotificationManager mNotifyManager;
@@ -72,6 +77,9 @@ public class UserSettingsActivity extends AppCompatActivity{
     private TextView aboutMe;
     private TextView password;
     private TextView mail;
+    private TextView bloodAlarmPreference;
+    private ImageButton bloodAlarmSwitch;
+    private boolean isClicked;
 
     private ChangePasswordFragment changePasswordFragment;
     private ChangeUserNameFragment changeUserNameFragment;
@@ -84,12 +92,16 @@ public class UserSettingsActivity extends AppCompatActivity{
 
         Intent myIntent = getIntent();
         userId = myIntent.getStringExtra( "userId" );
+        userTypeId = myIntent.getIntExtra( "userTypeId", 0 );
         userName = (TextView) findViewById( R.id.activity_patient_settings_user_name );
         userIde = (TextView) findViewById( R.id.activity_patient_settings_user_id );
         password = (TextView) findViewById( R.id.activity_patient_settings_password );
         aboutMe = (TextView) findViewById( R.id.activity_patient_settings_about_me );
         mail = (TextView) findViewById( R.id.activity_patient_settings_mail );
         profilePicture = (CircleImageView) findViewById( R.id.activity_patient_settings_profile_picture );
+        bloodAlarmSwitch = (ImageButton) findViewById( R.id.blood_alarm_check_box );
+        bloodAlarmPreference = (TextView) findViewById( R.id.blood_alarm_preference );
+        bloodAlarmPreference.setTypeface( Typefaces.getLatoLight( getBaseContext() ) );
 
         password.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
@@ -135,6 +147,21 @@ public class UserSettingsActivity extends AppCompatActivity{
             }
         } );
 
+        bloodAlarmSwitch.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isClicked) {
+                    isClicked = false;
+                    bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_close_white_18dp, getTheme() ) );
+                    disableBloodAlarms( userId );
+                } else {
+                    isClicked = true;
+                    bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_check_white_24dp, getTheme() ) );
+                    enableBloodAlarms( userId );
+                }
+            }
+        } );
+
         Typeface typeLight = Typeface.createFromAsset( getAssets(), "fonts/Roboto-Light.ttf" );
         userName.setTypeface( typeLight );
         userIde.setTypeface( typeLight );
@@ -142,7 +169,7 @@ public class UserSettingsActivity extends AppCompatActivity{
         aboutMe.setTypeface( typeLight );
         mail.setTypeface( typeLight );
 
-        getPatientProfileInformations( userId );
+        getPatientProfileInformations( userId, userTypeId );
 
         //making back arrow on toolbar
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
@@ -152,12 +179,12 @@ public class UserSettingsActivity extends AppCompatActivity{
         getSupportActionBar().setTitle( "" );
 
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });
+        } );
 
         if (checkPermissionREAD_EXTERNAL_STORAGE( this )) {
             //choosing photo for profile picture
@@ -261,38 +288,81 @@ public class UserSettingsActivity extends AppCompatActivity{
         }
     }
 
-    private void getPatientProfileInformations(String userId) {
+    private void getPatientProfileInformations(String userId, int userTypeId) {
         try {
-            ApiClient.userApi().getUserInformation( userId ).enqueue( new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.isSuccessful()) {
-                        userName.setText( response.body().getUserName() );
-                        userIde.setText( response.body().getUserId() );
-                        password.setText( response.body().getPassword() );
-                        aboutMe.setText( response.body().getAboutMe() );
-                        mail.setText( response.body().getMail() );
-                        String photoId = response.body().getProfilePictureId();
-                        if(!photoId.equals("")) {
-                            String picturePath = "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
-                                    + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
-                                    + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
-                                    + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
+            if (userTypeId == 1) {
+                ApiClient.patientApi().getPatientProfileInformation( userId ).enqueue( new Callback<Patient>() {
+                    @Override
+                    public void onResponse(Call<Patient> call, Response<Patient> response) {
+                        if (response.isSuccessful()) {
+                            userName.setText( response.body().getUserName() );
+                            userIde.setText( response.body().getUserId() );
+                            password.setText( response.body().getPassword() );
+                            aboutMe.setText( response.body().getAboutMe() );
+                            mail.setText( response.body().getMail() );
 
-                            Glide.with( getBaseContext() )
-                                    .load( picturePath )
-                                    .into( profilePicture );
+                            if (response.body().getPatients().get( 0 ).getIsBloodAlarmNotificationOpen() == 0) {
+                                isClicked = false;
+                                bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_close_white_18dp, getTheme() ) );
+                            } else {
+                                isClicked = true;
+                                bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_check_white_24dp, getTheme() ) );
+                            }
+                            String photoId = response.body().getProfilePictureId();
+                            if (!photoId.equals( "" )) {
+                                String picturePath = "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
+                                        + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
+                                        + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
+                                        + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
+
+                                Glide.with( getBaseContext() )
+                                        .load( picturePath )
+                                        .into( profilePicture );
+                            }
+
                         }
-
                     }
-                }
 
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    Log.e( "UserTimeline", t.getMessage() );
-                    Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
-                }
-            } );
+                    @Override
+                    public void onFailure(Call<Patient> call, Throwable t) {
+                        Log.e( "UserTimeline", t.getMessage() );
+                        Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                    }
+                } );
+            } else if (userTypeId == 2) {
+                ApiClient.userApi().getUserInformation( userId ).enqueue( new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.isSuccessful()) {
+                            userName.setText( response.body().getUserName() );
+                            userIde.setText( response.body().getUserId() );
+                            password.setText( response.body().getPassword() );
+                            aboutMe.setText( response.body().getAboutMe() );
+                            mail.setText( response.body().getMail() );
+
+                            String photoId = response.body().getProfilePictureId();
+                            if (!photoId.equals( "" )) {
+                                String picturePath = "http://178.62.223.153:3000/images/" + photoId.charAt( 0 ) + "/"
+                                        + photoId.charAt( 1 ) + "/" + photoId.charAt( 2 ) + "/" + photoId.charAt( 3 ) + "/" + photoId.charAt( 4 ) + "/"
+                                        + photoId.charAt( 5 ) + "/" + photoId.charAt( 6 ) + "/" + photoId.charAt( 7 ) + "/" + photoId.charAt( 9 ) + "/"
+                                        + photoId.charAt( 10 ) + "/" + photoId.charAt( 11 ) + "/" + photoId.charAt( 12 ) + "/" + photoId + ".jpg";
+
+                                Glide.with( getBaseContext() )
+                                        .load( picturePath )
+                                        .into( profilePicture );
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e( "UserTimeline", t.getMessage() );
+                        Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                    }
+                } );
+            }
+
         } catch (Exception e) {
             Log.e( "UserTimeline", e.getMessage() );
             Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
@@ -360,8 +430,46 @@ public class UserSettingsActivity extends AppCompatActivity{
         }
     }
 
-    public void changeUserName(String userName){
+    public void changeUserName(String userName) {
         this.userName.setText( userName );
+    }
+
+    private void enableBloodAlarms(String userId) {
+        ApiClient.patientApi().enableBloodAlarms( userId ).enqueue( new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals( "true" )) {
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e( "UserTimeline", t.getMessage() );
+                Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+            }
+        } );
+    }
+
+    private void disableBloodAlarms(String userId) {
+        ApiClient.patientApi().disableBloodAlarms( userId ).enqueue( new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals( "true" )) {
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e( "UserTimeline", t.getMessage() );
+                Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+            }
+        } );
     }
 
 }

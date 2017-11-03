@@ -60,6 +60,11 @@ public class UserDiseaseHistory {
     @Expose
     private ArrayList<UserDiseaseHistory> userDiseaseHistories;
 
+    //user health history parameter
+    @SerializedName("USER_TREATMENT_HISTORies")
+    @Expose
+    private ArrayList<UserTreatmentHistory> userTreatmentHistory;
+
     public String getUserId() {
         return userId;
     }
@@ -146,5 +151,13 @@ public class UserDiseaseHistory {
 
     public void setUserDiseaseHistories(ArrayList<UserDiseaseHistory> userDiseaseHistories) {
         this.userDiseaseHistories = userDiseaseHistories;
+    }
+
+    public ArrayList<UserTreatmentHistory> getUserTreatmentHistory() {
+        return userTreatmentHistory;
+    }
+
+    public void setUserTreatmentHistory(ArrayList<UserTreatmentHistory> userTreatmentHistory) {
+        this.userTreatmentHistory = userTreatmentHistory;
     }
 }
