@@ -60,7 +60,8 @@ public class PostActivity extends AppCompatActivity {
     private Button sendPostButton;
     private ImageView uploadImageIcon;
     private ImageView postPhoto;
-    public static String userId;
+    public String userId;
+    public int userTypeId;
 
     private NotificationManager mNotifyManager;
     private Notification.Builder mBuilder;
@@ -75,6 +76,10 @@ public class PostActivity extends AppCompatActivity {
         try {
             super.onCreate( savedInstanceState );
             setContentView( R.layout.activity_post );
+
+            Intent myIntent = getIntent();
+            userId = myIntent.getStringExtra( "userId" );
+            userTypeId = myIntent.getIntExtra( "userTypeId", 0 );
 
             postText = (EditText) findViewById( R.id.activity_post_txt_post );
             sendPostButton = (Button) findViewById( R.id.activity_post_btn_post );
@@ -182,14 +187,19 @@ public class PostActivity extends AppCompatActivity {
         } );
     }
 
-    private void createUserPost(String userId, UserPost userPost) {
+    private void createUserPost(final String userId, UserPost userPost) {
         try {
             ApiClient.postApi().createNewPost( userId, userPost ).enqueue( new Callback<ServerResponse>() {
                 @Override
                 public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus().equals( "true" )) {
-                            startActivity( new Intent( PostActivity.this, MenuActivity.class ) );
+                            Intent intent = new Intent( getBaseContext(), MenuActivity.class );
+                            MenuActivity.userId=userId;
+                            intent.putExtra( "userId", userId );
+                            intent.putExtra( "userTypeId", Integer.valueOf(userTypeId) );
+                            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                            startActivity( intent );
                         }
                     }
                 }

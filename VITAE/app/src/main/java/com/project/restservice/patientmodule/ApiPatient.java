@@ -30,6 +30,12 @@ public interface ApiPatient {
     @GET("userModule/patients/disableBloodAlarms/{user_id}")
     Call<ServerResponse> disableBloodAlarms(@Path("user_id") String userId);
 
+    @GET("userModule/patients/enableSimilarUserSearch/{user_id}")
+    Call<ServerResponse> enableSimilarUserSearch(@Path("user_id") String userId);
+
+    @GET("userModule/patients/disableSimilarUserSearch/{user_id}")
+    Call<ServerResponse> disableSimilarUserSearch(@Path("user_id") String userId);
+
     @POST("userModule/patients/registerPatient")
     Call<ServerResponse> createPatient(@Body Patient patient);
 

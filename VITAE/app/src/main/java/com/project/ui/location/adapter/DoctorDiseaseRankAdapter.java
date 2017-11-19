@@ -72,7 +72,7 @@ public class DoctorDiseaseRankAdapter extends RecyclerView.Adapter<DoctorDisease
         final double overallRank = rate.getDoctorOverallScore();
         try {
             holder.doctorName.setText( rate.getDoctor().getUserName() );
-            holder.doctorName.setTypeface( Typefaces.getLatoLight( context ) );
+            holder.doctorName.setTypeface( Typefaces.getRobotoBold( context ) );
 
             holder.hospitalName.setText( rate.getDoctor().getDoctorHaveHospitals().get( 0 ).getHospital().getHospitalName() );
             holder.hospitalName.setTypeface( Typefaces.getLatoLight( context ) );

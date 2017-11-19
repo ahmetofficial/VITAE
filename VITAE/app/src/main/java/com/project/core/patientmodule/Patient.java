@@ -41,6 +41,10 @@ public class Patient extends User {
     @Expose
     private int isBloodAlarmNotificationOpen;
 
+    @SerializedName("is_similar_patient_search_open")
+    @Expose
+    private int isSimilarPatientSearchOpen;
+
     @SerializedName("PATIENTs")
     @Expose
     private ArrayList<Patient> patients;
@@ -100,5 +104,13 @@ public class Patient extends User {
 
     public void setIsBloodAlarmNotificationOpen(int isBloodAlarmNotificationOpen) {
         this.isBloodAlarmNotificationOpen = isBloodAlarmNotificationOpen;
+    }
+
+    public int getIsSimilarPatientSearchOpen() {
+        return isSimilarPatientSearchOpen;
+    }
+
+    public void setIsSimilarPatientSearchOpen(int isSimilarPatientSearchOpen) {
+        this.isSimilarPatientSearchOpen = isSimilarPatientSearchOpen;
     }
 }

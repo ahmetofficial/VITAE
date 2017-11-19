@@ -4,6 +4,7 @@
 package com.project.ui.location.adapter;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.project.core.hospitalmodule.UserHospitalRate;
+import com.project.utils.Typefaces;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,23 +28,27 @@ public class HospitalDiseaseRankAdapter extends RecyclerView.Adapter<HospitalDis
     private List<UserHospitalRate> hospitalRates = new ArrayList<>();
     private static Context context;
     private GoogleMap mMap;
+    private LatLng userLocation;
 
-    public HospitalDiseaseRankAdapter(List<UserHospitalRate> hospitalRates, Context context, GoogleMap mMap) {
+    public HospitalDiseaseRankAdapter(List<UserHospitalRate> hospitalRates, Context context, GoogleMap mMap, LatLng userLocation) {
         this.hospitalRates = hospitalRates;
         this.context = context;
-        this.mMap=mMap;
+        this.mMap = mMap;
+        this.userLocation=userLocation;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public View hospitalRankView;
         public TextView hospitalName;
         public RelativeLayout relativeLayout;
+        public TextView distanceToLocation;
 
         public MyViewHolder(final View view) {
             super( view );
             hospitalRankView = view.findViewById( R.id.hospital_rank_view );
             hospitalName = (TextView) view.findViewById( R.id.hospital_name );
-            relativeLayout =(RelativeLayout) view.findViewById( R.id.relative_layout );
+            relativeLayout = (RelativeLayout) view.findViewById( R.id.relative_layout );
+            distanceToLocation = (TextView) view.findViewById( R.id.distance_to_location );
         }
 
     }
@@ -59,7 +65,21 @@ public class HospitalDiseaseRankAdapter extends RecyclerView.Adapter<HospitalDis
         final UserHospitalRate rate = hospitalRates.get( position );
         try {
             holder.hospitalName.setText( rate.getHospital().getHospitalName() );
+            holder.hospitalName.setTypeface( Typefaces.getRobotoBold( context ) );
             double overallRank = rate.getHospitalOverallScore();
+            String hospitalLatitude = rate.getHospital().getLatitude();
+            String hospitalLongitude = rate.getHospital().getLongitude();
+            Location locationA = new Location( "Hospital" );
+            locationA.setLatitude( Double.valueOf( hospitalLatitude ) );
+            locationA.setLongitude( Double.valueOf( hospitalLongitude ) );
+            Location locationB = new Location( "User" );
+            locationB.setLatitude( userLocation.latitude );
+            locationB.setLongitude( userLocation.longitude );
+            float distanceToHospital = locationA.distanceTo( locationB );
+            String distance = context.getString( R.string.distance_to_my_location ) + " :" + String.format( "%.1f", distanceToHospital / 1000 ) + " km";
+            holder.distanceToLocation.setText( distance );
+            holder.distanceToLocation.setTypeface( Typefaces.getRobotoLight( context ) );
+
             if (overallRank >= 4) {
                 holder.hospitalRankView.setBackgroundColor( context.getColor( R.color.color_rank_4_5 ) );
             } else if (overallRank >= 3) {
@@ -79,8 +99,8 @@ public class HospitalDiseaseRankAdapter extends RecyclerView.Adapter<HospitalDis
         holder.relativeLayout.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double lat= Double.valueOf( rate.getHospital().getLatitude() );
-                double lon= Double.valueOf( rate.getHospital().getLongitude() );
+                double lat = Double.valueOf( rate.getHospital().getLatitude() );
+                double lon = Double.valueOf( rate.getHospital().getLongitude() );
                 LatLng camera = new LatLng( lat, lon );
                 mMap.moveCamera( CameraUpdateFactory.newLatLng( camera ) );
                 mMap.animateCamera( CameraUpdateFactory.zoomTo( 12 ), 2000, null );

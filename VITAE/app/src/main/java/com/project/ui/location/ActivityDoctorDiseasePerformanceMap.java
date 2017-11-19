@@ -21,6 +21,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -48,6 +49,7 @@ import com.project.ui.location.adapter.DoctorDiseaseRankAdapter;
 import com.project.ui.main.MenuActivity;
 import com.project.utils.GPSTracker;
 import com.project.utils.Typefaces;
+import com.xw.repo.BubbleSeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +64,9 @@ public class ActivityDoctorDiseasePerformanceMap extends AppCompatActivity imple
     private MaterialSpinner diseaseSpinner;
     private ViewFlipper viewFlipper;
     private TextView warningText;
+    private TextView plusText;
     private double latitude, longitude;
+    private BubbleSeekBar distanceBar;
     private String userId;
     private String diseaseId;
 
@@ -91,8 +95,11 @@ public class ActivityDoctorDiseasePerformanceMap extends AppCompatActivity imple
         hospitalRanking = (TextView) findViewById( R.id.doctor_ranking );
         hospitalRanking.setTypeface( Typefaces.getRobotoBold( getBaseContext() ) );
         hospitalRanking.setText( getString( R.string.doctor_ranking ) );
+        distanceBar = (BubbleSeekBar) findViewById( R.id.distance_level );
+        distanceBar.setVisibility( View.GONE );
         warningText = (TextView) findViewById( R.id.warning_text );
         warningText.setTypeface( Typefaces.getRobotoLight( getBaseContext() ) );
+        plusText = (TextView) findViewById( R.id.plus_text );
         viewFlipper = (ViewFlipper) findViewById( R.id.view_flipper );
         viewFlipper.setDisplayedChild( 1 );
 
@@ -110,6 +117,7 @@ public class ActivityDoctorDiseasePerformanceMap extends AppCompatActivity imple
         if (isGPSEnabled) {
             GPSTracker gpsTracker = new GPSTracker( getBaseContext() );
             Location location = gpsTracker.getLocation();
+            distanceBar.setVisibility( View.VISIBLE );
 
             if(location!=null) {
                 latitude = location.getLatitude();
@@ -160,6 +168,79 @@ public class ActivityDoctorDiseasePerformanceMap extends AppCompatActivity imple
         } else {
             buildAlertMessageNoGps();
         }
+
+        distanceBar.setOnProgressChangedListener( new BubbleSeekBar.OnProgressChangedListener() {
+            @Override
+            public void onProgressChanged(BubbleSeekBar bubbleSeekBar, final int progress, float progressFloat) {
+                if(progress==50) {
+                    plusText.setTextColor( getColor( R.color.colorPrimary ) );
+                }
+                else{
+                    plusText.setTextColor( getColor( R.color.white ) );
+                }
+                if (diseaseId != null) {
+                    try {
+                        ApiClient.doctorApi().getDoctorRankingByDiseaseId( diseaseId ).enqueue( new Callback<PatientDoctorRate>() {
+                            @Override
+                            public void onResponse(Call<PatientDoctorRate> call, Response<PatientDoctorRate> response) {
+                                if (response.isSuccessful()) {
+                                    int distance = progress;
+                                    ArrayList<PatientDoctorRate> doctors = response.body().getRates();
+                                    recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
+                                    ArrayList<PatientDoctorRate> doctorsWithDistance = new ArrayList<PatientDoctorRate>();
+                                    for (int i = 0; i < doctors.size(); i++) {
+                                        Location hospital = new Location( "Hospital" );
+                                        hospital.setLatitude( Double.valueOf( doctors.get( i ).getDoctor().getDoctorHaveHospitals().get( 0 ).getHospital().getLatitude() ) );
+                                        hospital.setLongitude( Double.valueOf( doctors.get( i ).getDoctor().getDoctorHaveHospitals().get( 0 ).getHospital().getLongitude() ) );
+                                        Location user = new Location( "User" );
+                                        user.setLatitude( latitude );
+                                        user.setLongitude( longitude );
+                                        float userDistanceToHospital = hospital.distanceTo( user );
+                                        userDistanceToHospital /= 1000;
+                                        if (userDistanceToHospital < distance || distance == 50) {
+                                            doctorsWithDistance.add( doctors.get( i ) );
+                                        }
+                                    }
+                                    LatLng userLocation = new LatLng( latitude, longitude );
+                                    mAdapter = new DoctorDiseaseRankAdapter( doctorsWithDistance, getBaseContext(), mMap, userLocation);
+                                    recyclerView.setHasFixedSize( true );
+                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
+                                    recyclerView.setLayoutManager( mLayoutManager );
+                                    recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                                    recyclerView.setAdapter( mAdapter );
+                                    mAdapter.notifyDataSetChanged();
+
+                                    if (doctorsWithDistance.size() == 0) {
+                                        viewFlipper.setDisplayedChild( 1 );
+                                    } else {
+                                        viewFlipper.setDisplayedChild( 0 );
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<PatientDoctorRate> call, Throwable t) {
+                                Log.e( "UserHealthTree", t.getMessage() );
+                                Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                            }
+                        } );
+                    } catch (Exception e) {
+                        Log.e( "UserHealthTree", e.getMessage() );
+                        Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    }
+                }
+            }
+
+            @Override
+            public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+
+            }
+
+            @Override
+            public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+
+            }
+        } );
     }
 
     private void fillDiseaseSpinner(final ArrayList<UserDiseaseHistory> diseaseHistory) {
@@ -173,6 +254,7 @@ public class ActivityDoctorDiseasePerformanceMap extends AppCompatActivity imple
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                final int distance = distanceBar.getProgress();
                 if(position!=0) {
                     diseaseId = diseaseHistory.get( position - 1 ).getDiseaseId();
                     mMap.clear();
@@ -183,8 +265,22 @@ public class ActivityDoctorDiseasePerformanceMap extends AppCompatActivity imple
                                 if (response.isSuccessful()) {
                                     ArrayList<PatientDoctorRate> doctors = response.body().getRates();
                                     recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
+                                    ArrayList<PatientDoctorRate> doctorsWithDistance = new ArrayList<PatientDoctorRate>();
+                                    for (int i = 0; i < doctors.size(); i++) {
+                                        Location hospital = new Location( "Hospital" );
+                                        hospital.setLatitude( Double.valueOf( doctors.get( i ).getDoctor().getDoctorHaveHospitals().get( 0 ).getHospital().getLatitude() ) );
+                                        hospital.setLongitude( Double.valueOf( doctors.get( i ).getDoctor().getDoctorHaveHospitals().get( 0 ).getHospital().getLongitude() ) );
+                                        Location user = new Location( "User" );
+                                        user.setLatitude( latitude );
+                                        user.setLongitude( longitude );
+                                        float userDistanceToHospital = hospital.distanceTo( user );
+                                        userDistanceToHospital /= 1000;
+                                        if (userDistanceToHospital < distance || distance == 50) {
+                                            doctorsWithDistance.add( doctors.get( i ) );
+                                        }
+                                    }
                                     LatLng userLocation = new LatLng( latitude, longitude );
-                                    mAdapter = new DoctorDiseaseRankAdapter( doctors, getBaseContext(), mMap, userLocation);
+                                    mAdapter = new DoctorDiseaseRankAdapter( doctorsWithDistance, getBaseContext(), mMap, userLocation);
                                     recyclerView.setHasFixedSize( true );
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
                                     recyclerView.setLayoutManager( mLayoutManager );
@@ -192,7 +288,7 @@ public class ActivityDoctorDiseasePerformanceMap extends AppCompatActivity imple
                                     recyclerView.setAdapter( mAdapter );
                                     mAdapter.notifyDataSetChanged();
 
-                                    if (doctors.size() == 0) {
+                                    if (doctorsWithDistance.size() == 0) {
                                         viewFlipper.setDisplayedChild( 1 );
                                     } else {
                                         viewFlipper.setDisplayedChild( 0 );

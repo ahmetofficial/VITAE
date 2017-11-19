@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -187,6 +188,60 @@
 
                                 </RelativeLayout>
 
+                                <RelativeLayout
+                                    android:id="@+id/distance_bar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@+id/color_bar">
+
+                                    <TextView
+                                        android:id="@+id/distance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/distance"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_alignTop="@+id/distance_level"
+                                        android:layout_alignBottom="@+id/distance_level"
+                                        android:gravity="center_vertical"
+                                        android:textColor="@color/white"/>
+
+                                    <com.xw.repo.BubbleSeekBar
+                                        android:id="@+id/distance_level"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_toRightOf="@+id/distance"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_marginTop="10dp"
+                                        app:bsb_auto_adjust_section_mark="true"
+                                        app:bsb_bubble_color="@color/disease_color_light"
+                                        app:bsb_bubble_text_color="@color/colorPrimaryDark"
+                                        app:bsb_max="0"
+                                        app:bsb_min="50"
+                                        app:bsb_progress="10"
+                                        app:bsb_second_track_color="@color/colorPrimary"
+                                        app:bsb_section_count="5"
+                                        app:bsb_section_text_position="below_section_mark"
+                                        app:bsb_show_progress_in_float="true"
+                                        app:bsb_show_section_mark="true"
+                                        app:bsb_show_section_text="true"
+                                        app:bsb_show_thumb_text="true"
+                                        app:bsb_track_color="@color/white"/>
+
+                                    <TextView
+                                        android:id="@+id/plus_text"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
+                                        android:layout_alignBottom="@+id/distance_level"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_marginRight="13dp"
+                                        android:gravity="bottom"
+                                        android:textSize="14dp"
+                                        android:text="+"/>
+                                </RelativeLayout>
+
                                 <ViewFlipper
                                     android:id="@+id/view_flipper"
                                     android:layout_width="match_parent"
@@ -194,7 +249,7 @@
                                     android:layout_alignLeft="@id/disease_spinner"
                                     android:layout_alignRight="@id/disease_spinner"
                                     android:layout_below="@id/hospital_marker"
-                                    android:layout_marginTop="17dp"
+                                    android:layout_marginTop="60dp"
                                     android:gravity="center">
 
                                     <android.support.v7.widget.RecyclerView

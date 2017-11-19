@@ -154,6 +154,7 @@
     <string name="posts">Gönderiler</string>
     <string name="reviews">Değerlendirmeler</string>
     <string name="doctor_general_rating">Doktor Karnesi</string>
+    <string name="no_blood_alarm_is_found">Yakınlarında hiç kan alarmı yok gibi görünüyor.</string>
 
     <!--Profile Settings-->
     <string name="change_password">Şifre Değiştir</string>
@@ -185,6 +186,8 @@
     <string name="about_me_change_succesfull">Hakkında kısmı başarıyla değiştirildi</string>
     <string name="about_me_change_unsuccesfull">Hakkında kısmı değiştirilemedi! Lütfen tekrar deneyin</string>
     <string name="blood_alarm_notification_preference">Kan alarmlarını almak istiyorum</string>
+    <string name="similar_user_search">Benzer Kullanıcı Aramaları</string>
+    <string name="similar_user_search_preference">Benzer kullanıcı arama sonuçlarında çıkmak istiyorum.</string>
 
     <!--Search Activity-->
     <string name="private_hospital">Özel Hastane</string>
@@ -224,6 +227,7 @@
     <string name="distance_to_my_location">Konuma Göre Uzaklığı</string>
     <string name="patients_review">Hasta Değerlendirmeleri</string>
     <string name="total_review_count">Toplam Değerlendirme Sayısı: </string>
+    <string name="distance">Mesafe(km)</string>
 
     <!--Drawer-->
     <string name="drawer_open">open drawer</string>

@@ -51,6 +51,7 @@ import com.project.ui.location.adapter.BloodAlarmAdapter;
 import com.project.ui.main.MenuActivity;
 import com.project.utils.ClusterUtils;
 import com.project.utils.GPSTracker;
+import com.xw.repo.BubbleSeekBar;
 
 import java.util.ArrayList;
 
@@ -68,10 +69,11 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
     private LatLng northEastCamera;
     private LatLng southWestCamera;
     private String userId;
-    private int bloodTypeId;
     private RecyclerView recyclerView;
     private BloodAlarmAdapter mAdapter;
     private FloatingActionButton createBloodAlarmFAB;
+    private TextView plusText;
+    private BubbleSeekBar distanceBar;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -79,6 +81,7 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
     private ClusterManager<ClusterUtils> mClusterManager;
+    private int bloodTypeId;
 
     private boolean isGPSEnabled;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -95,9 +98,16 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
         Intent myIntent = getIntent();
         userId = myIntent.getStringExtra( "userId" );
 
+        bloodTypeId=0;
+
         checkLocationPermission();
         createBloodAlarmFAB = (FloatingActionButton) findViewById( R.id.add_blood_alert_fab_button );
         //createBloodAlarmIcon = (ImageView) findViewById( R.id.plus );
+        distanceBar = (BubbleSeekBar) findViewById( R.id.distance_level );
+        distanceBar.setVisibility( View.GONE );
+        plusText = (TextView) findViewById( R.id.plus_text );
+        viewFlipper = (ViewFlipper) findViewById( R.id.view_flipper );
+        viewFlipper.setDisplayedChild( 1 );
         bloodTypeSpinner = (MaterialSpinner) findViewById( R.id.blood_spinner );
         bloodTypeSpinner.setItems( getString( R.string.select_blood_type ), "0 Rh+", "0 Rh-", "A Rh+", "A Rh-", "B Rh+", "B Rh-", "AB Rh+", "AB Rh-" );
         bloodTypeSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -112,6 +122,8 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
                             @Override
                             public void onResponse(Call<BloodAlarm> call, Response<BloodAlarm> response) {
                                 if (response.isSuccessful()) {
+
+                                    int distance = distanceBar.getProgress();;
                                     ArrayList<BloodAlarm> bloodAlarms = response.body().getBloodAlarms();
                                     for (int i = 0; i < bloodAlarms.size(); i++) {
                                         double lat = Double.valueOf( bloodAlarms.get( i ).getHospital().getLatitude() );
@@ -119,9 +131,24 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
                                         LatLng latLng = new LatLng( lat, lon );
                                         mClusterManager.addItem( new ClusterUtils( latLng ) );
                                     }
+
+                                    ArrayList<BloodAlarm> bloodAlarmWithDistance = new ArrayList<BloodAlarm>();
+                                    for (int i = 0; i < bloodAlarms.size(); i++) {
+                                        Location hospital = new Location( "Hospital" );
+                                        hospital.setLatitude( Double.valueOf( bloodAlarms.get( i ).getHospital().getLatitude() ) );
+                                        hospital.setLongitude( Double.valueOf( bloodAlarms.get( i ).getHospital().getLongitude() ) );
+                                        Location user = new Location( "User" );
+                                        user.setLatitude( latitude );
+                                        user.setLongitude( longitude );
+                                        float userDistanceToHospital = hospital.distanceTo( user );
+                                        userDistanceToHospital /= 1000;
+                                        if (userDistanceToHospital < distance || distance == 50) {
+                                            bloodAlarmWithDistance.add( bloodAlarms.get( i ) );
+                                        }
+                                    }
                                     recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
                                     LatLng userLocation = new LatLng( latitude, longitude );
-                                    mAdapter = new BloodAlarmAdapter( bloodAlarms, getBaseContext(), mMap, userLocation );
+                                    mAdapter = new BloodAlarmAdapter( bloodAlarmWithDistance, getBaseContext(), mMap, userLocation );
                                     recyclerView.setHasFixedSize( true );
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
                                     recyclerView.setLayoutManager( mLayoutManager );
@@ -129,50 +156,14 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
                                     recyclerView.setAdapter( mAdapter );
                                     mAdapter.notifyDataSetChanged();
 
-                                    /*
-                                    if (bloodAlarms.size() == 0) {
+
+                                    if (bloodAlarmWithDistance.size() == 0) {
                                         viewFlipper.setDisplayedChild( 1 );
                                     } else {
                                         viewFlipper.setDisplayedChild( 0 );
                                     }
-                                    */
 
-                                    for (int i = 0; i < bloodAlarms.size(); i++) {
-                                        double lat = Double.valueOf( bloodAlarms.get( i ).getHospital().getLatitude() );
-                                        double lon = Double.valueOf( bloodAlarms.get( i ).getHospital().getLongitude() );
-                                        LatLng hospitalLocation = new LatLng( lat, lon );
-                                        if (bloodAlarms.get( i ).getAlarmLevel() == 1) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_4_5 ) )
-                                                    .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else if (bloodAlarms.get( i ).getAlarmLevel() == 2) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_3_4 ) )
-                                                    .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else if (bloodAlarms.get( i ).getAlarmLevel() == 3) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_2_3 ) )
-                                                    .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else if (bloodAlarms.get( i ).getAlarmLevel() == 4) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_1_2 ) )
-                                                    .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_0_1 ) )
-                                                    .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        }
-                                    }
+                                    mapBloodAlarms(bloodAlarmWithDistance);
                                 }
                             }
 
@@ -210,6 +201,7 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
         if (isGPSEnabled) {
             GPSTracker gpsTracker = new GPSTracker( getBaseContext() );
             Location location = gpsTracker.getLocation();
+            distanceBar.setVisibility( View.VISIBLE );
 
             if (location != null) {
                 latitude = location.getLatitude();
@@ -221,8 +213,130 @@ public class ActivityBloodAlertMap extends AppCompatActivity implements OnMapRea
         } else {
             buildAlertMessageNoGps();
         }
+
+        distanceBar.setOnProgressChangedListener( new BubbleSeekBar.OnProgressChangedListener() {
+            @Override
+            public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+                if(progress==50) {
+                    plusText.setTextColor( getColor( R.color.color_rank_0_1 ) );
+                }
+                else{
+                    plusText.setTextColor( getColor( R.color.white ) );
+                }
+                if (bloodTypeId != 0) {
+                    try {
+                        ApiClient.bloodApi().getBloodAlarmsByBloodType( bloodTypeId ).enqueue( new Callback<BloodAlarm>() {
+                            @Override
+                            public void onResponse(Call<BloodAlarm> call, Response<BloodAlarm> response) {
+                                if (response.isSuccessful()) {
+
+                                    int distance = distanceBar.getProgress();;
+                                    ArrayList<BloodAlarm> bloodAlarms = response.body().getBloodAlarms();
+                                    for (int i = 0; i < bloodAlarms.size(); i++) {
+                                        double lat = Double.valueOf( bloodAlarms.get( i ).getHospital().getLatitude() );
+                                        double lon = Double.valueOf( bloodAlarms.get( i ).getHospital().getLongitude() );
+                                        LatLng latLng = new LatLng( lat, lon );
+                                        mClusterManager.addItem( new ClusterUtils( latLng ) );
+                                    }
+
+                                    ArrayList<BloodAlarm> bloodAlarmWithDistance = new ArrayList<BloodAlarm>();
+                                    for (int i = 0; i < bloodAlarms.size(); i++) {
+                                        Location hospital = new Location( "Hospital" );
+                                        hospital.setLatitude( Double.valueOf( bloodAlarms.get( i ).getHospital().getLatitude() ) );
+                                        hospital.setLongitude( Double.valueOf( bloodAlarms.get( i ).getHospital().getLongitude() ) );
+                                        Location user = new Location( "User" );
+                                        user.setLatitude( latitude );
+                                        user.setLongitude( longitude );
+                                        float userDistanceToHospital = hospital.distanceTo( user );
+                                        userDistanceToHospital /= 1000;
+                                        if (userDistanceToHospital < distance || distance == 50) {
+                                            bloodAlarmWithDistance.add( bloodAlarms.get( i ) );
+                                        }
+                                    }
+                                    recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
+                                    LatLng userLocation = new LatLng( latitude, longitude );
+                                    mAdapter = new BloodAlarmAdapter( bloodAlarmWithDistance, getBaseContext(), mMap, userLocation );
+                                    recyclerView.setHasFixedSize( true );
+                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
+                                    recyclerView.setLayoutManager( mLayoutManager );
+                                    recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                                    recyclerView.setAdapter( mAdapter );
+                                    mAdapter.notifyDataSetChanged();
+
+
+                                    if (bloodAlarmWithDistance.size() == 0) {
+                                        viewFlipper.setDisplayedChild( 1 );
+                                    } else {
+                                        viewFlipper.setDisplayedChild( 0 );
+                                    }
+
+                                    mapBloodAlarms(bloodAlarmWithDistance);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<BloodAlarm> call, Throwable t) {
+                                Log.e( "UserHealthTree", t.getMessage() );
+                                Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                            }
+                        } );
+                    } catch (Exception e) {
+                        Log.e( "UserHealthTree", e.getMessage() );
+                        Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    }
+                }
+            }
+
+            @Override
+            public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+
+            }
+
+            @Override
+            public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+
+            }
+        } );
     }
 
+    private void mapBloodAlarms(ArrayList<BloodAlarm> bloodAlarms){
+        for (int i = 0; i < bloodAlarms.size(); i++) {
+            double lat = Double.valueOf( bloodAlarms.get( i ).getHospital().getLatitude() );
+            double lon = Double.valueOf( bloodAlarms.get( i ).getHospital().getLongitude() );
+            LatLng hospitalLocation = new LatLng( lat, lon );
+            if (bloodAlarms.get( i ).getAlarmLevel() == 1) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_4_5 ) )
+                        .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
+                );
+            } else if (bloodAlarms.get( i ).getAlarmLevel() == 2) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_3_4 ) )
+                        .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
+                );
+            } else if (bloodAlarms.get( i ).getAlarmLevel() == 3) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_2_3 ) )
+                        .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
+                );
+            } else if (bloodAlarms.get( i ).getAlarmLevel() == 4) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_1_2 ) )
+                        .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
+                );
+            } else {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_0_1 ) )
+                        .title( bloodAlarms.get( i ).getHospital().getHospitalName() )
+                );
+            }
+        }
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

@@ -79,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
                     } else if (position == 1) {
                         fragmentUserSearch.listSearchResult( userId, query );
                         viewPagePosition=1;
-                    } else if (position == 1){
+                    } else if (position == 2){
                         fragmentSimilarPatientSearch.listSearchResult( userId, query, totalHealthItem );
                         viewPagePosition=2;
                     } else{
@@ -108,7 +108,7 @@ public class SearchActivity extends AppCompatActivity {
                             fragmentHospitalSearch.listSearchResult( userId, query );
                         } else if (viewPagePosition == 1) {
                             fragmentUserSearch.listSearchResult( userId, query );
-                        } else if (viewPagePosition == 1){
+                        } else if (viewPagePosition == 2){
                             fragmentSimilarPatientSearch.listSearchResult( userId, query, totalHealthItem );
                         } else{
                             fragmentDoctorSearch.listSearchResult( userId,query );

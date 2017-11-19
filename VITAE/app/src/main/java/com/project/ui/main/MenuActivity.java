@@ -354,9 +354,11 @@ public class MenuActivity extends AppCompatActivity implements SheetLayout.OnFab
     @Override
     public void onFabAnimationEnd() {
         try {
-            PostActivity.userId = userId;
-            Intent intent = new Intent( this, PostActivity.class );
-            startActivityForResult( intent, REQUEST_CODE );
+            Intent intent = new Intent( getBaseContext(), PostActivity.class );
+            intent.putExtra( "userId", userId );
+            intent.putExtra( "userTypeId", Integer.valueOf(userTypeId) );
+            intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+            startActivityForResult( intent,REQUEST_CODE );
         } catch (Exception e) {
             Log.e( "UserTimeline", e.getMessage() );
             Toast.makeText( this, e.getMessage(), Toast.LENGTH_LONG ).show();

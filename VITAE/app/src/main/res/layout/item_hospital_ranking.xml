@@ -9,24 +9,39 @@
     <View
         android:id="@+id/hospital_rank_view"
         android:layout_width="40dp"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/view"
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/hospital_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/hospital_rank_view"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/hospital_rank_view"
         android:layout_toRightOf="@+id/hospital_rank_view"
         android:gravity="center_vertical"
+        android:textSize="16dp"
         android:textColor="@android:color/white"/>
 
+    <TextView
+        android:id="@+id/distance_to_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hospital_name"
+        android:layout_marginTop="5dp"
+        android:textSize="14dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/hospital_name"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"/>
+
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@+id/hospital_name"
+        android:layout_below="@+id/distance_to_location"
         android:background="@android:color/white"/>
 
 </RelativeLayout>

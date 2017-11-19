@@ -78,8 +78,11 @@ public class UserSettingsActivity extends AppCompatActivity {
     private TextView password;
     private TextView mail;
     private TextView bloodAlarmPreference;
+    private TextView similarUserSearchPreference;
     private ImageButton bloodAlarmSwitch;
-    private boolean isClicked;
+    private ImageButton similarUserSearchSwitch;
+    private boolean isBloodAlarmClicked;
+    private boolean isSimilarUserSearchClicked;
 
     private ChangePasswordFragment changePasswordFragment;
     private ChangeUserNameFragment changeUserNameFragment;
@@ -102,6 +105,9 @@ public class UserSettingsActivity extends AppCompatActivity {
         bloodAlarmSwitch = (ImageButton) findViewById( R.id.blood_alarm_check_box );
         bloodAlarmPreference = (TextView) findViewById( R.id.blood_alarm_preference );
         bloodAlarmPreference.setTypeface( Typefaces.getLatoLight( getBaseContext() ) );
+        similarUserSearchSwitch = (ImageButton) findViewById( R.id.similar_user_search_check_box );
+        similarUserSearchPreference = (TextView) findViewById( R.id.similar_user_search_preference );
+        similarUserSearchPreference.setTypeface( Typefaces.getLatoLight( getBaseContext() ) );
 
         password.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
@@ -150,14 +156,29 @@ public class UserSettingsActivity extends AppCompatActivity {
         bloodAlarmSwitch.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isClicked) {
-                    isClicked = false;
+                if (isBloodAlarmClicked) {
+                    isBloodAlarmClicked = false;
                     bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_close_white_18dp, getTheme() ) );
                     disableBloodAlarms( userId );
                 } else {
-                    isClicked = true;
+                    isBloodAlarmClicked = true;
                     bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_check_white_24dp, getTheme() ) );
                     enableBloodAlarms( userId );
+                }
+            }
+        } );
+
+        similarUserSearchSwitch.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSimilarUserSearchClicked) {
+                    isSimilarUserSearchClicked = false;
+                    similarUserSearchSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_close_white_18dp, getTheme() ) );
+                    disableSimilarUserSearch( userId );
+                } else {
+                    isSimilarUserSearchClicked = true;
+                    similarUserSearchSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_check_white_24dp, getTheme() ) );
+                    enableSimilarUserSearch( userId );
                 }
             }
         } );
@@ -302,11 +323,19 @@ public class UserSettingsActivity extends AppCompatActivity {
                             mail.setText( response.body().getMail() );
 
                             if (response.body().getPatients().get( 0 ).getIsBloodAlarmNotificationOpen() == 0) {
-                                isClicked = false;
+                                isBloodAlarmClicked = false;
                                 bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_close_white_18dp, getTheme() ) );
                             } else {
-                                isClicked = true;
+                                isBloodAlarmClicked = true;
                                 bloodAlarmSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_check_white_24dp, getTheme() ) );
+                            }
+
+                            if (response.body().getPatients().get( 0 ).getIsSimilarPatientSearchOpen() == 0) {
+                                isSimilarUserSearchClicked = false;
+                                similarUserSearchSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_close_white_18dp, getTheme() ) );
+                            } else {
+                                isSimilarUserSearchClicked = true;
+                                similarUserSearchSwitch.setImageDrawable( getResources().getDrawable( R.drawable.ic_check_white_24dp, getTheme() ) );
                             }
                             String photoId = response.body().getProfilePictureId();
                             if (!photoId.equals( "" )) {
@@ -455,6 +484,44 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     private void disableBloodAlarms(String userId) {
         ApiClient.patientApi().disableBloodAlarms( userId ).enqueue( new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals( "true" )) {
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e( "UserTimeline", t.getMessage() );
+                Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+            }
+        } );
+    }
+
+    private void enableSimilarUserSearch(String userId) {
+        ApiClient.patientApi().enableSimilarUserSearch( userId ).enqueue( new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals( "true" )) {
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Log.e( "UserTimeline", t.getMessage() );
+                Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+            }
+        } );
+    }
+
+    private void disableSimilarUserSearch(String userId) {
+        ApiClient.patientApi().disableSimilarUserSearch( userId ).enqueue( new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 if (response.isSuccessful()) {

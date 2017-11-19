@@ -1,275 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:custom="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/colorPrimaryDark"
               android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/container"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/container"
+        android:fillViewport="true">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimaryDark"/>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/colorPrimaryDark">
-
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
-            >
+            android:stretchColumns="1">
 
-        </LinearLayout>
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <!-- Profile picture -->
-        <com.alexzh.circleimageview.CircleImageView
-            android:id="@+id/activity_patient_settings_profile_picture"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="0dp"
-            app:view_borderColor="@android:color/darker_gray"
-            app:view_borderWidth="1dp"/>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorPrimaryDark"/>
+            </FrameLayout>
 
-    </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/colorPrimaryDark">
 
-    <LinearLayout
-        android:id="@+id/activity_patient_settings_general_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimaryDark"
+                    >
 
-        <LinearLayout
-            android:id="@+id/linear_layout_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal">
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
+                <!-- Profile picture -->
+                <com.alexzh.circleimageview.CircleImageView
+                    android:id="@+id/activity_patient_settings_profile_picture"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="0dp"
+                    app:view_borderColor="@android:color/darker_gray"
+                    app:view_borderWidth="1dp"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_patient_settings_general_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_account_circle_white_24dp"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/activity_patient_settings_user_name"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textSize="14sp"/>
+                <LinearLayout
+                    android:id="@+id/linear_layout_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="horizontal">
 
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_account_circle_white_24dp"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@android:color/darker_gray"/>
+                    <TextView
+                        android:id="@+id/activity_patient_settings_user_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:textColor="#fff"
+                        android:textColorHint="#fff"
+                        android:textSize="14sp"/>
 
-        <LinearLayout
-            android:id="@+id/linear_layout_user_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal">
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_user_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_account_white_24dp"/>
+
+                    <TextView
+                        android:id="@+id/activity_patient_settings_user_id"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:textColor="@color/brightText"
+                        android:textColorHint="#fff"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_textbox_password_white_24dp"/>
+
+                    <TextView
+                        android:id="@+id/activity_patient_settings_password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:clickable="false"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:inputType="textPassword"
+                        android:paddingLeft="15dp"
+                        android:textColor="#fff"
+                        android:textColorHint="#fff"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_about_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_format_quote_open_white_24dp"/>
+
+                    <TextView
+                        android:id="@+id/activity_patient_settings_about_me"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:textColor="#fff"
+                        android:textColorHint="#fff"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_email_outline_white_24dp"/>
+
+                    <TextView
+                        android:id="@+id/activity_patient_settings_mail"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:textColor="#fff"
+                        android:textColorHint="#fff"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/blood_alarm_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_account_white_24dp"/>
-
-            <TextView
-                android:id="@+id/activity_patient_settings_user_id"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:textColor="@color/brightText"
-                android:textColorHint="#fff"
-                android:textSize="14sp"/>
-        </LinearLayout>
+                android:layout_marginTop="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@android:color/darker_gray"/>
+                <TextView
+                    android:id="@+id/blood_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blood_alarm"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"/>
 
-        <LinearLayout
-            android:id="@+id/linear_layout_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/blood_alarm_preference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/blood_alarm_check_box"
+                    android:layout_alignTop="@+id/blood_alarm_check_box"
+                    android:layout_below="@+id/blood_alarm"
+                    android:gravity="center_vertical"
+                    android:text="@string/blood_alarm_notification_preference"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"/>
 
-            <ImageView
-                android:layout_width="0dp"
+                <ImageButton
+                    android:id="@+id/blood_alarm_check_box"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/blood_alarm"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/button_color_accent_round"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/preferences_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_textbox_password_white_24dp"/>
-
-            <TextView
-                android:id="@+id/activity_patient_settings_password"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:clickable="false"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:inputType="textPassword"
-                android:paddingLeft="15dp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textSize="14sp"/>
-        </LinearLayout>
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@android:color/darker_gray"/>
+                <TextView
+                    android:id="@+id/similar_user_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/similar_user_search"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="18dp"/>
 
-        <LinearLayout
-            android:id="@+id/linear_layout_about_me"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/similar_user_search_preference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/blood_alarm_check_box"
+                    android:layout_alignTop="@+id/blood_alarm_check_box"
+                    android:layout_alignLeft="@+id/similar_user_search"
+                    android:layout_below="@+id/similar_user_search"
+                    android:gravity="center_vertical"
+                    android:text="@string/similar_user_search_preference"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:layout_toLeftOf="@+id/similar_user_search_check_box"
+                    android:layout_toStartOf="@+id/similar_user_search_check_box"/>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_format_quote_open_white_24dp"/>
+                <ImageButton
+                    android:id="@+id/similar_user_search_check_box"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/similar_user_search"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/button_color_accent_round"/>
 
-            <TextView
-                android:id="@+id/activity_patient_settings_about_me"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textSize="14sp"/>
-        </LinearLayout>
+            </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@android:color/darker_gray"/>
+        </TableLayout>
 
-        <LinearLayout
-            android:id="@+id/linear_layout_mail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_email_outline_white_24dp"/>
-
-            <TextView
-                android:id="@+id/activity_patient_settings_mail"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textSize="14sp"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:id="@+id/blood_alarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/blood_alarm"
-            android:textColor="@color/white"
-            android:textSize="18dp"/>
-
-        <TextView
-            android:id="@+id/blood_alarm_preference"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/blood_alarm_check_box"
-            android:layout_alignTop="@+id/blood_alarm_check_box"
-            android:layout_below="@+id/blood_alarm"
-            android:gravity="center_vertical"
-            android:text="@string/blood_alarm_notification_preference"
-            android:textColor="@color/white"
-            android:textSize="14dp"/>
-
-        <ImageButton
-            android:id="@+id/blood_alarm_check_box"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/blood_alarm"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_color_accent_round"/>
-
-    </RelativeLayout>
-
+    </ScrollView>
 
 </LinearLayout>

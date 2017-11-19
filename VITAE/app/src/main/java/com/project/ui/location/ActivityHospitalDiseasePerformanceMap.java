@@ -21,6 +21,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -50,6 +51,7 @@ import com.project.ui.location.adapter.HospitalDiseaseRankAdapter;
 import com.project.ui.main.MenuActivity;
 import com.project.utils.GPSTracker;
 import com.project.utils.Typefaces;
+import com.xw.repo.BubbleSeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +66,9 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
     private MaterialSpinner diseaseSpinner;
     private ViewFlipper viewFlipper;
     private TextView warningText;
+    private TextView plusText;
     private double latitude, longitude;
+    private BubbleSeekBar distanceBar;
     private String userId;
     private String diseaseId;
 
@@ -92,9 +96,12 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
         diseaseSpinner = (MaterialSpinner) findViewById( R.id.disease_spinner );
         hospitalRanking = (TextView) findViewById( R.id.hospital_ranking );
         hospitalRanking.setTypeface( Typefaces.getRobotoBold( getBaseContext() ) );
+        distanceBar = (BubbleSeekBar) findViewById( R.id.distance_level );
+        distanceBar.setVisibility( View.GONE );
         hospitalRanking.setText( getString( R.string.hospital_rankings ) );
         warningText = (TextView) findViewById( R.id.warning_text );
         warningText.setTypeface( Typefaces.getRobotoLight( getBaseContext() ) );
+        plusText = (TextView) findViewById( R.id.plus_text );
         viewFlipper = (ViewFlipper) findViewById( R.id.view_flipper );
         viewFlipper.setDisplayedChild( 1 );
 
@@ -109,11 +116,13 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
         } catch (Exception ex) {
         }
 
+
         if (isGPSEnabled) {
             GPSTracker gpsTracker = new GPSTracker( getBaseContext() );
             Location location = gpsTracker.getLocation();
+            distanceBar.setVisibility( View.VISIBLE );
 
-            if(location!=null) {
+            if (location != null) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
 
@@ -137,16 +146,17 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
                     Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
                 }
                 try {
-                    UserLocation userLocation=new UserLocation( );
+                    UserLocation userLocation = new UserLocation();
                     userLocation.setUserId( userId );
-                    userLocation.setLatitude( String.valueOf(latitude) );
-                    userLocation.setLongitude( String.valueOf(longitude) );
+                    userLocation.setLatitude( String.valueOf( latitude ) );
+                    userLocation.setLongitude( String.valueOf( longitude ) );
                     ApiClient.userApi().saveUserLocation( userLocation ).enqueue( new Callback<ServerResponse>() {
                         @Override
                         public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                             if (response.isSuccessful()) {
                             }
                         }
+
                         @Override
                         public void onFailure(Call<ServerResponse> call, Throwable t) {
                             Log.e( "UserHealthTree", t.getMessage() );
@@ -162,30 +172,41 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
         } else {
             buildAlertMessageNoGps();
         }
-    }
 
-    private void fillDiseaseSpinner(final ArrayList<UserDiseaseHistory> diseaseHistory) {
-        final List<String> userDiseases = new ArrayList();
-        userDiseases.add( getString( R.string.select_disease ) );
-        for (int i = 0; i < diseaseHistory.size(); i++) {
-            userDiseases.add( diseaseHistory.get( i ).getDisease().getDiseaseName() );
-        }
-        diseaseSpinner.setItems( userDiseases );
-        diseaseSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
-
+        distanceBar.setOnProgressChangedListener( new BubbleSeekBar.OnProgressChangedListener() {
             @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                if(position!=0) {
-                    diseaseId = diseaseHistory.get( position - 1 ).getDiseaseId();
-                    mMap.clear();
+            public void onProgressChanged(BubbleSeekBar bubbleSeekBar, final int progress, float progressFloat) {
+                if(progress==50) {
+                    plusText.setTextColor( getColor( R.color.colorPrimary ) );
+                }
+                else{
+                    plusText.setTextColor( getColor( R.color.white ) );
+                }
+                if (diseaseId != null) {
                     try {
                         ApiClient.hospitalApi().getHospitalRankingByDiseaseId( diseaseId ).enqueue( new Callback<UserHospitalRate>() {
                             @Override
                             public void onResponse(Call<UserHospitalRate> call, Response<UserHospitalRate> response) {
                                 if (response.isSuccessful()) {
-                                    ArrayList<UserHospitalRate> hospitals = response.body().getUserHospitalRates();
+                                    int distance = progress;
+                                    final ArrayList<UserHospitalRate> hospitals = response.body().getUserHospitalRates();
                                     recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
-                                    mAdapter = new HospitalDiseaseRankAdapter( hospitals, getBaseContext(), mMap );
+                                    ArrayList<UserHospitalRate> hospitalWithDistance = new ArrayList<UserHospitalRate>();
+                                    for (int i = 0; i < hospitals.size(); i++) {
+                                        Location hospital = new Location( "Hospital" );
+                                        hospital.setLatitude( Double.valueOf( hospitals.get( i ).getHospital().getLatitude() ) );
+                                        hospital.setLongitude( Double.valueOf( hospitals.get( i ).getHospital().getLongitude() ) );
+                                        Location user = new Location( "User" );
+                                        user.setLatitude( latitude );
+                                        user.setLongitude( longitude );
+                                        float userDistanceToHospital = hospital.distanceTo( user );
+                                        userDistanceToHospital /= 1000;
+                                        if (userDistanceToHospital < distance || distance == 50) {
+                                            hospitalWithDistance.add( hospitals.get( i ) );
+                                        }
+                                    }
+                                    LatLng userLocation = new LatLng( latitude, longitude );
+                                    mAdapter = new HospitalDiseaseRankAdapter( hospitalWithDistance, getBaseContext(), mMap, userLocation );
                                     recyclerView.setHasFixedSize( true );
                                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
                                     recyclerView.setLayoutManager( mLayoutManager );
@@ -193,48 +214,14 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
                                     recyclerView.setAdapter( mAdapter );
                                     mAdapter.notifyDataSetChanged();
 
-                                    if (hospitals.size() == 0) {
+                                    if (hospitalWithDistance.size() == 0) {
                                         viewFlipper.setDisplayedChild( 1 );
                                     } else {
                                         viewFlipper.setDisplayedChild( 0 );
                                     }
 
-                                    for (int i = 0; i < hospitals.size(); i++) {
-                                        double lat = Double.valueOf( hospitals.get( i ).getHospital().getLatitude() );
-                                        double lon = Double.valueOf( hospitals.get( i ).getHospital().getLongitude() );
-                                        LatLng hospitalLocation = new LatLng( lat, lon );
-                                        if (hospitals.get( i ).getHospitalOverallScore() >= 4) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_4_5 ) )
-                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else if (hospitals.get( i ).getHospitalOverallScore() >= 3) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_3_4 ) )
-                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else if (hospitals.get( i ).getHospitalOverallScore() >= 2) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_2_3 ) )
-                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else if (hospitals.get( i ).getHospitalOverallScore() >= 1) {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_1_2 ) )
-                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        } else {
-                                            mMap.addMarker( new MarkerOptions()
-                                                    .position( hospitalLocation )
-                                                    .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_0_1 ) )
-                                                    .title( hospitals.get( i ).getHospital().getHospitalName() )
-                                            );
-                                        }
-                                    }
+                                    addMarkers( hospitalWithDistance );
+
                                 }
                             }
 
@@ -248,7 +235,88 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
                         Log.e( "UserHealthTree", e.getMessage() );
                         Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
                     }
-                }else{
+                }
+            }
+
+            @Override
+            public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+
+            }
+
+            @Override
+            public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+
+            }
+        } );
+    }
+
+    private void fillDiseaseSpinner(final ArrayList<UserDiseaseHistory> diseaseHistory) {
+        final List<String> userDiseases = new ArrayList();
+        userDiseases.add( getString( R.string.select_disease ) );
+        for (int i = 0; i < diseaseHistory.size(); i++) {
+            userDiseases.add( diseaseHistory.get( i ).getDisease().getDiseaseName() );
+        }
+        diseaseSpinner.setItems( userDiseases );
+        diseaseSpinner.setOnItemSelectedListener( new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                final int distance = distanceBar.getProgress();
+                if (position != 0) {
+                    diseaseId = diseaseHistory.get( position - 1 ).getDiseaseId();
+                    mMap.clear();
+                    try {
+                        ApiClient.hospitalApi().getHospitalRankingByDiseaseId( diseaseId ).enqueue( new Callback<UserHospitalRate>() {
+                            @Override
+                            public void onResponse(Call<UserHospitalRate> call, Response<UserHospitalRate> response) {
+                                if (response.isSuccessful()) {
+
+                                    final ArrayList<UserHospitalRate> hospitals = response.body().getUserHospitalRates();
+                                    recyclerView = (RecyclerView) findViewById( R.id.recycler_view );
+                                    ArrayList<UserHospitalRate> hospitalWithDistance = new ArrayList<UserHospitalRate>();
+                                    for (int i = 0; i < hospitals.size(); i++) {
+                                        Location hospital = new Location( "Hospital" );
+                                        hospital.setLatitude( Double.valueOf( hospitals.get( i ).getHospital().getLatitude() ) );
+                                        hospital.setLongitude( Double.valueOf( hospitals.get( i ).getHospital().getLongitude() ) );
+                                        Location user = new Location( "User" );
+                                        user.setLatitude( latitude );
+                                        user.setLongitude( longitude );
+                                        float userDistanceToHospital = hospital.distanceTo( user );
+                                        userDistanceToHospital /= 1000;
+                                        if (userDistanceToHospital < distance || distance == 50) {
+                                            hospitalWithDistance.add( hospitals.get( i ) );
+                                        }
+                                    }
+                                    LatLng userLocation = new LatLng( latitude, longitude );
+                                    mAdapter = new HospitalDiseaseRankAdapter( hospitalWithDistance, getBaseContext(), mMap, userLocation );
+                                    recyclerView.setHasFixedSize( true );
+                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager( getBaseContext() );
+                                    recyclerView.setLayoutManager( mLayoutManager );
+                                    recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                                    recyclerView.setAdapter( mAdapter );
+                                    mAdapter.notifyDataSetChanged();
+
+                                    if (hospitalWithDistance.size() == 0) {
+                                        viewFlipper.setDisplayedChild( 1 );
+                                    } else {
+                                        viewFlipper.setDisplayedChild( 0 );
+                                    }
+
+                                    addMarkers( hospitalWithDistance );
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<UserHospitalRate> call, Throwable t) {
+                                Log.e( "UserHealthTree", t.getMessage() );
+                                Toast.makeText( getBaseContext(), t.getMessage(), Toast.LENGTH_LONG ).show();
+                            }
+                        } );
+                    } catch (Exception e) {
+                        Log.e( "UserHealthTree", e.getMessage() );
+                        Toast.makeText( getBaseContext(), e.getMessage(), Toast.LENGTH_LONG ).show();
+                    }
+                } else {
                     mMap.clear();
                     viewFlipper.setDisplayedChild( 1 );
                 }
@@ -307,6 +375,45 @@ public class ActivityHospitalDiseasePerformanceMap extends AppCompatActivity imp
                 ActivityCompat.requestPermissions( this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION );
+            }
+        }
+    }
+
+    private void addMarkers(ArrayList<UserHospitalRate> hospitals) {
+        for (int i = 0; i < hospitals.size(); i++) {
+            double lat = Double.valueOf( hospitals.get( i ).getHospital().getLatitude() );
+            double lon = Double.valueOf( hospitals.get( i ).getHospital().getLongitude() );
+            LatLng hospitalLocation = new LatLng( lat, lon );
+            if (hospitals.get( i ).getHospitalOverallScore() >= 4) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_4_5 ) )
+                        .title( hospitals.get( i ).getHospital().getHospitalName() )
+                );
+            } else if (hospitals.get( i ).getHospitalOverallScore() >= 3) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_3_4 ) )
+                        .title( hospitals.get( i ).getHospital().getHospitalName() )
+                );
+            } else if (hospitals.get( i ).getHospitalOverallScore() >= 2) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_2_3 ) )
+                        .title( hospitals.get( i ).getHospital().getHospitalName() )
+                );
+            } else if (hospitals.get( i ).getHospitalOverallScore() >= 1) {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_1_2 ) )
+                        .title( hospitals.get( i ).getHospital().getHospitalName() )
+                );
+            } else {
+                mMap.addMarker( new MarkerOptions()
+                        .position( hospitalLocation )
+                        .icon( BitmapDescriptorFactory.fromResource( R.drawable.hospital_ranking_marker_0_1 ) )
+                        .title( hospitals.get( i ).getHospital().getHospitalName() )
+                );
             }
         }
     }
